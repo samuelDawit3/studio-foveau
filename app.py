@@ -5,6 +5,7 @@ import smtplib
 from email.message import EmailMessage
 from datetime import datetime
 from functools import wraps
+from werkzeug.security import generate_password_hash
 
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from sqlalchemy import or_
@@ -26,9 +27,6 @@ app.config['SECRET_KEY'] = Config.SECRET_KEY
 
 os.makedirs(app.instance_path, exist_ok=True)
 db.init_app(app)
-
-# Évite de relancer l'initialisation DB sur chaque requête.
-_startup_db_ready = False
 
 
 MESSAGE_STATUS_VALUES = ["Nouveau", "Lu", "Traité"]
@@ -222,40 +220,36 @@ def send_notification_email(subject, body, reply_to=None):
 # =========================
 def init_database():
     """Initialise la base et crée l'admin initial uniquement si nécessaire."""
-    validate_admin_template_routes()
-    db.create_all()
-    ensure_sqlite_schema_compatibility()
-
-    admin_email = (os.environ.get('ADMIN_EMAIL') or '').strip().lower()
-    admin_password = os.environ.get('ADMIN_PASSWORD') or ''
-    env = app.config.get('FLASK_ENV', 'development')
-    existing_admin = AdminUser.query.order_by(AdminUser.id.asc()).first()
-
-    if existing_admin:
-        return
-
-    if not admin_email or not admin_password:
-        if env == 'production':
-            raise RuntimeError("ADMIN_EMAIL et ADMIN_PASSWORD sont requis en production.")
-
-        app.logger.warning("Aucun administrateur initial trouvé et aucune variable ADMIN_* fournie.")
-        return
-
-    new_admin = AdminUser(email=admin_email)
-    new_admin.set_password(admin_password)
-    db.session.add(new_admin)
-    db.session.commit()
+    with app.app_context():
+        db.create_all()
+        ensure_sqlite_schema_compatibility()
+        app.logger.info("SQLite tables created / verified")
 
 
-@app.before_request
-def ensure_startup_initialized():
-    """Initialise la base au premier hit applicatif (Render/Gunicorn safe)."""
-    global _startup_db_ready
-    if _startup_db_ready:
-        return
+def ensure_admin():
+    """Crée un administrateur initial s'il n'existe pas déjà."""
+    with app.app_context():
+        admin_email = (os.getenv("ADMIN_EMAIL") or "").strip().lower()
+        admin_password = os.getenv("ADMIN_PASSWORD") or ""
+        env = app.config.get("FLASK_ENV", "development")
 
-    init_database()
-    _startup_db_ready = True
+        user = AdminUser.query.filter_by(email=admin_email).first() if admin_email else None
+        if user:
+            return
+
+        if not admin_email or not admin_password:
+            if env == "production":
+                raise RuntimeError("ADMIN_EMAIL et ADMIN_PASSWORD requis en production.")
+            app.logger.warning("Admin non créé: ADMIN_EMAIL / ADMIN_PASSWORD manquants.")
+            return
+
+        new_user = AdminUser(
+            email=admin_email,
+            password_hash=generate_password_hash(admin_password),
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        app.logger.info("Admin user created")
 
 
 def reset_admin_password(email, new_password):
@@ -413,9 +407,12 @@ def admin_login():
     form = LoginForm()
 
     if form.validate_on_submit():
-        user = AdminUser.query.filter_by(
-            email=form.email.data.strip().lower()
-        ).first()
+        email = form.email.data.strip().lower()
+        try:
+            user = AdminUser.query.filter_by(email=email).first()
+        except Exception:
+            app.logger.exception("Database not ready during admin login")
+            return "Database not ready", 500
 
         if user and user.check_password(form.password.data):
             session.clear()
@@ -427,7 +424,7 @@ def admin_login():
 
         app.logger.warning(
             "Échec de connexion admin pour %s depuis %s",
-            form.email.data.strip().lower(),
+            email,
             request.remote_addr,
         )
         flash("Identifiants invalides", "danger")
@@ -636,11 +633,13 @@ def validate_admin_template_routes():
         )
 
 
+# Render / Gunicorn startup path: initialize DB and admin at import time.
+init_database()
+ensure_admin()
+
+
 # =========================
 # START
 # =========================
 if __name__ == "__main__":
-    with app.app_context():
-        init_database()
-
     app.run()

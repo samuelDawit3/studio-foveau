@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
@@ -22,8 +23,8 @@ class Config:
     if not SECRET_KEY:
         raise RuntimeError('La variable SECRET_KEY est requise. Copiez .env.example en .env et définissez SECRET_KEY.')
 
-    # Base de données (optionnel : sqlite par défaut pour simplicité locale)
-    DATABASE_URL = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'instance', 'studiofoveau.db')
+    # Base de données (sqlite stable pour déploiement simple; DATABASE_URL peut surcharger)
+    DATABASE_URL = os.environ.get('DATABASE_URL') or ('sqlite:///' + os.path.join(BASE_DIR, 'app.db'))
     SQLALCHEMY_DATABASE_URI = DATABASE_URL
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
