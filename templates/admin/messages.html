@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-title-section page-title-dark py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h1 class="display-5 fw-bold mb-3 hero-title" style="color: white;">Messages</h1>
+        <p class="lead text-light">Gérez les messages clients reçus via le formulaire de contact.</p>
+    </div>
+</section>
+
+<section class="py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <form method="get" class="row g-3 align-items-end mb-4">
+            <div class="col-12 col-md-5">
+                <label for="q" class="form-label fw-bold">Recherche</label>
+                <input type="search" id="q" name="q" class="form-control" value="{{ search_query or '' }}" placeholder="Nom, email, service ou message">
+            </div>
+            <div class="col-12 col-md-3">
+                <label for="status" class="form-label fw-bold">Statut</label>
+                <select id="status" name="status" class="form-select">
+                    <option value="Toutes" {% if status_filter == 'Toutes' %}selected{% endif %}>Toutes</option>
+                    <option value="Nouveau" {% if status_filter == 'Nouveau' %}selected{% endif %}>Nouveau</option>
+                    <option value="Lu" {% if status_filter == 'Lu' %}selected{% endif %}>Lu</option>
+                    <option value="Traité" {% if status_filter == 'Traité' %}selected{% endif %}>Traité</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary flex-fill">Filtrer</button>
+                <a href="{{ url_for('admin_messages') }}" class="btn btn-outline-secondary flex-fill">Réinitialiser</a>
+            </div>
+        </form>
+        {% if messages %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Client</th>
+                            <th>Email</th>
+                            <th>Service</th>
+                            <th>Status</th>
+                            <th>Reçu le</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for message in messages %}
+                            <tr>
+                                <td>{{ message.name }}</td>
+                                <td>{{ message.email }}</td>
+                                <td>{{ message.service }}</td>
+                                <td>{{ message.status }}</td>
+                                <td>{{ message.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
+                                <td>
+                                    <a href="{{ url_for('admin_message_view', message_id=message.id) }}" class="btn btn-sm btn-primary me-1">Voir</a>
+                                    <a href="{{ url_for('admin_message_action', message_id=message.id, action='mark-lu') }}" class="btn btn-sm btn-outline-secondary me-1">Marquer lu</a>
+                                    <a href="{{ url_for('admin_message_action', message_id=message.id, action='mark-traite') }}" class="btn btn-sm btn-outline-success me-1">Traité</a>
+                                    <a href="{{ url_for('admin_message_action', message_id=message.id, action='delete') }}" class="btn btn-sm btn-outline-danger">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if pagination and pagination.pages > 1 %}
+                <nav aria-label="Pagination des messages" class="mt-4">
+                    <ul class="pagination justify-content-center flex-wrap">
+                        <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
+                            <a class="page-link" href="{{ url_for('admin_messages', page=pagination.prev_num, q=search_query, status=status_filter) }}">Précédent</a>
+                        </li>
+                        <li class="page-item disabled"><span class="page-link">Page {{ pagination.page }} / {{ pagination.pages }}</span></li>
+                        <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
+                            <a class="page-link" href="{{ url_for('admin_messages', page=pagination.next_num, q=search_query, status=status_filter) }}">Suivant</a>
+                        </li>
+                    </ul>
+                </nav>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-info text-center">Aucun message trouvé pour ce filtre.</div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

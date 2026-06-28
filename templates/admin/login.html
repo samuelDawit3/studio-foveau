@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-title-section page-title-dark py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h1 class="display-5 fw-bold mb-3 hero-title" style="color: white;">Administration</h1>
+        <p class="lead text-light">Connectez-vous pour gérer les messages et les réservations.</p>
+    </div>
+</section>
+
+<section class="contact-form-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="form-card p-4 p-md-5 shadow-sm rounded-4 bg-white">
+                    <h2 class="mb-4 section-title">Connexion administrateur</h2>
+                    <form method="POST" action="{{ url_for('admin_login') }}" novalidate>
+                        {{ form.hidden_tag() }}
+                        <div class="mb-4">
+                            <label for="email" class="form-label fw-bold">Adresse email</label>
+                            {{ form.email(class="form-control form-control-lg", id="email", placeholder="admin@studiofoveau.fr") }}
+                            {% if form.email.errors %}
+                                <div class="invalid-feedback d-block">{{ form.email.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label fw-bold">Mot de passe</label>
+                            {{ form.password(class="form-control form-control-lg", id="password", placeholder="Entrez votre mot de passe") }}
+                            {% if form.password.errors %}
+                                <div class="invalid-feedback d-block">{{ form.password.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="d-grid">
+                            {{ form.submit(class="btn btn-lg btn-primary") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

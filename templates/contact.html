@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Page Title -->
+<section class="page-title-section page-title-dark py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h1 class="display-5 fw-bold mb-3 hero-title" style="color: white;">
+            Nous contacter
+        </h1>
+        <p class="lead text-light">Prenez rendez-vous ou posez vos questions</p>
+    </div>
+</section>
+
+<!-- Quick Contact Options -->
+<section class="quick-contact py-4 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-3 mb-3">
+                <a href="tel:+33321964XXX" class="quick-contact-btn">
+                    <i class="fas fa-phone"></i>
+                    <span>Nous appeler</span>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 mb-3">
+                <a href="mailto:contact@studiofoveau.fr" class="quick-contact-btn">
+                    <i class="fas fa-envelope"></i>
+                    <span>Envoyer un email</span>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 mb-3">
+                <a href="#" class="quick-contact-btn">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Nos localisation</span>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 mb-3">
+                <a href="#" class="quick-contact-btn">
+                    <i class="fas fa-clock"></i>
+                    <span>Horaires</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form Section -->
+<section class="contact-form-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row">
+            <!-- Form -->
+            <div class="col-12 col-lg-8 mb-5 mb-lg-0">
+                <h2 class="mb-4">Formulaire de contact</h2>
+                <form method="POST" action="{{ url_for('contact') }}" class="needs-validation" novalidate>
+                    
+                    <!-- Name Field -->
+                    <div class="mb-4">
+                        <label for="name" class="form-label fw-bold">Votre nom *</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            class="form-control form-control-lg" 
+                            placeholder="Jean Dupont" 
+                            required
+                        >
+                        <div class="invalid-feedback">Veuillez entrer votre nom.</div>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="mb-4">
+                        <label for="email" class="form-label fw-bold">Votre email *</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="form-control form-control-lg" 
+                            placeholder="jean.dupont@email.com" 
+                            required
+                        >
+                        <div class="invalid-feedback">Veuillez entrer une adresse email valide.</div>
+                    </div>
+
+                    <!-- Phone Field -->
+                    <div class="mb-4">
+                        <label for="phone" class="form-label fw-bold">Votre téléphone *</label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            name="phone" 
+                            class="form-control form-control-lg" 
+                            placeholder="06 12 34 56 78" 
+                            pattern="[0-9+ -]{10,}"
+                            required
+                        >
+                        <div class="invalid-feedback">Veuillez entrer un numéro de téléphone valide.</div>
+                    </div>
+
+                    <!-- Service Dropdown -->
+                    <div class="mb-4">
+                        <label for="service" class="form-label fw-bold">Service intéressé *</label>
+                        <select 
+                            id="service" 
+                            name="service" 
+                            class="form-select form-select-lg" 
+                            required
+                        >
+                            <option value="">-- Sélectionnez un service --</option>
+                            <option value="photo-identite">Photos d'identité</option>
+                            <option value="portrait-studio">Portraits en studio</option>
+                            <option value="mariage">Reportage mariage</option>
+                            <option value="bapteme">Reportage baptême</option>
+                            <option value="evenement">Événement professionnel</option>
+                            <option value="tirage">Tirage et développement</option>
+                            <option value="photobooth">Location borne selfie</option>
+                            <option value="album">Album photo mariage</option>
+                            <option value="autre">Autre (précisez en message)</option>
+                        </select>
+                        <div class="invalid-feedback">Veuillez sélectionner un service.</div>
+                    </div>
+
+                    <!-- Message Field -->
+                    <div class="mb-4">
+                        <label for="message" class="form-label fw-bold">Votre message *</label>
+                        <textarea 
+                            id="message" 
+                            name="message" 
+                            class="form-control form-control-lg" 
+                            rows="6" 
+                            placeholder="Décrivez votre demande, vos souhaits..." 
+                            required
+                        ></textarea>
+                        <div class="invalid-feedback">Veuillez entrer votre message.</div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2 mb-4">
+                        <button type="submit" class="btn btn-lg btn-primary">
+                            <i class="fas fa-paper-plane me-2"></i>
+                            Envoyer ma demande
+                        </button>
+                    </div>
+
+                    <p class="text-muted small">* Champs obligatoires</p>
+                </form>
+            </div>
+
+            <!-- Contact Info Sidebar -->
+            <div class="col-12 col-lg-4">
+                <div class="contact-info">
+                    <!-- Storefront Image -->
+                    <div class="contact-info-item mb-5">
+                        <img src="{{ url_for('static', filename='images/photis.jpg') }}" alt="Storefront Studio Foveau - Calais" class="img-fluid mb-3" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy">
+                    </div>
+
+                    <!-- Address -->
+                    <div class="contact-info-item mb-5">
+                        <h5 class="fw-bold mb-3">
+                            <i class="fas fa-map-marker-alt me-2" style="color: #2A9D8F;"></i>
+                            Localisation
+                        </h5>
+                        <p class="mb-1">
+                            <strong>Studio Foveau</strong><br>
+                            37 boulevard Égalité<br>
+                            62100 Calais<br>
+                            France
+                        </p>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="contact-info-item mb-5">
+                        <h5 class="fw-bold mb-3">
+                            <i class="fas fa-phone me-2" style="color: #2A9D8F;"></i>
+                            Téléphone
+                        </h5>
+                        <p class="mb-0">
+                            <a href="tel:+33321964XXX" class="text-decoration-none">
+                                +33 3 21 96 4X XX
+                            </a>
+                        </p>
+                        <p class="text-muted small mb-0">Lun-Sam : 09h00-12h00 & 14h00-19h00</p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="contact-info-item mb-5">
+                        <h5 class="fw-bold mb-3">
+                            <i class="fas fa-envelope me-2" style="color: #2A9D8F;"></i>
+                            Email
+                        </h5>
+                        <p class="mb-0">
+                            <a href="mailto:contact@studiofoveau.fr" class="text-decoration-none">
+                                contact@studiofoveau.fr
+                            </a>
+                        </p>
+                    </div>
+
+                    <!-- Hours -->
+                    <div class="contact-info-item">
+                        <h5 class="fw-bold mb-3">
+                            <i class="fas fa-clock me-2" style="color: #2A9D8F;"></i>
+                            Horaires
+                        </h5>
+                        <div class="hours-mini">
+                            <p class="mb-1"><strong>Lun-Ven :</strong> 09h00-12h00</p>
+                            <p class="mb-1">14h00-19h00</p>
+                            <p class="mb-2"><strong>Sam :</strong> 09h00-12h00</p>
+                            <p class="mb-2">14h00-18h00</p>
+                            <p><strong>Dimanche :</strong> Fermé</p>
+                        </div>
+                    </div>
+                    <div class="map-responsive">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2575.509435608546!2d1.8608324157632055!3d50.95809727942705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47dd4aa04f5e032b%3A0x3d48f2b61021b4da!2s37%20Boulevard%20de%20l'%C3%89galit%C3%A9%2C%2062100%20Calais%2C%20France!5e0!3m2!1sfr!2sfr!4v1715012345678!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-8">
+                <h3 class="mb-3">Envoyez-nous un message</h3>
+                <p class="mb-0">L'équipe de Studio Foveau est à votre écoute. Nous répondons à tous les messages dans les 24 heures.</p>
+            </div>
+            <div class="col-12 col-md-4 text-md-end mt-3 mt-md-0">
+                <a href="{{ url_for('services') }}" class="btn btn-lg btn-outline-primary w-100 w-md-auto">
+                    <i class="fas fa-images me-2"></i>Voir nos prestations
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Form validation
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.needs-validation');
+    if (form) {
+        form.addEventListener('submit', (event) => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        });
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,18 @@
+# Environment variables
+.env
+
+# Python
+__pycache__/
+**/__pycache__/
+*.pyc
+
+# Database
+instance/
+*.db
+
+# Virtual environments
+venv/
+.envrc
+
+# macOS
+.DS_Store

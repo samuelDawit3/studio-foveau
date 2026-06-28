@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Foveau - Photo Express Calais</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header class="header-sticky">
+        <div class="container-fluid px-3 px-md-4">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ url_for('home') }}">
+                    <i class="fas fa-camera me-2" style="color: #1a1a1a; font-size: 24px;"></i>
+                    <span class="d-none d-sm-inline">Studio Foveau</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Basculer la navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto gap-2">
+                        <li class="nav-item">
+                            <a class="nav-link fw-500" href="{{ url_for('home') }}">
+                                <i class="fas fa-home me-1"></i>Accueil
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-500" href="{{ url_for('services') }}">
+                                <i class="fas fa-camera me-1"></i>Prestations
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-500" href="{{ url_for('reservation') }}">
+                                <i class="fas fa-calendar-check me-1"></i>Réservation
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-500" href="{{ url_for('about') }}">
+                                <i class="fas fa-info-circle me-1"></i>À propos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-500" href="{{ url_for('contact') }}">
+                                <i class="fas fa-phone me-1"></i>Contact
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container-fluid px-3 px-md-4 mt-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-container">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'success' if category == 'success' else 'danger' if category == 'danger' else 'warning' if category == 'warning' else 'info' }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer-section">
+        <div class="container-fluid px-3 px-md-4 py-5">
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4 mb-md-0">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-map-marker-alt me-2"></i>Localisation</h5>
+                    <p class="mb-2">
+                        <strong>Studio Foveau</strong><br>
+                        37 boulevard Égalité<br>
+                        62100 Calais, France
+                    </p>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4 mb-md-0">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-clock me-2"></i>Horaires</h5>
+                    <p class="mb-1"><strong>Lun-Ven :</strong> 09:00 – 12:00 & 14:00 – 19:00</p>
+                    <p class="mb-1"><strong>Samedi :</strong> 09:00 – 12:00 & 14:00 – 18:00</p>
+                    <p><strong>Dimanche :</strong> Fermé</p>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4 mb-md-0">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-phone me-2"></i>Contact</h5>
+                    <p class="mb-2">
+                        <a href="tel:+33321964XXX" class="text-decoration-none">
+                            <i class="fas fa-mobile-alt me-2"></i>
+                            Appelez-nous
+                        </a>
+                    </p>
+                    <p>
+                        <a href="mailto:contact@studiofoveau.fr" class="text-decoration-none">
+                            <i class="fas fa-envelope me-2"></i>
+                            contact@studiofoveau.fr
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-2">&copy; 2025 Studio Foveau - Photo Express. Tous droits réservés.</p>
+                <div class="social-links">
+                    <a href="#" class="text-decoration-none me-3" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-decoration-none me-3" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-decoration-none" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/scroll-animations.js') }}"></script>
+</body>
+</html>

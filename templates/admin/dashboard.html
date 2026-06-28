@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-title-section page-title-dark py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h1 class="display-5 fw-bold mb-3 hero-title" style="color: white;">Tableau de bord</h1>
+        <p class="lead text-light">Suivez l’activité du studio et gérez les demandes.</p>
+    </div>
+</section>
+
+<section class="py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row g-4">
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class="status-card p-4 shadow-sm rounded-4 bg-white">
+                    <h3 class="mb-3">Messages</h3>
+                    <p class="display-6 mb-0">{{ total_messages }}</p>
+                    <small class="text-muted">Total des messages reçus</small>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class="status-card p-4 shadow-sm rounded-4 bg-white">
+                    <h3 class="mb-3">Réservations</h3>
+                    <p class="display-6 mb-0">{{ total_reservations }}</p>
+                    <small class="text-muted">Réservations en base</small>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class="status-card p-4 shadow-sm rounded-4 bg-white">
+                    <h3 class="mb-3">Aujourd’hui</h3>
+                    <p class="display-6 mb-0">{{ reservations_today }}</p>
+                    <small class="text-muted">Réservations demandées pour aujourd’hui</small>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class="status-card p-4 shadow-sm rounded-4 bg-white">
+                    <h3 class="mb-3">Nouveaux</h3>
+                    <p class="display-6 mb-0">{{ new_messages }}</p>
+                    <small class="text-muted">Messages non lus</small>
+                </div>
+            </div>
+        </div>
+        <div class="row g-4 mt-4">
+            <div class="col-12 col-md-6">
+                <a href="{{ url_for('admin_messages') }}" class="btn btn-outline-primary w-100">Voir les messages</a>
+            </div>
+            <div class="col-12 col-md-6">
+                <a href="{{ url_for('admin_reservations') }}" class="btn btn-outline-primary w-100">Voir les réservations</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

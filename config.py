@@ -1,0 +1,39 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+
+class Config:
+    """Configuration centralisée de l'application.
+
+    - Charge les variables d'environnement via python-dotenv.
+    - Exige explicitement `SECRET_KEY` (sécurité) — ne fournit pas de fallback.
+    - Configure la session pour être sécurisée en production.
+    """
+
+    # Environnement (dev / production)
+    FLASK_ENV = os.environ.get('FLASK_ENV', 'development').lower()
+
+    # Secret (obligatoire). En production, l'absence doit arrêter le démarrage.
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    if not SECRET_KEY:
+        raise RuntimeError('La variable SECRET_KEY est requise. Copiez .env.example en .env et définissez SECRET_KEY.')
+
+    # Base de données (optionnel : sqlite par défaut pour simplicité locale)
+    DATABASE_URL = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'instance', 'studiofoveau.db')
+    SQLALCHEMY_DATABASE_URI = DATABASE_URL
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # Session security
+    from datetime import timedelta
+    PERMANENT_SESSION_LIFETIME = timedelta(days=int(os.environ.get('PERMANENT_SESSION_LIFETIME_DAYS', '7')))
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = os.environ.get('SESSION_COOKIE_SAMESITE', 'Lax')
+    SESSION_COOKIE_SECURE = (FLASK_ENV == 'production')
+
+    # Remember cookie settings (useful if integrating Flask-Login later)
+    REMEMBER_COOKIE_HTTPONLY = True
+    REMEMBER_COOKIE_SECURE = (FLASK_ENV == 'production')

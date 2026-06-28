@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-title-section page-title-dark py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h1 class="display-5 fw-bold mb-3 hero-title" style="color: white;">Réservations</h1>
+        <p class="lead text-light">Consultez les réservations clients et suivez leur statut.</p>
+    </div>
+</section>
+
+<section class="py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <form method="get" class="row g-3 align-items-end mb-4">
+            <div class="col-12 col-md-5">
+                <label for="q" class="form-label fw-bold">Recherche</label>
+                <input type="search" id="q" name="q" class="form-control" value="{{ search_query or '' }}" placeholder="Nom, email, service ou date">
+            </div>
+            <div class="col-12 col-md-3">
+                <label for="status" class="form-label fw-bold">Statut</label>
+                <select id="status" name="status" class="form-select">
+                    <option value="Toutes" {% if status_filter == 'Toutes' %}selected{% endif %}>Toutes</option>
+                    <option value="En attente" {% if status_filter == 'En attente' %}selected{% endif %}>En attente</option>
+                    <option value="Confirmé" {% if status_filter == 'Confirmé' %}selected{% endif %}>Confirmé</option>
+                    <option value="Annulé" {% if status_filter == 'Annulé' %}selected{% endif %}>Annulé</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary flex-fill">Filtrer</button>
+                <a href="{{ url_for('admin_reservations') }}" class="btn btn-outline-secondary flex-fill">Réinitialiser</a>
+            </div>
+        </form>
+        {% if reservations %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Client</th>
+                            <th>Email</th>
+                            <th>Service</th>
+                            <th>Date / Heure</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reservation in reservations %}
+                            <tr>
+                                <td>{{ reservation.name }}</td>
+                                <td>{{ reservation.email }}</td>
+                                <td>{{ reservation.service }}</td>
+                                <td>{{ reservation.requested_date }} à {{ reservation.requested_time }}</td>
+                                <td>{{ reservation.status }}</td>
+                                <td>
+                                    <a href="{{ url_for('admin_reservation_action', reservation_id=reservation.id, action='confirm') }}" class="btn btn-sm btn-success me-1">Confirmer</a>
+                                    <a href="{{ url_for('admin_reservation_action', reservation_id=reservation.id, action='cancel') }}" class="btn btn-sm btn-warning me-1">Annuler</a>
+                                    <a href="{{ url_for('admin_reservation_action', reservation_id=reservation.id, action='delete') }}" class="btn btn-sm btn-outline-danger">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if pagination and pagination.pages > 1 %}
+                <nav aria-label="Pagination des réservations" class="mt-4">
+                    <ul class="pagination justify-content-center flex-wrap">
+                        <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
+                            <a class="page-link" href="{{ url_for('admin_reservations', page=pagination.prev_num, q=search_query, status=status_filter) }}">Précédent</a>
+                        </li>
+                        <li class="page-item disabled"><span class="page-link">Page {{ pagination.page }} / {{ pagination.pages }}</span></li>
+                        <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
+                            <a class="page-link" href="{{ url_for('admin_reservations', page=pagination.next_num, q=search_query, status=status_filter) }}">Suivant</a>
+                        </li>
+                    </ul>
+                </nav>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-info text-center">Aucune réservation trouvée pour ce filtre.</div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

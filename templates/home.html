@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-white py-5 py-md-6 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-12">
+                <div class="hero-content text-center">
+                    <img src="{{ url_for('static', filename='images/Studio Foveau officiel.jpg') }}" alt="Studio Foveau - Calais" class="img-fluid mb-4" style="max-width: 400px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);" loading="lazy">
+                    <h1 class="display-4 fw-bold mb-3 hero-title">Studio Foveau</h1>
+                    <p class="lead mb-4">Vos photos en 5 minutes • Qualité professionnelle • Calais</p>
+                    <a href="{{ url_for('services') }}" class="btn btn-lg btn-primary me-3 mb-2">
+                        <i class="fas fa-images me-2"></i>Voir nos prestations
+                    </a>
+                    <a href="tel:+33321964XXX" class="btn btn-lg btn-outline-light mb-2">
+                        <i class="fas fa-phone me-2"></i>Nous appeler
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Status Section -->
+<section class="status-section py-4 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row">
+            <div class="col-12 col-md-6 mb-3 mb-md-0">
+                <div class="status-card">
+                    <div class="status-content">
+                        <p class="status-label">Statut actuel</p>
+                        {% if is_open %}
+                            <p class="status-open">
+                                <i class="fas fa-check-circle me-2"></i>
+                                {{ status }}
+                            </p>
+                        {% else %}
+                            <p class="status-closed">
+                                <i class="fas fa-times-circle me-2"></i>
+                                {{ status }}
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="status-card">
+                    <div class="status-content">
+                        <p class="status-label">📍 Adresse</p>
+                        <p class="mb-0">37 bd Égalité, 62100 Calais</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="features-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h2 class="text-center mb-5">Pourquoi nous choisir ?</h2>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4>Rapide</h4>
+                    <p>Vos photos prêtes en 5 minutes</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>Qualité Pro</h4>
+                    <p>Équipement professionnel</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h4>Accueil chaleureux</h4>
+                    <p>Service client 5/5 ⭐</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-euro-sign"></i>
+                    </div>
+                    <h4>Prix compétitifs</h4>
+                    <p>Meilleur rapport qualité/prix</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Overview -->
+<section class="services-overview py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h2 class="text-center mb-5">Nos prestations principales</h2>
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="service-card">
+                    <img src="{{ url_for('static', filename='images/com.jpg') }}" alt="Photos d'identité" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy">
+                    <h4>Photos d'identité</h4>
+                    <p>Passeport, visa, CNI, CV • Prêtes en 5 minutes</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="service-card">
+                    <img src="{{ url_for('static', filename='images/foveau1.jpg') }}" alt="Portraits en studio" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy">
+                    <h4>Portraits Studio</h4>
+                    <p>Famille, enfants, couples • Studio & extérieur</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="service-card">
+                    <img src="{{ url_for('static', filename='images/photos.jpg') }}" alt="Événements" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy">
+                    <h4>Événements</h4>
+                    <p>Mariages, baptêmes, événements professionnels</p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <a href="{{ url_for('services') }}" class="btn btn-lg btn-primary">
+                <i class="fas fa-arrow-right me-2"></i>Voir toutes les prestations
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Call-to-Action Section -->
+<section class="cta-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-8">
+                <h3 class="mb-3">Besoin de photos professionnelles ?</h3>
+                <p class="mb-0">Contactez-nous dès maintenant pour prendre rendez-vous ou pour toute question.</p>
+            </div>
+            <div class="col-12 col-md-4 text-md-end mt-3 mt-md-0">
+                <a href="{{ url_for('contact') }}" class="btn btn-lg btn-primary w-100 w-md-auto">
+                    <i class="fas fa-envelope me-2"></i>Nous contacter
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Hours Section -->
+<section class="hours-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h3 class="text-center mb-5">Horaires d'ouverture</h3>
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-8 col-md-6">
+                <div class="hours-table">
+                    <div class="hours-row">
+                        <span class="hours-day">Lundi - Vendredi</span>
+                        <span class="hours-time">09:00 – 12:00 • 14:00 – 19:00</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="hours-day">Samedi</span>
+                        <span class="hours-time">09:00 – 12:00 • 14:00 – 18:00</span>
+                    </div>
+                    <div class="hours-row closed">
+                        <span class="hours-day">Dimanche</span>
+                        <span class="hours-time">Fermé</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

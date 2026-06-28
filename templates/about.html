@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Page Title -->
+<section class="page-title-section page-title-dark py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h1 class="display-5 fw-bold mb-3 hero-title" style="color: white;">À Propos de Studio Foveau</h1>
+        <p class="lead text-white">Votre photographe professionnel à Calais depuis 1990</p>
+    </div>
+</section>
+
+<!-- About Content -->
+<section class="about-content py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                <div class="about-visual">
+                    <img src="{{ url_for('static', filename='images/foveau1.jpg') }}" alt="Studio Foveau - équipement professionnel" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="mb-4">Studio Foveau - Photo Express</h2>
+                <p class="mb-3">
+                    Fondé en <strong>1990</strong>, Studio Foveau est votre photographe professionnel de confiance à Calais. Depuis plus de 30 ans, nous servons nos clients avec passion, expertise et rigueur.
+                </p>
+                <p class="mb-3">
+                    Notre engagement : vous offrir des <strong>photos de qualité professionnelle</strong> dans un environnement accueillant et chaleureux. Que ce soit pour des photos d'identité urgentes, des portraits intimes ou des événements mémorables, nous mettons notre savoir-faire à votre service.
+                </p>
+                <p>
+                    Situés au cœur de Calais (37 boulevard Égalité), nous sommes facilement accessibles et prêts à vous accueillir du lundi au samedi.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Strengths -->
+<section class="strengths-section py-5 scroll-animate alternate">
+    <div class="container-fluid px-3 px-md-4">
+        <h2 class="text-center mb-5">Ce qui nous distingue</h2>
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-3 mb-4">
+                <div class="strength-card">
+                    <div class="strength-icon">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                    <h4>Rapidité</h4>
+                    <p>Vos photos d'identité prêtes en 5 minutes ! Pas d'attente inutile.</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 mb-4">
+                <div class="strength-card">
+                    <div class="strength-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h4>Professionnel</h4>
+                    <p>Équipement moderne et expertise. Qualité garantie sur chaque cliché.</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 mb-4">
+                <div class="strength-card">
+                    <div class="strength-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <h4>Accueil</h4>
+                    <p>Service client attentif. Votre satisfaction est notre priorité.</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 mb-4">
+                <div class="strength-card">
+                    <div class="strength-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <h4>Tarifs justes</h4>
+                    <p>Meilleur rapport qualité/prix à Calais et région.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Client Reviews -->
+<section class="reviews-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h2 class="text-center mb-5">L'avis de nos clients</h2>
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="review-card">
+                    <div class="review-stars mb-2">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text mb-3">"Rapidité impressionnante ! Photos d'identité parfaites en 5 minutes. Très professionnel."</p>
+                    <p class="review-author"><strong>Marie L.</strong></p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="review-card">
+                    <div class="review-stars mb-2">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text mb-3">"Excellent pour le mariage ! Photos magnifiques, équipe discrète et professionnelle. Je recommande vivement."</p>
+                    <p class="review-author"><strong>Sophie & Thomas</strong></p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="review-card">
+                    <div class="review-stars mb-2">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text mb-3">"Accueil chaleureux et prix compétitifs. Les photos de bébé sont superbes. Merci !"</p>
+                    <p class="review-author"><strong>Pierre M.</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <p class="text-muted mb-3">⭐ <strong>4.5/5 étoiles</strong> - 70 avis clients vérifiés</p>
+        </div>
+    </div>
+</section>
+
+<!-- Equipment & Equipment -->
+<section class="equipment-section py-5 scroll-animate alternate">
+    <div class="container-fluid px-3 px-md-4">
+        <h2 class="text-center mb-5">Notre équipement</h2>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="equipment-item mb-4">
+                    <img src="{{ url_for('static', filename='images/foveau1.jpg') }}" alt="Matériel photographique professionnel" class="img-fluid mb-3" style="height: 150px; object-fit: cover; border-radius: 6px;" loading="lazy">
+                    <h4><i class="fas fa-camera me-2"></i>Matériel photographique</h4>
+                    <p>Appareil reflex professionnel, objectifs de qualité, systèmes d'éclairage de studio dernière génération.</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="equipment-item mb-4">
+                    <img src="{{ url_for('static', filename='images/ph.jpg') }}" alt="Studio professionnel" class="img-fluid mb-3" style="height: 150px; object-fit: cover; border-radius: 6px;" loading="lazy">
+                    <h4><i class="fas fa-lightbulb me-2"></i>Studio professionnel</h4>
+                    <p>Studio climatisé, fonds variés, éclairage ajustable pour tous types de séances photo.</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="equipment-item mb-4">
+                    <img src="{{ url_for('static', filename='images/phtos.jpg') }}" alt="Retouche numérique" class="img-fluid mb-3" style="height: 150px; object-fit: cover; border-radius: 6px;" loading="lazy">
+                    <h4><i class="fas fa-computer me-2"></i>Retouche numérique</h4>
+                    <p>Logiciels professionnels pour optimiser chaque photo. Retouche artistique ou naturelle selon vos préférences.</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="equipment-item mb-4">
+                    <img src="{{ url_for('static', filename='images/photos.jpg') }}" alt="Tirage haute qualité" class="img-fluid mb-3" style="height: 150px; object-fit: cover; border-radius: 6px;" loading="lazy">
+                    <h4><i class="fas fa-print me-2"></i>Tirage haute qualité</h4>
+                    <p>Imprimantes photo premium. Papiers professionnels variés pour des résultats durables.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Foveau -->
+<section class="why-choose-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center mb-5">
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                <img src="{{ url_for('static', filename='images/Studio foveau.jpg') }}" alt="Storefront Studio Foveau - Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.15);" loading="lazy">
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="text-center mb-5">Pourquoi choisir Studio Foveau ?</h2>
+                <div class="why-list">
+                    <div class="why-item mb-4">
+                        <h5><i class="fas fa-check-circle me-2" style="color: #2A9D8F;"></i>30+ ans d'expérience</h5>
+                        <p class="text-muted">Depuis 1990, nous construisons notre réputation sur la confiance et la qualité.</p>
+                    </div>
+                    <div class="why-item mb-4">
+                        <h5><i class="fas fa-check-circle me-2" style="color: #2A9D8F;"></i>Service complet</h5>
+                        <p class="text-muted">Photos d'identité, portraits, événements, tirage, développement... tout en un endroit.</p>
+                    </div>
+                    <div class="why-item mb-4">
+                        <h5><i class="fas fa-check-circle me-2" style="color: #2A9D8F;"></i>Localisation centrale</h5>
+                        <p class="text-muted">37 boulevard Égalité - Facile d'accès au cœur de Calais.</p>
+                    </div>
+                    <div class="why-item">
+                        <h5><i class="fas fa-check-circle me-2" style="color: #2A9D8F;"></i>Équipe passionnée</h5>
+                        <p class="text-muted">Nous adorons la photographie et cela se voit dans chaque cliché.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-8">
+                <h3 class="mb-3">Prêt à nous rencontrer ?</h3>
+                <p class="mb-0">Venez visiter notre studio ou prenez rendez-vous. Nous serons ravi de vous accueillir !</p>
+            </div>
+            <div class="col-12 col-md-4 text-md-end mt-3 mt-md-0">
+                <a href="{{ url_for('contact') }}" class="btn btn-lg btn-primary w-100 w-md-auto">
+                    <i class="fas fa-envelope me-2"></i>Nous contacter
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

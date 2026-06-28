@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Page Title -->
+<section class="page-title-section page-title-dark py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h1 class="display-5 fw-bold mb-3 hero-title" style="color: white;">Nos Prestations</h1>
+        <p class="lead text-white">Découvrez tous les services photographiques que nous proposons</p>
+    </div>
+</section>
+
+<!-- ID Photos Section -->
+<section class="service-detail py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/com.jpg') }}" alt="Photos d'identité professionnelles" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="mb-3">Photos d'Identité</h2>
+                <p class="mb-3">Besoin de photos conformes pour vos documents administratifs ? Nous produisons vos photos d'identité en seulement 5 minutes !</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Passeport</strong> - Français et internationalaux</li>
+                    <li><strong>Carte Nationale d'Identité</strong> - CNI conforme</li>
+                    <li><strong>Visa</strong> - Normes internationales</li>
+                    <li><strong>Permis de conduire</strong> - Conformité garantie</li>
+                    <li><strong>CV photo</strong> - Professionnelle et valorisante</li>
+                    <li><strong>Carte Vitale</strong> - Qualité optimale</li>
+                </ul>
+                <p class="text-muted"><i class="fas fa-clock me-2"></i><strong>Délai :</strong> 5 minutes</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Portrait Studio Section -->
+<section class="service-detail py-5 scroll-animate alternate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/foveau1.jpg') }}" alt="Portraits en studio professionnel" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy">
+                </div>
+            </div>
+            <div class="col-12 col-md-6 order-md-1">
+                <h2 class="mb-3">Portraits en Studio</h2>
+                <p class="mb-3">Capturez vos plus beaux moments avec nos photographes professionnels. Studio équipé de tout le matériel moderne pour des portraits de qualité supérieure.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Bébés & enfants</strong> - Doux et naturels</li>
+                    <li><strong>Familles</strong> - Moments chaleureux</li>
+                    <li><strong>Couples</strong> - Tendresse et complicité</li>
+                    <li><strong>Portraits individuels</strong> - Valorisants et professionnels</li>
+                    <li><strong>Noir & blanc</strong> - Intemporel et élégant</li>
+                    <li><strong>Extérieur</strong> - En environnement naturel</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-calendar-alt me-2"></i>Réserver une séance
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Events Section -->
+<section class="service-detail py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/photos.jpg') }}" alt="Reportages événementiels professionnels" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="mb-3">Reportages Événementiels</h2>
+                <p class="mb-3">Immortalisez vos plus beaux moments. Nos photographes professionnels capturent chaque instant d'émotion avec expertise et discrétion.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Mariages</strong> - Cérémonie, photos de groupe, banquet</li>
+                    <li><strong>Baptêmes</strong> - Moments familiaux précieux</li>
+                    <li><strong>Anniversaires</strong> - En studio ou sur lieu</li>
+                    <li><strong>Événements professionnels</strong> - Conférences, séminaires</li>
+                    <li><strong>Galas & réceptions</strong> - Ambiance et élégance</li>
+                    <li><strong>Événements spéciaux</strong> - Vos projets sur mesure</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-envelope me-2"></i>Nous consulter
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Printing & Development Section -->
+<section class="service-detail py-5 scroll-animate alternate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/phtos.jpg') }}" alt="Tirage et développement photo" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy">
+                </div>
+            </div>
+            <div class="col-12 col-md-6 order-md-1">
+                <h2 class="mb-3">Tirage et Développement</h2>
+                <p class="mb-3">Vos photos numériques ou argentiques développées et tirées avec excellence. Nous garantissons une qualité professionnelle sur tous nos produits.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Tirage numérique</strong> - Qualité d'exposition</li>
+                    <li><strong>Développement argentique</strong> - Procédés traditionnels</li>
+                    <li><strong>Grand format</strong> - Jusqu'à A0</li>
+                    <li><strong>Tirage scolaire</strong> - Formules groupes</li>
+                    <li><strong>Albums photo</strong> - Reliure artisanale</li>
+                    <li><strong>Encadrement</strong> - Finition professionnelle</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-images me-2"></i>Demander un devis
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Photobooth Section -->
+<section class="service-detail py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/photographie.jpg') }}" alt="Borne selfie location pour événements" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="mb-3">Location Borne Selfie</h2>
+                <p class="mb-3">Animez vos événements avec notre borne selfie professionnelle ! Divertissement garanti pour vos invités et souvenirs amusants à partager.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Animation événementielle</strong> - Mariages, anniversaires</li>
+                    <li><strong>Impression instantanée</strong> - Souvenirs immédiats</li>
+                    <li><strong>Accessoires inclus</strong> - Chapeaux, masques, props</li>
+                    <li><strong>Montage numérique</strong> - Logos et personnalisation</li>
+                    <li><strong>Stockage numérique</strong> - Accès illimité aux photos</li>
+                    <li><strong>Forfaits flexibles</strong> - À l'heure ou à la journée</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-star me-2"></i>Réserver la borne selfie
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Albums Section -->
+<section class="service-detail py-5 scroll-animate alternate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/phto.jpg') }}" alt="Albums photo mariage premium" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy">
+                </div>
+            </div>
+            <div class="col-12 col-md-6 order-md-1">
+                <h2 class="mb-3">Albums Photo Mariage</h2>
+                <p class="mb-3">Conservez vos plus beaux souvenirs de mariage dans un album d'exception. Nos albums premium offrent qualité, esthétique et durabilité.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Mise en page artistique</strong> - Composition professionnelle</li>
+                    <li><strong>Qualité premium</strong> - Papier photo haute gamme</li>
+                    <li><strong>Reliure luxe</strong> - Cuir, lin ou toile</li>
+                    <li><strong>Formats personnalisés</strong> - Du 20x20 au 40x40</li>
+                    <li><strong>Gravure possible</strong> - Initiales, dates, messages</li>
+                    <li><strong>Devis sur demande</strong> - Forfaits adaptés</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-heart me-2"></i>Composer votre album
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="pricing-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h2 class="text-center mb-5">Tarifs indicatifs</h2>
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="pricing-card">
+                    <h4>Photo d'identité</h4>
+                    <p class="price">À partir de 10 €</p>
+                    <p class="text-muted">Prête en 5 minutes</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="pricing-card">
+                    <h4>Séance portrait (1h)</h4>
+                    <p class="price">À partir de 60 €</p>
+                    <p class="text-muted">Studio ou extérieur</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="pricing-card">
+                    <h4>Reportage mariage</h4>
+                    <p class="price">À partir de 800 €</p>
+                    <p class="text-muted">8h de couverture</p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <p class="text-muted mb-3">Les tarifs affichés sont indicatifs. Pour un devis personnalisé et détaillé :</p>
+            <a href="{{ url_for('contact') }}" class="btn btn-lg btn-primary">
+                <i class="fas fa-envelope me-2"></i>Nous contacter pour un devis
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-8">
+                <h3 class="mb-3">Vous avez des questions ?</h3>
+                <p class="mb-0">N'hésitez pas à nous contacter. Notre équipe répondra à toutes vos questions et vous adera à choisir la prestation qui vous convient.</p>
+            </div>
+            <div class="col-12 col-md-4 text-md-end mt-3 mt-md-0">
+                <a href="{{ url_for('contact') }}" class="btn btn-lg btn-primary w-100 w-md-auto">
+                    <i class="fas fa-phone me-2"></i>Contactez-nous
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
