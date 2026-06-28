@@ -27,6 +27,9 @@ app.config['SECRET_KEY'] = Config.SECRET_KEY
 os.makedirs(app.instance_path, exist_ok=True)
 db.init_app(app)
 
+# Évite de relancer l'initialisation DB sur chaque requête.
+_startup_db_ready = False
+
 
 MESSAGE_STATUS_VALUES = ["Nouveau", "Lu", "Traité"]
 RESERVATION_STATUS_VALUES = ["En attente", "Confirmé", "Annulé"]
@@ -219,30 +222,40 @@ def send_notification_email(subject, body, reply_to=None):
 # =========================
 def init_database():
     """Initialise la base et crée l'admin initial uniquement si nécessaire."""
-    with app.app_context():
-        validate_admin_template_routes()
-        db.create_all()
-        ensure_sqlite_schema_compatibility()
+    validate_admin_template_routes()
+    db.create_all()
+    ensure_sqlite_schema_compatibility()
 
-        admin_email = (os.environ.get('ADMIN_EMAIL') or '').strip().lower()
-        admin_password = os.environ.get('ADMIN_PASSWORD') or ''
-        env = app.config.get('FLASK_ENV', 'development')
-        existing_admin = AdminUser.query.order_by(AdminUser.id.asc()).first()
+    admin_email = (os.environ.get('ADMIN_EMAIL') or '').strip().lower()
+    admin_password = os.environ.get('ADMIN_PASSWORD') or ''
+    env = app.config.get('FLASK_ENV', 'development')
+    existing_admin = AdminUser.query.order_by(AdminUser.id.asc()).first()
 
-        if existing_admin:
-            return
+    if existing_admin:
+        return
 
-        if not admin_email or not admin_password:
-            if env == 'production':
-                raise RuntimeError("ADMIN_EMAIL et ADMIN_PASSWORD sont requis en production.")
+    if not admin_email or not admin_password:
+        if env == 'production':
+            raise RuntimeError("ADMIN_EMAIL et ADMIN_PASSWORD sont requis en production.")
 
-            app.logger.warning("Aucun administrateur initial trouvé et aucune variable ADMIN_* fournie.")
-            return
+        app.logger.warning("Aucun administrateur initial trouvé et aucune variable ADMIN_* fournie.")
+        return
 
-        new_admin = AdminUser(email=admin_email)
-        new_admin.set_password(admin_password)
-        db.session.add(new_admin)
-        db.session.commit()
+    new_admin = AdminUser(email=admin_email)
+    new_admin.set_password(admin_password)
+    db.session.add(new_admin)
+    db.session.commit()
+
+
+@app.before_request
+def ensure_startup_initialized():
+    """Initialise la base au premier hit applicatif (Render/Gunicorn safe)."""
+    global _startup_db_ready
+    if _startup_db_ready:
+        return
+
+    init_database()
+    _startup_db_ready = True
 
 
 def reset_admin_password(email, new_password):
