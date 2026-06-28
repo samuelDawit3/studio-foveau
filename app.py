@@ -12,8 +12,7 @@ from sqlalchemy import or_
 from email_validator import validate_email, EmailNotValidError
 
 from config import Config
-from models import db, ContactMessage, Booking, AdminUser
-from forms import LoginForm
+from models import db
 
 
 # =========================
@@ -47,6 +46,10 @@ def setup_logging():
         app.logger.addHandler(file_handler)
 
     app.logger.setLevel(logging.INFO)
+
+
+from models import ContactMessage, Booking, AdminUser
+from forms import LoginForm
 
 
 def ensure_sqlite_schema_compatibility():
@@ -219,28 +222,43 @@ def send_notification_email(subject, body, reply_to=None):
 # DATABASE INITIALIZATION
 # =========================
 def init_database():
-    """Initialise la base et crée l'admin initial uniquement si nécessaire."""
-    with app.app_context():
+    """Initialise la base SQLite et crée l'admin initial si nécessaire.
+
+    Cette fonction est idempotente:
+    - crée les tables manquantes
+    - conserve les données existantes
+    - crée l'administrateur par défaut uniquement s'il n'existe pas
+    """
+    database_uri = app.config.get("SQLALCHEMY_DATABASE_URI", "")
+    db_file_exists = False
+    if database_uri.startswith("sqlite:///"):
+        db_path = database_uri.replace("sqlite:///", "", 1)
+        db_file_exists = os.path.exists(db_path)
+
+    if db_file_exists:
+        app.logger.info("Existing database detected")
+
+    try:
         db.create_all()
         ensure_sqlite_schema_compatibility()
-        app.logger.info("SQLite tables created / verified")
+        app.logger.info("Database initialized")
 
+        existing_admin = AdminUser.query.first()
+        if existing_admin:
+            app.logger.info("Default admin already exists")
+            db.session.commit()
+            return
 
-def ensure_admin():
-    """Crée un administrateur initial s'il n'existe pas déjà."""
-    with app.app_context():
         admin_email = (os.getenv("ADMIN_EMAIL") or "").strip().lower()
         admin_password = os.getenv("ADMIN_PASSWORD") or ""
         env = app.config.get("FLASK_ENV", "development")
 
-        user = AdminUser.query.filter_by(email=admin_email).first() if admin_email else None
-        if user:
-            return
-
         if not admin_email or not admin_password:
             if env == "production":
                 raise RuntimeError("ADMIN_EMAIL et ADMIN_PASSWORD requis en production.")
-            app.logger.warning("Admin non créé: ADMIN_EMAIL / ADMIN_PASSWORD manquants.")
+
+            app.logger.warning("Admin not created due to missing env vars")
+            db.session.commit()
             return
 
         new_user = AdminUser(
@@ -249,7 +267,11 @@ def ensure_admin():
         )
         db.session.add(new_user)
         db.session.commit()
-        app.logger.info("Admin user created")
+        app.logger.info("Default admin created")
+    except Exception:
+        db.session.rollback()
+        app.logger.exception("Database initialization failed")
+        raise
 
 
 def reset_admin_password(email, new_password):
@@ -268,6 +290,10 @@ def reset_admin_password(email, new_password):
 
 
 setup_logging()
+
+
+with app.app_context():
+    init_database()
 
 
 # =========================
@@ -408,11 +434,7 @@ def admin_login():
 
     if form.validate_on_submit():
         email = form.email.data.strip().lower()
-        try:
-            user = AdminUser.query.filter_by(email=email).first()
-        except Exception:
-            app.logger.exception("Database not ready during admin login")
-            return "Database not ready", 500
+        user = AdminUser.query.filter_by(email=email).first()
 
         if user and user.check_password(form.password.data):
             session.clear()
@@ -631,11 +653,6 @@ def validate_admin_template_routes():
             "Routes admin manquantes détectées dans les templates : "
             + ", ".join(missing_routes)
         )
-
-
-# Render / Gunicorn startup path: initialize DB and admin at import time.
-init_database()
-ensure_admin()
 
 
 # =========================
