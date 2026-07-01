@@ -238,6 +238,48 @@ section {
     margin-bottom: 2rem;
 }
 
+.hero-row {
+    min-height: 100vh;
+}
+
+.hero-media-wrap {
+    position: relative;
+}
+
+.hero-main-image {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 14px;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+    object-fit: cover;
+}
+
+@media (min-width: 992px) {
+    .hero-row {
+        min-height: 100vh;
+    }
+
+    .hero-media-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-main-image {
+        max-width: min(64vw, 900px);
+        max-height: 78vh;
+        width: 100%;
+    }
+
+    .hero-content {
+        padding: 1rem 0 1rem 1.5rem;
+    }
+
+    .hero-content .lead {
+        max-width: 36ch;
+    }
+}
+
 @media (max-width: 768px) {
     .hero-section {
         min-height: 80vh;
