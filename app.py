@@ -49,6 +49,26 @@ def setup_logging():
     app.logger.setLevel(logging.INFO)
 
 
+def log_mail_runtime_config():
+    """Journalise la configuration MAIL_* effectivement lue au runtime."""
+    mail_config = {
+        "MAIL_SERVER": os.environ.get("MAIL_SERVER") or "",
+        "MAIL_PORT": os.environ.get("MAIL_PORT") or "",
+        "MAIL_USERNAME": os.environ.get("MAIL_USERNAME") or "",
+        "MAIL_USE_TLS": os.environ.get("MAIL_USE_TLS") or "",
+        "MAIL_DEFAULT_SENDER": os.environ.get("MAIL_DEFAULT_SENDER") or "",
+        "MAIL_RECIPIENT": os.environ.get("MAIL_RECIPIENT") or "",
+        "ADMIN_EMAIL": os.environ.get("ADMIN_EMAIL") or "",
+    }
+    raw_password = os.environ.get("MAIL_PASSWORD") or ""
+    if raw_password:
+        mail_config["MAIL_PASSWORD"] = "*" * 8
+    else:
+        mail_config["MAIL_PASSWORD"] = ""
+
+    app.logger.info("MAIL runtime config: %s", mail_config)
+
+
 from models import ContactMessage, Booking, AdminUser
 from forms import LoginForm
 
@@ -189,8 +209,13 @@ def send_notification_email(subject, body, reply_to=None, recipient=None, html_b
     mail_server = os.environ.get("MAIL_SERVER")
     mail_port = int(os.environ.get("MAIL_PORT", "587"))
     mail_username = os.environ.get("MAIL_USERNAME")
-    mail_password = os.environ.get("MAIL_PASSWORD")
+    raw_password = os.environ.get("MAIL_PASSWORD")
+    mail_password = raw_password.replace(" ", "") if raw_password else None
     mail_use_tls = os.environ.get("MAIL_USE_TLS", "true").lower() in ("1", "true", "yes")
+    if mail_server == "smtp.gmail.com":
+        # Gmail SMTP 587 requiert STARTTLS; on force la sécurité si mal configurée.
+        mail_use_tls = True
+
     configured_recipient = recipient or os.environ.get("MAIL_RECIPIENT") or os.environ.get("ADMIN_EMAIL")
     sender = os.environ.get("MAIL_DEFAULT_SENDER") or mail_username or configured_recipient
 
@@ -210,14 +235,29 @@ def send_notification_email(subject, body, reply_to=None, recipient=None, html_b
 
     try:
         with smtplib.SMTP(mail_server, mail_port, timeout=10) as smtp:
+            smtp.ehlo()
             if mail_use_tls:
                 smtp.starttls()
+                smtp.ehlo()
             if mail_username and mail_password:
                 smtp.login(mail_username, mail_password)
             smtp.send_message(email_message)
+        app.logger.info(
+            "Email envoyé avec succès: subject=%s to=%s",
+            subject,
+            configured_recipient,
+        )
         return True
     except Exception:
-        app.logger.exception("Échec d'envoi de notification email")
+        app.logger.exception(
+            "Échec d'envoi de notification email: subject=%s to=%s server=%s port=%s tls=%s user=%s",
+            subject,
+            configured_recipient,
+            mail_server,
+            mail_port,
+            mail_use_tls,
+            mail_username,
+        )
         return False
 
 
@@ -556,6 +596,7 @@ def reset_admin_password(email, new_password):
 
 
 setup_logging()
+log_mail_runtime_config()
 
 
 with app.app_context():
