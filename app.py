@@ -687,7 +687,7 @@ def contact():
         db.session.commit()
 
         send_admin_contact_email(payload)
-        send_customer_contact_confirmation(payload)
+        # Customer confirmations are disabled until studiofoveau.fr is verified in Resend.
 
         flash("Message envoyé ✔", "success")
         return redirect(url_for("contact"))
@@ -707,7 +707,7 @@ def reservation():
         db.session.commit()
 
         send_admin_reservation_email(payload)
-        send_customer_reservation_confirmation(payload)
+        # Customer confirmations are disabled until studiofoveau.fr is verified in Resend.
 
         flash("Réservation enregistrée ✔", "success")
         return redirect(url_for("reservation"))
