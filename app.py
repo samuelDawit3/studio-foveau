@@ -1,9 +1,7 @@
 import os
 import re
 import logging
-import smtplib
 from html import escape
-from email.message import EmailMessage
 from datetime import datetime
 from functools import wraps
 from werkzeug.security import generate_password_hash
@@ -50,23 +48,20 @@ def setup_logging():
 
 
 def log_mail_runtime_config():
-    """Journalise la configuration MAIL_* effectivement lue au runtime."""
+    """Journalise la configuration email effectivement lue au runtime."""
+    raw_resend_api_key = os.environ.get("RESEND_API_KEY") or ""
+    resend_key_state = "present" if raw_resend_api_key else "missing"
+    masked_resend_api_key = "" if not raw_resend_api_key else "*" * 8
+
     mail_config = {
-        "MAIL_SERVER": os.environ.get("MAIL_SERVER") or "",
-        "MAIL_PORT": os.environ.get("MAIL_PORT") or "",
-        "MAIL_USERNAME": os.environ.get("MAIL_USERNAME") or "",
-        "MAIL_USE_TLS": os.environ.get("MAIL_USE_TLS") or "",
+        "RESEND_API_KEY": masked_resend_api_key,
+        "RESEND_API_KEY_STATE": resend_key_state,
         "MAIL_DEFAULT_SENDER": os.environ.get("MAIL_DEFAULT_SENDER") or "",
         "MAIL_RECIPIENT": os.environ.get("MAIL_RECIPIENT") or "",
         "ADMIN_EMAIL": os.environ.get("ADMIN_EMAIL") or "",
     }
-    raw_password = os.environ.get("MAIL_PASSWORD") or ""
-    if raw_password:
-        mail_config["MAIL_PASSWORD"] = "*" * 8
-    else:
-        mail_config["MAIL_PASSWORD"] = ""
 
-    app.logger.info("MAIL runtime config: %s", mail_config)
+    app.logger.info("Email runtime config: %s", mail_config)
 
 
 from models import ContactMessage, Booking, AdminUser
@@ -205,58 +200,50 @@ def validate_booking_payload(form_data):
 
 
 def send_notification_email(subject, body, reply_to=None, recipient=None, html_body=None):
-    """Envoie une notification email optionnelle si SMTP est configuré."""
-    mail_server = os.environ.get("MAIL_SERVER")
-    mail_port = int(os.environ.get("MAIL_PORT", "587"))
-    mail_username = os.environ.get("MAIL_USERNAME")
-    raw_password = os.environ.get("MAIL_PASSWORD")
-    mail_password = raw_password.replace(" ", "") if raw_password else None
-    mail_use_tls = os.environ.get("MAIL_USE_TLS", "true").lower() in ("1", "true", "yes")
-    if mail_server == "smtp.gmail.com":
-        # Gmail SMTP 587 requiert STARTTLS; on force la sécurité si mal configurée.
-        mail_use_tls = True
-
-    configured_recipient = recipient or os.environ.get("MAIL_RECIPIENT") or os.environ.get("ADMIN_EMAIL")
-    sender = os.environ.get("MAIL_DEFAULT_SENDER") or mail_username or configured_recipient
-
-    if not mail_server or not configured_recipient or not sender:
-        app.logger.info("Notification email ignorée: configuration SMTP incomplète.")
+    """Envoie une notification email via Resend API si configuré."""
+    resend_api_key = os.environ.get("RESEND_API_KEY")
+    if not resend_api_key:
+        app.logger.info("Email ignored: RESEND_API_KEY missing")
         return False
 
-    email_message = EmailMessage()
-    email_message["Subject"] = subject
-    email_message["From"] = sender
-    email_message["To"] = configured_recipient
+    try:
+        import resend
+    except Exception:
+        app.logger.exception("Resend package unavailable")
+        return False
+
+    resend.api_key = resend_api_key
+    configured_recipient = recipient or os.environ.get("MAIL_RECIPIENT") or os.environ.get("ADMIN_EMAIL")
+    sender = os.environ.get("MAIL_DEFAULT_SENDER") or "onboarding@resend.dev"
+
+    if not configured_recipient or not sender:
+        app.logger.info("Notification email ignorée: configuration Resend incomplète.")
+        return False
+
+    payload = {
+        "from": sender,
+        "to": [configured_recipient],
+        "subject": subject,
+        "html": html_body or body.replace("\n", "<br>"),
+        "text": body,
+    }
     if reply_to:
-        email_message["Reply-To"] = reply_to
-    email_message.set_content(body)
-    if html_body:
-        email_message.add_alternative(html_body, subtype="html")
+        payload["reply_to"] = reply_to
 
     try:
-        with smtplib.SMTP(mail_server, mail_port, timeout=10) as smtp:
-            smtp.ehlo()
-            if mail_use_tls:
-                smtp.starttls()
-                smtp.ehlo()
-            if mail_username and mail_password:
-                smtp.login(mail_username, mail_password)
-            smtp.send_message(email_message)
+        resend.Emails.send(payload)
         app.logger.info(
-            "Email envoyé avec succès: subject=%s to=%s",
+            "Email sent successfully via Resend: subject=%s to=%s",
             subject,
             configured_recipient,
         )
         return True
     except Exception:
         app.logger.exception(
-            "Échec d'envoi de notification email: subject=%s to=%s server=%s port=%s tls=%s user=%s",
+            "Échec d'envoi de notification email via Resend: subject=%s to=%s sender=%s",
             subject,
             configured_recipient,
-            mail_server,
-            mail_port,
-            mail_use_tls,
-            mail_username,
+            sender,
         )
         return False
 
