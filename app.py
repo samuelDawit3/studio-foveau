@@ -436,12 +436,16 @@ def send_admin_reservation_email(payload):
 def send_customer_contact_confirmation(payload):
         """Envoie un accusé de réception HTML après un contact."""
         try:
-                subject = "Nous avons bien reçu votre message"
+                subject = "Nous avons bien reçu votre message - Studio Foveau"
+                customer_message_html = escape(payload.get("message", "")).replace("\n", "<br />")
                 content_html = f"""
                 <div class=\"card\">
                     <p>Bonjour {escape(payload['name'])},</p>
                     <p>Merci d'avoir contacté Studio Foveau.</p>
-                    <p>Nous avons bien reçu votre demande et nous vous répondrons dans les plus brefs délais.</p>
+                    <p>Votre demande a bien été reçue. Notre équipe vous répondra dans les plus brefs délais.</p>
+                    <div class=\"row\"><span class=\"label\">Service demandé:</span> {escape(payload['service'])}</div>
+                    <div class=\"row\"><span class=\"label\">Votre message:</span><br />{customer_message_html}</div>
+                    <div class=\"row\"><span class=\"label\">Contact studio:</span> studiofoveau.admin@gmail.com</div>
                 </div>
                 """
                 html_body = build_email_html_layout(
@@ -452,7 +456,10 @@ def send_customer_contact_confirmation(payload):
                 body = (
                         f"Bonjour {payload['name']},\n\n"
                         "Merci d'avoir contacté Studio Foveau.\n"
-                        "Nous avons bien reçu votre demande et nous vous répondrons dès que possible.\n\n"
+                    "Votre demande a bien été reçue et nous vous répondrons dès que possible.\n\n"
+                    f"Service demandé: {payload['service']}\n"
+                    f"Votre message: {payload['message']}\n"
+                    "Contact studio: studiofoveau.admin@gmail.com\n\n"
                         "Studio Foveau\n"
                         "Calais\n"
                         "Email: studiofoveau.admin@gmail.com\n\n"
@@ -472,15 +479,24 @@ def send_customer_contact_confirmation(payload):
 def send_customer_reservation_confirmation(payload):
         """Envoie un accusé de réception HTML après une réservation."""
         try:
-                subject = "Votre demande de réservation a bien été reçue"
+                subject = "Votre demande de réservation a bien été reçue - Studio Foveau"
+                reservation_message = (payload.get("message") or "").strip()
+                reservation_message_html = escape(reservation_message).replace("\n", "<br />")
+                reservation_message_row = ""
+                if reservation_message:
+                        reservation_message_row = (
+                                f'<div class="row"><span class="label">Votre message:</span><br />{reservation_message_html}</div>'
+                        )
+
                 content_html = f"""
                 <div class=\"card\">
                     <p>Bonjour {escape(payload['name'])},</p>
-                    <p>Votre demande de réservation a bien été reçue.</p>
-                    <p>Nous vous contacterons rapidement pour confirmer votre réservation.</p>
-                    <div class=\"row\"><span class=\"label\">Service:</span> {escape(payload['service'])}</div>
-                    <div class=\"row\"><span class=\"label\">Date:</span> {escape(payload['requested_date'])}</div>
-                    <div class=\"row\"><span class=\"label\">Heure:</span> {escape(payload['requested_time'])}</div>
+                    <p>Votre demande de réservation a bien été reçue. Elle n’est pas encore confirmée.</p>
+                    <p>Studio Foveau vous contactera rapidement pour confirmer le rendez-vous.</p>
+                    <div class=\"row\"><span class=\"label\">Service demandé:</span> {escape(payload['service'])}</div>
+                    <div class=\"row\"><span class=\"label\">Date demandée:</span> {escape(payload['requested_date'])}</div>
+                    <div class=\"row\"><span class=\"label\">Heure demandée:</span> {escape(payload['requested_time'])}</div>
+                    {reservation_message_row}
                 </div>
                 """
                 html_body = build_email_html_layout(
@@ -490,12 +506,14 @@ def send_customer_reservation_confirmation(payload):
                 )
                 body = (
                         f"Bonjour {payload['name']},\n\n"
-                        "Votre demande de réservation a bien été reçue.\n"
-                        "Nous vous contacterons rapidement pour la confirmer.\n\n"
+                        "Votre demande de réservation a bien été reçue. Elle n'est pas encore confirmée. "
+                        "Studio Foveau vous contactera rapidement pour confirmer le rendez-vous.\n\n"
                         "Récapitulatif:\n"
-                        f"- Service: {payload['service']}\n"
-                        f"- Date: {payload['requested_date']}\n"
-                        f"- Heure: {payload['requested_time']}\n\n"
+                        f"- Service demandé: {payload['service']}\n"
+                        f"- Date demandée: {payload['requested_date']}\n"
+                        f"- Heure demandée: {payload['requested_time']}\n"
+                        + (f"- Votre message: {reservation_message}\n" if reservation_message else "")
+                        + "\n"
                         "Studio Foveau\n"
                         "Calais\n\n"
                         "Ceci est un email automatique."
