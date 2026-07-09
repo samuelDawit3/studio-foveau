@@ -33,6 +33,7 @@ MESSAGE_STATUS_VALUES = ["Nouveau", "Lu", "Traité"]
 RESERVATION_STATUS_VALUES = ["En attente", "Confirmé", "Annulé"]
 VERIFIED_SENDER = "Studio Foveau <contact@studiofoveauphoto.fr>"
 STUDIO_REPLY_TO = "contact@studiofoveauphoto.fr"
+DEFAULT_MAIL_REPLY_TO = "studiofoveau.admin@gmail.com"
 ADMIN_NOTIFICATION_EMAIL = "studiofoveau.admin@gmail.com"
 SITE_URL = "https://studiofoveauphoto.fr"
 BUSINESS_NAME = "Studio Foveau"
@@ -244,7 +245,7 @@ def send_notification_email(subject, body, reply_to=None, recipient=None, html_b
         or ADMIN_NOTIFICATION_EMAIL
     )
     sender = os.environ.get("MAIL_DEFAULT_SENDER") or "Studio Foveau <contact@studiofoveauphoto.fr>"
-    resolved_reply_to = STUDIO_REPLY_TO
+    resolved_reply_to = os.environ.get("MAIL_REPLY_TO") or DEFAULT_MAIL_REPLY_TO
 
     if not configured_recipient or not sender:
         app.logger.info("Notification email ignorée: configuration Resend incomplète.")
