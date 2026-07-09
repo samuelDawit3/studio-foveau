@@ -29,6 +29,9 @@ db.init_app(app)
 
 MESSAGE_STATUS_VALUES = ["Nouveau", "Lu", "Traité"]
 RESERVATION_STATUS_VALUES = ["En attente", "Confirmé", "Annulé"]
+VERIFIED_SENDER = "Studio Foveau <contact@studiofoveauphoto.fr>"
+STUDIO_REPLY_TO = "contact@studiofoveauphoto.fr"
+ADMIN_NOTIFICATION_EMAIL = "studiofoveau.admin@gmail.com"
 
 
 def setup_logging():
@@ -213,8 +216,14 @@ def send_notification_email(subject, body, reply_to=None, recipient=None, html_b
         return False
 
     resend.api_key = resend_api_key
-    configured_recipient = recipient or os.environ.get("MAIL_RECIPIENT") or os.environ.get("ADMIN_EMAIL")
-    sender = os.environ.get("MAIL_DEFAULT_SENDER") or "onboarding@resend.dev"
+    configured_recipient = (
+        recipient
+        or os.environ.get("MAIL_RECIPIENT")
+        or os.environ.get("ADMIN_EMAIL")
+        or ADMIN_NOTIFICATION_EMAIL
+    )
+    sender = os.environ.get("MAIL_DEFAULT_SENDER") or VERIFIED_SENDER
+    resolved_reply_to = STUDIO_REPLY_TO
 
     if not configured_recipient or not sender:
         app.logger.info("Notification email ignorée: configuration Resend incomplète.")
@@ -226,9 +235,8 @@ def send_notification_email(subject, body, reply_to=None, recipient=None, html_b
         "subject": subject,
         "html": html_body or body.replace("\n", "<br>"),
         "text": body,
+        "reply_to": resolved_reply_to,
     }
-    if reply_to:
-        payload["reply_to"] = reply_to
 
     try:
         resend.Emails.send(payload)
@@ -374,7 +382,7 @@ def send_admin_contact_email(payload):
                         f"Message: {payload['message']}\n"
                         f"Date de réception: {received_at}\n"
                 )
-                recipient = os.environ.get("MAIL_RECIPIENT") or os.environ.get("ADMIN_EMAIL")
+                recipient = os.environ.get("MAIL_RECIPIENT") or ADMIN_NOTIFICATION_EMAIL
                 return send_notification_email(
                         subject=subject,
                         body=body,
@@ -420,7 +428,7 @@ def send_admin_reservation_email(payload):
                         f"Message: {payload['message']}\n"
                         f"Date de soumission: {submitted_at}\n"
                 )
-                recipient = os.environ.get("MAIL_RECIPIENT") or os.environ.get("ADMIN_EMAIL")
+                recipient = os.environ.get("MAIL_RECIPIENT") or ADMIN_NOTIFICATION_EMAIL
                 return send_notification_email(
                         subject=subject,
                         body=body,
