@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% set meta_title = "CGU - Studio Foveau" %}
+{% set meta_description = "Conditions Générales d'Utilisation du site Studio Foveau: accès, responsabilités, formulaires et règles d'usage." %}
+
+{% block content %}
+<section class="page-title-section page-title-dark py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h1 class="display-5 fw-bold mb-3 hero-title" style="color: white;">Conditions Générales d'Utilisation</h1>
+        <p class="lead text-light">Règles d'utilisation du site studiofoveauphoto.fr</p>
+    </div>
+</section>
+
+<section class="py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h2>Objet</h2>
+        <p>
+            Les présentes CGU définissent les conditions d'accès et d'utilisation du site https://studiofoveauphoto.fr édité par Studio Foveau.
+        </p>
+
+        <h2>Accès au site</h2>
+        <p>
+            Le site est accessible gratuitement à tout utilisateur disposant d'un accès à internet. Les coûts d'accès (matériel, connexion) restent à la charge de l'utilisateur.
+        </p>
+
+        <h2>Services proposés</h2>
+        <p>
+            Le site permet notamment de consulter les prestations du studio, d'effectuer des demandes via le formulaire de contact et d'envoyer des demandes de réservation en ligne.
+        </p>
+
+        <h2>Formulaires de contact et réservation</h2>
+        <p>
+            L'utilisateur s'engage à fournir des informations exactes et à jour.
+            Une demande de réservation transmise via le site ne vaut pas confirmation automatique de rendez-vous.
+            Studio Foveau contacte le client pour valider la disponibilité et confirmer la réservation.
+        </p>
+
+        <h2>Obligations de l'utilisateur</h2>
+        <p>
+            L'utilisateur s'interdit toute utilisation illicite du site, tout envoi de contenu frauduleux, injurieux, diffamatoire ou malveillant, et toute tentative de perturbation technique.
+        </p>
+
+        <h2>Propriété intellectuelle</h2>
+        <p>
+            Les éléments du site sont protégés par le droit de la propriété intellectuelle. Toute reproduction non autorisée est interdite.
+        </p>
+
+        <h2>Responsabilité</h2>
+        <p>
+            Studio Foveau ne saurait être tenu responsable d'une indisponibilité temporaire du site, d'un dysfonctionnement technique ou de dommages indirects liés à l'utilisation du site.
+        </p>
+
+        <h2>Données personnelles</h2>
+        <p>
+            Les traitements de données personnelles sont décrits dans la
+            <a href="{{ url_for('politique_confidentialite') }}">Politique de confidentialité</a>.
+        </p>
+
+        <h2>Droit applicable</h2>
+        <p>
+            Les présentes CGU sont soumises au droit français. En cas de litige, compétence est attribuée aux juridictions françaises compétentes.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+            Studio Foveau - 37 Boulevard de l'Égalité, 62100 Calais - contact@studiofoveauphoto.fr - 03 21 97 70 20
+        </p>
+    </div>
+</section>
+{% endblock %}

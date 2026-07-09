@@ -998,6 +998,66 @@ section {
 .text-muted { color: #999; }
 .text-center { text-align: center; }
 
+/* ==================== ACCESSIBILITY ==================== */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid #1E7A6A;
+    outline-offset: 2px;
+}
+
+.skip-link {
+    position: absolute;
+    left: 0.75rem;
+    top: -48px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    z-index: 1200;
+}
+
+.skip-link:focus {
+    top: 0.75rem;
+}
+
+/* ==================== COOKIE BANNER ==================== */
+.cookie-banner {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    z-index: 1100;
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+    padding: 1rem;
+}
+
+.cookie-banner-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.cookie-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .cookie-banner-content {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+}
+
 .mb-0 { margin-bottom: 0 !important; }
 .mb-1 { margin-bottom: 0.25rem !important; }
 .mb-2 { margin-bottom: 0.5rem !important; }

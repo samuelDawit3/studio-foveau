@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% set meta_title = "Contact Studio Foveau - Téléphone, Email, Facebook" %}
+{% set meta_description = "Contactez Studio Foveau à Calais: téléphone 03 21 97 70 20, email contact@studiofoveauphoto.fr, site officiel et Facebook." %}
 
 {% block content %}
 <!-- Page Title -->
@@ -16,27 +18,27 @@
     <div class="container-fluid px-3 px-md-4">
         <div class="row">
             <div class="col-12 col-sm-6 col-md-3 mb-3">
-                <a href="tel:+33321964XXX" class="quick-contact-btn">
+                <a href="tel:+33321977020" class="quick-contact-btn" aria-label="Appeler le Studio Foveau au 03 21 97 70 20">
                     <i class="fas fa-phone"></i>
                     <span>Nous appeler</span>
                 </a>
             </div>
             <div class="col-12 col-sm-6 col-md-3 mb-3">
-                <a href="mailto:contact@studiofoveau.fr" class="quick-contact-btn">
+                <a href="mailto:contact@studiofoveauphoto.fr" class="quick-contact-btn" aria-label="Envoyer un email à Studio Foveau">
                     <i class="fas fa-envelope"></i>
                     <span>Envoyer un email</span>
                 </a>
             </div>
             <div class="col-12 col-sm-6 col-md-3 mb-3">
-                <a href="#" class="quick-contact-btn">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Nos localisation</span>
+                <a href="https://studiofoveauphoto.fr" class="quick-contact-btn" aria-label="Visiter le site officiel Studio Foveau">
+                    <i class="fas fa-globe"></i>
+                    <span>Site officiel</span>
                 </a>
             </div>
             <div class="col-12 col-sm-6 col-md-3 mb-3">
-                <a href="#" class="quick-contact-btn">
-                    <i class="fas fa-clock"></i>
-                    <span>Horaires</span>
+                <a href="https://www.facebook.com/studiofoveau/" class="quick-contact-btn" target="_blank" rel="noopener noreferrer" aria-label="Voir la page Facebook Studio Foveau">
+                    <i class="fab fa-facebook-f"></i>
+                    <span>Facebook</span>
                 </a>
             </div>
         </div>
@@ -51,6 +53,7 @@
             <div class="col-12 col-lg-8 mb-5 mb-lg-0">
                 <h2 class="mb-4">Formulaire de contact</h2>
                 <form method="POST" action="{{ url_for('contact') }}" class="needs-validation" novalidate>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     
                     <!-- Name Field -->
                     <div class="mb-4">
@@ -149,7 +152,7 @@
                 <div class="contact-info">
                     <!-- Storefront Image -->
                     <div class="contact-info-item mb-5">
-                        <img src="{{ url_for('static', filename='images/photis.jpg') }}" alt="Storefront Studio Foveau - Calais" class="img-fluid mb-3" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy">
+                        <img src="{{ url_for('static', filename='images/photis.jpg') }}" alt="Entrée du Studio Foveau à Calais" class="img-fluid mb-3" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
                     </div>
 
                     <!-- Address -->
@@ -160,7 +163,7 @@
                         </h5>
                         <p class="mb-1">
                             <strong>Studio Foveau</strong><br>
-                            37 boulevard Égalité<br>
+                            37 Boulevard de l'Égalité<br>
                             62100 Calais<br>
                             France
                         </p>
@@ -173,8 +176,8 @@
                             Téléphone
                         </h5>
                         <p class="mb-0">
-                            <a href="tel:+33321964XXX" class="text-decoration-none">
-                                +33 3 21 96 4X XX
+                            <a href="tel:+33321977020" class="text-decoration-none" aria-label="Appeler le 03 21 97 70 20">
+                                03 21 97 70 20
                             </a>
                         </p>
                         <p class="text-muted small mb-0">Lun-Sam : 09h00-12h00 & 14h00-19h00</p>
@@ -187,9 +190,29 @@
                             Email
                         </h5>
                         <p class="mb-0">
-                            <a href="mailto:contact@studiofoveau.fr" class="text-decoration-none">
-                                contact@studiofoveau.fr
+                            <a href="mailto:contact@studiofoveauphoto.fr" class="text-decoration-none" aria-label="Envoyer un email à contact@studiofoveauphoto.fr">
+                                contact@studiofoveauphoto.fr
                             </a>
+                        </p>
+                    </div>
+
+                    <div class="contact-info-item mb-5">
+                        <h5 class="fw-bold mb-3">
+                            <i class="fas fa-globe me-2" style="color: #2A9D8F;"></i>
+                            Site web officiel
+                        </h5>
+                        <p class="mb-0">
+                            <a href="https://studiofoveauphoto.fr" class="text-decoration-none" target="_blank" rel="noopener noreferrer">https://studiofoveauphoto.fr</a>
+                        </p>
+                    </div>
+
+                    <div class="contact-info-item mb-5">
+                        <h5 class="fw-bold mb-3">
+                            <i class="fab fa-facebook-f me-2" style="color: #2A9D8F;"></i>
+                            Facebook officiel
+                        </h5>
+                        <p class="mb-0">
+                            <a href="https://www.facebook.com/studiofoveau/" class="text-decoration-none" target="_blank" rel="noopener noreferrer">https://www.facebook.com/studiofoveau/</a>
                         </p>
                     </div>
 
@@ -208,7 +231,7 @@
                         </div>
                     </div>
                     <div class="map-responsive">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2575.509435608546!2d1.8608324157632055!3d50.95809727942705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47dd4aa04f5e032b%3A0x3d48f2b61021b4da!2s37%20Boulevard%20de%20l'%C3%89galit%C3%A9%2C%2062100%20Calais%2C%20France!5e0!3m2!1sfr!2sfr!4v1715012345678!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2575.509435608546!2d1.8608324157632055!3d50.95809727942705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47dd4aa04f5e032b%3A0x3d48f2b61021b4da!2s37%20Boulevard%20de%20l'%C3%89galit%C3%A9%2C%2062100%20Calais%2C%20France!5e0!3m2!1sfr!2sfr!4v1715012345678!5m2!1sfr!2sfr" title="Carte Google Maps Studio Foveau" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>

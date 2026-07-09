@@ -6,7 +6,8 @@ from datetime import datetime
 from functools import wraps
 from werkzeug.security import generate_password_hash
 
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, Response
+from flask_wtf.csrf import CSRFProtect
 from sqlalchemy import or_
 from email_validator import validate_email, EmailNotValidError
 
@@ -25,6 +26,7 @@ app.config['SECRET_KEY'] = Config.SECRET_KEY
 
 os.makedirs(app.instance_path, exist_ok=True)
 db.init_app(app)
+csrf = CSRFProtect(app)
 
 
 MESSAGE_STATUS_VALUES = ["Nouveau", "Lu", "Traité"]
@@ -32,6 +34,16 @@ RESERVATION_STATUS_VALUES = ["En attente", "Confirmé", "Annulé"]
 VERIFIED_SENDER = "Studio Foveau <contact@studiofoveauphoto.fr>"
 STUDIO_REPLY_TO = "contact@studiofoveauphoto.fr"
 ADMIN_NOTIFICATION_EMAIL = "studiofoveau.admin@gmail.com"
+SITE_URL = "https://studiofoveauphoto.fr"
+BUSINESS_NAME = "Studio Foveau"
+BUSINESS_PHONE = "03 21 97 70 20"
+BUSINESS_EMAIL = "contact@studiofoveauphoto.fr"
+BUSINESS_FACEBOOK = "https://www.facebook.com/studiofoveau/"
+BUSINESS_ADDRESS_STREET = "37 Boulevard de l'Égalité"
+BUSINESS_ADDRESS_LOCALITY = "Calais"
+BUSINESS_ADDRESS_POSTAL_CODE = "62100"
+BUSINESS_ADDRESS_COUNTRY = "France"
+_resend_module = None
 
 
 def setup_logging():
@@ -65,6 +77,15 @@ def log_mail_runtime_config():
     }
 
     app.logger.info("Email runtime config: %s", mail_config)
+
+
+def get_resend_module():
+    """Charge et met en cache le SDK Resend pour éviter les imports répétés."""
+    global _resend_module
+    if _resend_module is None:
+        import resend
+        _resend_module = resend
+    return _resend_module
 
 
 from models import ContactMessage, Booking, AdminUser
@@ -210,7 +231,7 @@ def send_notification_email(subject, body, reply_to=None, recipient=None, html_b
         return False
 
     try:
-        import resend
+        resend = get_resend_module()
     except Exception:
         app.logger.exception("Resend package unavailable")
         return False
@@ -257,8 +278,8 @@ def send_notification_email(subject, body, reply_to=None, recipient=None, html_b
 
 
 def build_email_html_layout(title, intro, content_html):
-        """Construit une base HTML responsive noir/blanc pour tous les emails."""
-        return f"""<!doctype html>
+    """Construit une base HTML responsive noir/blanc pour tous les emails."""
+    return f"""<!doctype html>
 <html lang=\"fr\">
     <head>
         <meta charset=\"utf-8\" />
@@ -345,7 +366,7 @@ def build_email_html_layout(title, intro, content_html):
             <div class=\"footer\">
                 Studio Foveau<br />
                 Calais<br />
-                Email: studiofoveau.admin@gmail.com<br /><br />
+                Email: {BUSINESS_EMAIL}<br /><br />
                 Ceci est un email automatique.
             </div>
         </div>
@@ -354,11 +375,11 @@ def build_email_html_layout(title, intro, content_html):
 
 
 def send_admin_contact_email(payload):
-        """Envoie à l'admin la notification HTML du formulaire de contact."""
-        try:
-                received_at = datetime.now().strftime("%d/%m/%Y à %H:%M")
-                subject = "Nouveau message de contact - Studio Foveau"
-                content_html = f"""
+    """Envoie à l'admin la notification HTML du formulaire de contact."""
+    try:
+        received_at = datetime.now().strftime("%d/%m/%Y à %H:%M")
+        subject = "Nouveau message de contact - Studio Foveau"
+        content_html = f"""
                 <div class=\"card\">
                     <div class=\"row\"><span class=\"label\">Nom:</span> {escape(payload['name'])}</div>
                     <div class=\"row\"><span class=\"label\">Email:</span> {escape(payload['email'])}</div>
@@ -368,39 +389,39 @@ def send_admin_contact_email(payload):
                     <div class=\"row\"><span class=\"label\">Date de réception:</span> {received_at}</div>
                 </div>
                 """
-                html_body = build_email_html_layout(
-                        title="Nouveau message de contact",
-                        intro="Un nouveau message a été envoyé depuis le site Studio Foveau.",
-                        content_html=content_html,
-                )
-                body = (
-                        "Nouveau message de contact - Studio Foveau\n\n"
-                        f"Nom: {payload['name']}\n"
-                        f"Email: {payload['email']}\n"
-                        f"Téléphone: {payload['phone']}\n"
-                        f"Service sélectionné: {payload['service']}\n"
-                        f"Message: {payload['message']}\n"
-                        f"Date de réception: {received_at}\n"
-                )
-                recipient = os.environ.get("MAIL_RECIPIENT") or ADMIN_NOTIFICATION_EMAIL
-                return send_notification_email(
-                        subject=subject,
-                        body=body,
-                        reply_to=payload["email"],
-                        recipient=recipient,
-                        html_body=html_body,
-                )
-        except Exception:
-                app.logger.exception("Échec de préparation de l'email admin (contact)")
-                return False
+        html_body = build_email_html_layout(
+            title="Nouveau message de contact",
+            intro="Un nouveau message a été envoyé depuis le site Studio Foveau.",
+            content_html=content_html,
+        )
+        body = (
+            "Nouveau message de contact - Studio Foveau\n\n"
+            f"Nom: {payload['name']}\n"
+            f"Email: {payload['email']}\n"
+            f"Téléphone: {payload['phone']}\n"
+            f"Service sélectionné: {payload['service']}\n"
+            f"Message: {payload['message']}\n"
+            f"Date de réception: {received_at}\n"
+        )
+        recipient = os.environ.get("MAIL_RECIPIENT") or ADMIN_NOTIFICATION_EMAIL
+        return send_notification_email(
+            subject=subject,
+            body=body,
+            reply_to=payload["email"],
+            recipient=recipient,
+            html_body=html_body,
+        )
+    except Exception:
+        app.logger.exception("Échec de préparation de l'email admin (contact)")
+        return False
 
 
 def send_admin_reservation_email(payload):
-        """Envoie à l'admin la notification HTML de nouvelle réservation."""
-        try:
-                submitted_at = datetime.now().strftime("%d/%m/%Y à %H:%M")
-                subject = "Nouvelle réservation - Studio Foveau"
-                content_html = f"""
+    """Envoie à l'admin la notification HTML de nouvelle réservation."""
+    try:
+        submitted_at = datetime.now().strftime("%d/%m/%Y à %H:%M")
+        subject = "Nouvelle réservation - Studio Foveau"
+        content_html = f"""
                 <div class=\"card\">
                     <div class=\"row\"><span class=\"label\">Nom:</span> {escape(payload['name'])}</div>
                     <div class=\"row\"><span class=\"label\">Email:</span> {escape(payload['email'])}</div>
@@ -412,91 +433,91 @@ def send_admin_reservation_email(payload):
                     <div class=\"row\"><span class=\"label\">Date de soumission:</span> {submitted_at}</div>
                 </div>
                 """
-                html_body = build_email_html_layout(
-                        title="Nouvelle réservation",
-                        intro="Une nouvelle demande de réservation a été envoyée depuis le site.",
-                        content_html=content_html,
-                )
-                body = (
-                        "Nouvelle réservation - Studio Foveau\n\n"
-                        f"Nom: {payload['name']}\n"
-                        f"Email: {payload['email']}\n"
-                        f"Téléphone: {payload['phone']}\n"
-                        f"Service: {payload['service']}\n"
-                        f"Date demandée: {payload['requested_date']}\n"
-                        f"Heure demandée: {payload['requested_time']}\n"
-                        f"Message: {payload['message']}\n"
-                        f"Date de soumission: {submitted_at}\n"
-                )
-                recipient = os.environ.get("MAIL_RECIPIENT") or ADMIN_NOTIFICATION_EMAIL
-                return send_notification_email(
-                        subject=subject,
-                        body=body,
-                        reply_to=payload["email"],
-                        recipient=recipient,
-                        html_body=html_body,
-                )
-        except Exception:
-                app.logger.exception("Échec de préparation de l'email admin (réservation)")
-                return False
+        html_body = build_email_html_layout(
+            title="Nouvelle réservation",
+            intro="Une nouvelle demande de réservation a été envoyée depuis le site.",
+            content_html=content_html,
+        )
+        body = (
+            "Nouvelle réservation - Studio Foveau\n\n"
+            f"Nom: {payload['name']}\n"
+            f"Email: {payload['email']}\n"
+            f"Téléphone: {payload['phone']}\n"
+            f"Service: {payload['service']}\n"
+            f"Date demandée: {payload['requested_date']}\n"
+            f"Heure demandée: {payload['requested_time']}\n"
+            f"Message: {payload['message']}\n"
+            f"Date de soumission: {submitted_at}\n"
+        )
+        recipient = os.environ.get("MAIL_RECIPIENT") or ADMIN_NOTIFICATION_EMAIL
+        return send_notification_email(
+            subject=subject,
+            body=body,
+            reply_to=payload["email"],
+            recipient=recipient,
+            html_body=html_body,
+        )
+    except Exception:
+        app.logger.exception("Échec de préparation de l'email admin (réservation)")
+        return False
 
 
 def send_customer_contact_confirmation(payload):
-        """Envoie un accusé de réception HTML après un contact."""
-        try:
-                subject = "Nous avons bien reçu votre message - Studio Foveau"
-                customer_message_html = escape(payload.get("message", "")).replace("\n", "<br />")
-                content_html = f"""
+    """Envoie un accusé de réception HTML après un contact."""
+    try:
+        subject = "Nous avons bien reçu votre message - Studio Foveau"
+        customer_message_html = escape(payload.get("message", "")).replace("\n", "<br />")
+        content_html = f"""
                 <div class=\"card\">
                     <p>Bonjour {escape(payload['name'])},</p>
                     <p>Merci d'avoir contacté Studio Foveau.</p>
                     <p>Votre demande a bien été reçue. Notre équipe vous répondra dans les plus brefs délais.</p>
                     <div class=\"row\"><span class=\"label\">Service demandé:</span> {escape(payload['service'])}</div>
                     <div class=\"row\"><span class=\"label\">Votre message:</span><br />{customer_message_html}</div>
-                    <div class=\"row\"><span class=\"label\">Contact studio:</span> studiofoveau.admin@gmail.com</div>
+                    <div class=\"row\"><span class=\"label\">Contact studio:</span> {BUSINESS_EMAIL}</div>
                 </div>
                 """
-                html_body = build_email_html_layout(
-                        title="Message bien reçu",
-                        intro="Votre demande de contact est enregistrée.",
-                        content_html=content_html,
-                )
-                body = (
-                        f"Bonjour {payload['name']},\n\n"
-                        "Merci d'avoir contacté Studio Foveau.\n"
-                    "Votre demande a bien été reçue et nous vous répondrons dès que possible.\n\n"
-                    f"Service demandé: {payload['service']}\n"
-                    f"Votre message: {payload['message']}\n"
-                    "Contact studio: studiofoveau.admin@gmail.com\n\n"
-                        "Studio Foveau\n"
-                        "Calais\n"
-                        "Email: studiofoveau.admin@gmail.com\n\n"
-                        "Ceci est un email automatique."
-                )
-                return send_notification_email(
-                        subject=subject,
-                        body=body,
-                        recipient=payload["email"],
-                        html_body=html_body,
-                )
-        except Exception:
-                app.logger.exception("Échec de préparation de l'email client (contact)")
-                return False
+        html_body = build_email_html_layout(
+            title="Message bien reçu",
+            intro="Votre demande de contact est enregistrée.",
+            content_html=content_html,
+        )
+        body = (
+            f"Bonjour {payload['name']},\n\n"
+            "Merci d'avoir contacté Studio Foveau.\n"
+            "Votre demande a bien été reçue et nous vous répondrons dès que possible.\n\n"
+            f"Service demandé: {payload['service']}\n"
+            f"Votre message: {payload['message']}\n"
+            f"Contact studio: {BUSINESS_EMAIL}\n\n"
+            "Studio Foveau\n"
+            "Calais\n"
+            f"Email: {BUSINESS_EMAIL}\n\n"
+            "Ceci est un email automatique."
+        )
+        return send_notification_email(
+            subject=subject,
+            body=body,
+            recipient=payload["email"],
+            html_body=html_body,
+        )
+    except Exception:
+        app.logger.exception("Échec de préparation de l'email client (contact)")
+        return False
 
 
 def send_customer_reservation_confirmation(payload):
-        """Envoie un accusé de réception HTML après une réservation."""
-        try:
-                subject = "Votre demande de réservation a bien été reçue - Studio Foveau"
-                reservation_message = (payload.get("message") or "").strip()
-                reservation_message_html = escape(reservation_message).replace("\n", "<br />")
-                reservation_message_row = ""
-                if reservation_message:
-                        reservation_message_row = (
-                                f'<div class="row"><span class="label">Votre message:</span><br />{reservation_message_html}</div>'
-                        )
+    """Envoie un accusé de réception HTML après une réservation."""
+    try:
+        subject = "Votre demande de réservation a bien été reçue - Studio Foveau"
+        reservation_message = (payload.get("message") or "").strip()
+        reservation_message_html = escape(reservation_message).replace("\n", "<br />")
+        reservation_message_row = ""
+        if reservation_message:
+            reservation_message_row = (
+                f'<div class="row"><span class="label">Votre message:</span><br />{reservation_message_html}</div>'
+            )
 
-                content_html = f"""
+        content_html = f"""
                 <div class=\"card\">
                     <p>Bonjour {escape(payload['name'])},</p>
                     <p>Votre demande de réservation a bien été reçue. Elle n’est pas encore confirmée.</p>
@@ -507,34 +528,44 @@ def send_customer_reservation_confirmation(payload):
                     {reservation_message_row}
                 </div>
                 """
-                html_body = build_email_html_layout(
-                        title="Réservation reçue",
-                        intro="Votre demande est en cours de traitement.",
-                        content_html=content_html,
-                )
-                body = (
-                        f"Bonjour {payload['name']},\n\n"
-                        "Votre demande de réservation a bien été reçue. Elle n'est pas encore confirmée. "
-                        "Studio Foveau vous contactera rapidement pour confirmer le rendez-vous.\n\n"
-                        "Récapitulatif:\n"
-                        f"- Service demandé: {payload['service']}\n"
-                        f"- Date demandée: {payload['requested_date']}\n"
-                        f"- Heure demandée: {payload['requested_time']}\n"
-                        + (f"- Votre message: {reservation_message}\n" if reservation_message else "")
-                        + "\n"
-                        "Studio Foveau\n"
-                        "Calais\n\n"
-                        "Ceci est un email automatique."
-                )
-                return send_notification_email(
-                        subject=subject,
-                        body=body,
-                        recipient=payload["email"],
-                        html_body=html_body,
-                )
-        except Exception:
-                app.logger.exception("Échec de préparation de l'email client (réservation)")
-                return False
+        html_body = build_email_html_layout(
+            title="Réservation reçue",
+            intro="Votre demande est en cours de traitement.",
+            content_html=content_html,
+        )
+        body = (
+            f"Bonjour {payload['name']},\n\n"
+            "Votre demande de réservation a bien été reçue. Elle n'est pas encore confirmée. "
+            "Studio Foveau vous contactera rapidement pour confirmer le rendez-vous.\n\n"
+            "Récapitulatif:\n"
+            f"- Service demandé: {payload['service']}\n"
+            f"- Date demandée: {payload['requested_date']}\n"
+            f"- Heure demandée: {payload['requested_time']}\n"
+            + (f"- Votre message: {reservation_message}\n" if reservation_message else "")
+            + "\n"
+            "Studio Foveau\n"
+            "Calais\n"
+            f"Email: {BUSINESS_EMAIL}\n\n"
+            "Ceci est un email automatique."
+        )
+        return send_notification_email(
+            subject=subject,
+            body=body,
+            recipient=payload["email"],
+            html_body=html_body,
+        )
+    except Exception:
+        app.logger.exception("Échec de préparation de l'email client (réservation)")
+        return False
+
+
+@app.after_request
+def set_security_headers(response):
+    """Ajoute des en-têtes HTTP de sécurité compatibles avec le site actuel."""
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "SAMEORIGIN")
+    response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    return response
 
 
 # =========================
@@ -645,11 +676,46 @@ def get_studio_status():
 @app.context_processor
 def inject_status():
     is_open, label, detail = get_studio_status()
+    canonical_path = request.path if request.path == "/" else request.path.rstrip("/")
+    canonical_url = f"{SITE_URL}{canonical_path}"
+
+    local_business_schema = {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": BUSINESS_NAME,
+        "url": SITE_URL,
+        "telephone": BUSINESS_PHONE,
+        "email": BUSINESS_EMAIL,
+        "image": f"{SITE_URL}/static/images/Studio%20Foveau%20officiel.jpg",
+        "sameAs": [BUSINESS_FACEBOOK],
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": BUSINESS_ADDRESS_STREET,
+            "addressLocality": BUSINESS_ADDRESS_LOCALITY,
+            "postalCode": BUSINESS_ADDRESS_POSTAL_CODE,
+            "addressCountry": BUSINESS_ADDRESS_COUNTRY,
+        },
+        "priceRange": "EUR",
+    }
+
     return dict(
         is_open=is_open,
         status_label=label,
         status_detail=detail,
-        status=label
+        status=label,
+        site_url=SITE_URL,
+        canonical_url=canonical_url,
+        business_name=BUSINESS_NAME,
+        business_phone=BUSINESS_PHONE,
+        business_email=BUSINESS_EMAIL,
+        business_facebook=BUSINESS_FACEBOOK,
+        business_address_street=BUSINESS_ADDRESS_STREET,
+        business_address_locality=BUSINESS_ADDRESS_LOCALITY,
+        business_address_postal_code=BUSINESS_ADDRESS_POSTAL_CODE,
+        business_address_country=BUSINESS_ADDRESS_COUNTRY,
+        local_business_schema=local_business_schema,
+        google_site_verification=os.environ.get("GOOGLE_SITE_VERIFICATION", ""),
+        current_year=datetime.utcnow().year,
     )
 
 
@@ -670,17 +736,56 @@ def login_required(view):
 # =========================
 @app.route("/")
 def home():
-    return render_template("home.html")
+    return render_template(
+        "home.html",
+        meta_title="Studio Foveau - Photographe à Calais",
+        meta_description="Studio Foveau, studio photo professionnel à Calais: photos d'identité, portraits, reportages et tirages photo de qualité.",
+    )
 
 
 @app.route("/services")
 def services():
-    return render_template("services.html")
+    return render_template(
+        "services.html",
+        meta_title="Prestations Photo - Studio Foveau Calais",
+        meta_description="Découvrez les prestations de Studio Foveau à Calais: identité, portraits, événements, tirages, albums et borne selfie.",
+    )
 
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    return render_template(
+        "about.html",
+        meta_title="À Propos - Studio Foveau Photographe",
+        meta_description="Découvrez l'histoire de Studio Foveau, studio photo professionnel à Calais depuis 1990.",
+    )
+
+
+@app.route("/mentions-legales")
+def mentions_legales():
+    return render_template(
+        "mentions-legales.html",
+        meta_title="Mentions Légales - Studio Foveau",
+        meta_description="Mentions légales du site studiofoveauphoto.fr: éditeur, hébergeur, propriété intellectuelle et informations légales.",
+    )
+
+
+@app.route("/politique-confidentialite")
+def politique_confidentialite():
+    return render_template(
+        "politique-confidentialite.html",
+        meta_title="Politique de Confidentialité - Studio Foveau",
+        meta_description="Politique de confidentialité et RGPD de Studio Foveau: données collectées, conservation, cookies et droits des utilisateurs.",
+    )
+
+
+@app.route("/cgu")
+def cgu():
+    return render_template(
+        "cgu.html",
+        meta_title="CGU - Studio Foveau",
+        meta_description="Conditions Générales d'Utilisation du site Studio Foveau: accès au service, responsabilités et règles d'usage.",
+    )
 
 
 @app.route("/contact", methods=["GET", "POST"])
@@ -702,7 +807,11 @@ def contact():
         flash("Message envoyé ✔", "success")
         return redirect(url_for("contact"))
 
-    return render_template("contact.html")
+    return render_template(
+        "contact.html",
+        meta_title="Contact Studio Foveau - Calais",
+        meta_description="Contactez Studio Foveau à Calais par téléphone, email ou formulaire pour toute demande photo ou réservation.",
+    )
 
 
 @app.route("/reservation", methods=["GET", "POST"])
@@ -724,7 +833,54 @@ def reservation():
         flash("Réservation enregistrée ✔", "success")
         return redirect(url_for("reservation"))
 
-    return render_template("reservation.html")
+    return render_template(
+        "reservation.html",
+        meta_title="Réservation Photo - Studio Foveau",
+        meta_description="Réservez votre séance photo chez Studio Foveau à Calais via le formulaire en ligne.",
+    )
+
+
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    pages = [
+        "/",
+        "/about",
+        "/services",
+        "/contact",
+        "/reservation",
+        "/mentions-legales",
+        "/politique-confidentialite",
+        "/cgu",
+    ]
+    xml_body = [
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+        "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">",
+    ]
+
+    for path in pages:
+        canonical = f"{SITE_URL}{path}" if path != "/" else SITE_URL
+        xml_body.extend(
+            [
+                "  <url>",
+                f"    <loc>{canonical}</loc>",
+                "    <changefreq>weekly</changefreq>",
+                "    <priority>0.8</priority>",
+                "  </url>",
+            ]
+        )
+
+    xml_body.append("</urlset>")
+    return Response("\n".join(xml_body), mimetype="application/xml")
+
+
+@app.route("/robots.txt")
+def robots_txt():
+    content = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        f"Sitemap: {SITE_URL}/sitemap.xml\n"
+    )
+    return Response(content, mimetype="text/plain")
 
 
 # =========================
@@ -955,6 +1111,9 @@ def validate_admin_template_routes():
             "Routes admin manquantes détectées dans les templates : "
             + ", ".join(missing_routes)
         )
+
+
+validate_admin_template_routes()
 
 
 # =========================

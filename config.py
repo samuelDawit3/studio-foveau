@@ -1,9 +1,9 @@
 import os
+from datetime import timedelta
 from dotenv import load_dotenv
 
 load_dotenv()
 
-basedir = os.path.abspath(os.path.dirname(__file__))
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -29,7 +29,6 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Session security
-    from datetime import timedelta
     PERMANENT_SESSION_LIFETIME = timedelta(days=int(os.environ.get('PERMANENT_SESSION_LIFETIME_DAYS', '7')))
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = os.environ.get('SESSION_COOKIE_SAMESITE', 'Lax')

@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% set meta_title = "Studio Foveau - Photographe Professionnel à Calais" %}
+{% set meta_description = "Studio Foveau à Calais: photos d'identité en 5 minutes, portraits studio, reportages et réservations en ligne." %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -7,7 +9,7 @@
         <div class="row align-items-center hero-row">
             <div class="col-12 col-lg-7 mb-4 mb-lg-0">
                 <div class="hero-media-wrap text-center">
-                    <img src="{{ url_for('static', filename='images/Studio Foveau officiel.jpg') }}" alt="Studio Foveau - Calais" class="img-fluid hero-main-image" loading="lazy">
+                    <img src="{{ url_for('static', filename='images/Studio Foveau officiel.jpg') }}" alt="Façade du Studio Foveau à Calais" class="img-fluid hero-main-image" loading="lazy" width="1200" height="800">
                 </div>
             </div>
             <div class="col-12 col-lg-5">
@@ -18,7 +20,7 @@
                         <a href="{{ url_for('services') }}" class="btn btn-lg btn-primary">
                             <i class="fas fa-images me-2"></i>Voir nos prestations
                         </a>
-                        <a href="tel:+33321964XXX" class="btn btn-lg btn-outline-light">
+                        <a href="tel:+33321977020" class="btn btn-lg btn-outline-light" aria-label="Téléphoner au 03 21 97 70 20">
                             <i class="fas fa-phone me-2"></i>Nous appeler
                         </a>
                     </div>
@@ -113,21 +115,21 @@
         <div class="row">
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="service-card">
-                    <img src="{{ url_for('static', filename='images/com.jpg') }}" alt="Photos d'identité" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy">
+                    <img src="{{ url_for('static', filename='images/com.jpg') }}" alt="Exemple de photos d'identité conformes" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy" width="900" height="600">
                     <h4>Photos d'identité</h4>
                     <p>Passeport, visa, CNI, CV • Prêtes en 5 minutes</p>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="service-card">
-                    <img src="{{ url_for('static', filename='images/foveau1.jpg') }}" alt="Portraits en studio" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy">
+                    <img src="{{ url_for('static', filename='images/foveau1.jpg') }}" alt="Séance portrait en studio photo" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy" width="900" height="600">
                     <h4>Portraits Studio</h4>
                     <p>Famille, enfants, couples • Studio & extérieur</p>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="service-card">
-                    <img src="{{ url_for('static', filename='images/photos.jpg') }}" alt="Événements" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy">
+                    <img src="{{ url_for('static', filename='images/photos.jpg') }}" alt="Reportage photo événementiel" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy" width="900" height="600">
                     <h4>Événements</h4>
                     <p>Mariages, baptêmes, événements professionnels</p>
                 </div>

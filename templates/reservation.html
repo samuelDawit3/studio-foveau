@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% set meta_title = "Réservation en Ligne - Studio Foveau" %}
+{% set meta_description = "Formulaire de réservation Studio Foveau à Calais pour photos d'identité, portraits et reportages." %}
 
 {% block content %}
 <!-- Page Title -->
@@ -17,6 +19,7 @@
                 <div class="form-card p-4 p-md-5 shadow-sm rounded-4 bg-white">
                     <h2 class="mb-4 section-title">Demande de réservation</h2>
                     <form method="POST" action="{{ url_for('reservation') }}" class="needs-validation" novalidate>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <div class="row g-3">
                             <div class="col-12 col-md-6">
                                 <label for="name" class="form-label fw-bold">Nom *</label>
