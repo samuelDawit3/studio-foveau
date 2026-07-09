@@ -222,7 +222,7 @@ def send_notification_email(subject, body, reply_to=None, recipient=None, html_b
         or os.environ.get("ADMIN_EMAIL")
         or ADMIN_NOTIFICATION_EMAIL
     )
-    sender = os.environ.get("MAIL_DEFAULT_SENDER") or VERIFIED_SENDER
+    sender = os.environ.get("MAIL_DEFAULT_SENDER") or "Studio Foveau <contact@studiofoveauphoto.fr>"
     resolved_reply_to = STUDIO_REPLY_TO
 
     if not configured_recipient or not sender:
@@ -694,8 +694,10 @@ def contact():
         db.session.add(ContactMessage(**payload))
         db.session.commit()
 
-        send_admin_contact_email(payload)
-        # Customer confirmations are disabled until studiofoveau.fr is verified in Resend.
+        admin_result = send_admin_contact_email(payload)
+        app.logger.info("Admin contact email result: %s", admin_result)
+        customer_result = send_customer_contact_confirmation(payload)
+        app.logger.info("Customer contact email result: %s", customer_result)
 
         flash("Message envoyé ✔", "success")
         return redirect(url_for("contact"))
@@ -714,8 +716,10 @@ def reservation():
         db.session.add(Booking(**payload))
         db.session.commit()
 
-        send_admin_reservation_email(payload)
-        # Customer confirmations are disabled until studiofoveau.fr is verified in Resend.
+        admin_result = send_admin_reservation_email(payload)
+        app.logger.info("Admin reservation email result: %s", admin_result)
+        customer_result = send_customer_reservation_confirmation(payload)
+        app.logger.info("Customer reservation email result: %s", customer_result)
 
         flash("Réservation enregistrée ✔", "success")
         return redirect(url_for("reservation"))
