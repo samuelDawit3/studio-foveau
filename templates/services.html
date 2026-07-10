@@ -22,14 +22,14 @@
             </div>
             <div class="col-12 col-md-6">
                 <h2 class="mb-3">Photos d'Identité</h2>
-                <p class="mb-3">Besoin de photos conformes pour vos documents administratifs ? Nous produisons vos photos d'identité en seulement 5 minutes !</p>
+                <p class="mb-3">Réalisez vos photos d'identité officielles rapidement avec un rendu conforme aux normes en vigueur.</p>
                 <ul class="service-list mb-4">
-                    <li><strong>Passeport</strong> - Français et internationalaux</li>
-                    <li><strong>Carte Nationale d'Identité</strong> - CNI conforme</li>
-                    <li><strong>Visa</strong> - Normes internationales</li>
-                    <li><strong>Permis de conduire</strong> - Conformité garantie</li>
-                    <li><strong>CV photo</strong> - Professionnelle et valorisante</li>
-                    <li><strong>Carte Vitale</strong> - Qualité optimale</li>
+                    <li><strong>Passeport</strong> - Format réglementaire</li>
+                    <li><strong>Carte nationale d'identité</strong> - Cadrage conforme</li>
+                    <li><strong>Visa</strong> - Exigences internationales</li>
+                    <li><strong>Permis de conduire</strong> - Normes administratives</li>
+                    <li><strong>Carte Vitale</strong> - Qualité nette</li>
+                    <li><strong>Photo CV</strong> - Présentation professionnelle</li>
                 </ul>
                 <p class="text-muted"><i class="fas fa-clock me-2"></i><strong>Délai :</strong> 5 minutes</p>
             </div>
@@ -48,17 +48,73 @@
             </div>
             <div class="col-12 col-md-6 order-md-1">
                 <h2 class="mb-3">Portraits en Studio</h2>
-                <p class="mb-3">Capturez vos plus beaux moments avec nos photographes professionnels. Studio équipé de tout le matériel moderne pour des portraits de qualité supérieure.</p>
+                <p class="mb-3">Profitez d'une séance en studio pour des portraits soignés, naturels et adaptés à vos envies.</p>
                 <ul class="service-list mb-4">
-                    <li><strong>Bébés & enfants</strong> - Doux et naturels</li>
-                    <li><strong>Familles</strong> - Moments chaleureux</li>
-                    <li><strong>Couples</strong> - Tendresse et complicité</li>
-                    <li><strong>Portraits individuels</strong> - Valorisants et professionnels</li>
-                    <li><strong>Noir & blanc</strong> - Intemporel et élégant</li>
-                    <li><strong>Extérieur</strong> - En environnement naturel</li>
+                    <li><strong>Portrait individuel</strong> - Mise en valeur personnalisée</li>
+                    <li><strong>Couple</strong> - Photos naturelles</li>
+                    <li><strong>Famille</strong> - Souvenirs authentiques</li>
+                    <li><strong>Lumière studio</strong> - Rendu professionnel</li>
+                    <li><strong>Noir & blanc</strong> - Style intemporel</li>
+                    <li><strong>Retouche légère</strong> - Finition soignée</li>
                 </ul>
                 <a href="{{ url_for('contact') }}" class="btn btn-primary">
                     <i class="fas fa-calendar-alt me-2"></i>Réserver une séance
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Shooting Photo Enfant Section -->
+<section class="service-detail py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/ph.jpg') }}" alt="Shooting photo enfant en studio" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="mb-3">Shooting Photo Enfant</h2>
+                <p class="mb-3">Des séances adaptées aux enfants dans une ambiance détendue pour créer des souvenirs uniques.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Bébés</strong> - Séances douces et sécurisées</li>
+                    <li><strong>Enfants</strong> - Approche ludique</li>
+                    <li><strong>Frères et sœurs</strong> - Moments complices</li>
+                    <li><strong>Portraits</strong> - Expressions naturelles</li>
+                    <li><strong>Séances thématiques</strong> - Décors adaptés</li>
+                    <li><strong>Impression possible</strong> - Tirages à la demande</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-calendar-alt me-2"></i>Réserver une séance enfant
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mariages Section -->
+<section class="service-detail py-5 scroll-animate alternate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/photos.jpg') }}" alt="Photographie de mariage" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
+                </div>
+            </div>
+            <div class="col-12 col-md-6 order-md-1">
+                <h2 class="mb-3">Mariages</h2>
+                <p class="mb-3">Nous vous accompagnons tout au long de votre mariage afin d'immortaliser chaque instant avec des photographies naturelles et élégantes.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Préparatifs</strong> - Moments clés avant la cérémonie</li>
+                    <li><strong>Cérémonie</strong> - Prises de vue discrètes</li>
+                    <li><strong>Photos de groupe</strong> - Organisation fluide</li>
+                    <li><strong>Couple</strong> - Séance dédiée</li>
+                    <li><strong>Vin d'honneur</strong> - Reportage ambiance</li>
+                    <li><strong>Album personnalisé</strong> - Mise en page premium</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-heart me-2"></i>Préparer votre reportage mariage
                 </a>
             </div>
         </div>
@@ -76,14 +132,14 @@
             </div>
             <div class="col-12 col-md-6">
                 <h2 class="mb-3">Reportages Événementiels</h2>
-                <p class="mb-3">Immortalisez vos plus beaux moments. Nos photographes professionnels capturent chaque instant d'émotion avec expertise et discrétion.</p>
+                <p class="mb-3">Immortalisez vos événements privés et professionnels grâce à un reportage complet et naturel.</p>
                 <ul class="service-list mb-4">
-                    <li><strong>Mariages</strong> - Cérémonie, photos de groupe, banquet</li>
-                    <li><strong>Baptêmes</strong> - Moments familiaux précieux</li>
-                    <li><strong>Anniversaires</strong> - En studio ou sur lieu</li>
-                    <li><strong>Événements professionnels</strong> - Conférences, séminaires</li>
-                    <li><strong>Galas & réceptions</strong> - Ambiance et élégance</li>
-                    <li><strong>Événements spéciaux</strong> - Vos projets sur mesure</li>
+                    <li><strong>Baptêmes</strong> - Souvenirs familiaux</li>
+                    <li><strong>Anniversaires</strong> - Captation des moments forts</li>
+                    <li><strong>Événements d'entreprise</strong> - Communication pro</li>
+                    <li><strong>Galas</strong> - Ambiance et détails</li>
+                    <li><strong>Réceptions</strong> - Photos spontanées</li>
+                    <li><strong>Prestations sur mesure</strong> - Selon votre projet</li>
                 </ul>
                 <a href="{{ url_for('contact') }}" class="btn btn-primary">
                     <i class="fas fa-envelope me-2"></i>Nous consulter
@@ -99,22 +155,78 @@
         <div class="row align-items-center">
             <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
                 <div class="service-visual">
-                    <img src="{{ url_for('static', filename='images/photos1.jpg') }}" alt="Tirage et développement photo en studio" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); object-position: center;" loading="lazy" width="1200" height="800">
+                    <img src="{{ url_for('static', filename='images/development photo argentique.jpg') }}" alt="Tirage numérique et développement argentique" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); object-position: center;" loading="lazy" width="1200" height="800">
                 </div>
             </div>
             <div class="col-12 col-md-6 order-md-1">
-                <h2 class="mb-3">Tirage et Développement</h2>
-                <p class="mb-3">Vos photos numériques ou argentiques développées et tirées avec excellence. Nous garantissons une qualité professionnelle sur tous nos produits.</p>
+                <h2 class="mb-3">Tirage numérique & Développement argentique</h2>
+                <p class="mb-3">Nous développons vos pellicules argentiques et réalisons des tirages numériques haute qualité dans notre laboratoire photo.</p>
                 <ul class="service-list mb-4">
-                    <li><strong>Tirage numérique</strong> - Qualité d'exposition</li>
-                    <li><strong>Développement argentique</strong> - Procédés traditionnels</li>
-                    <li><strong>Grand format</strong> - Jusqu'à A0</li>
-                    <li><strong>Tirage scolaire</strong> - Formules groupes</li>
-                    <li><strong>Albums photo</strong> - Reliure artisanale</li>
-                    <li><strong>Encadrement</strong> - Finition professionnelle</li>
+                    <li><strong>Développement couleur</strong> - Pellicules traitées avec soin</li>
+                    <li><strong>Développement noir & blanc</strong> - Rendu précis</li>
+                    <li><strong>Tirages numériques</strong> - Formats variés</li>
+                    <li><strong>Numérisation de négatifs</strong> - Archivage simplifié</li>
+                    <li><strong>Impression haute qualité</strong> - Papier professionnel</li>
+                    <li><strong>Conseils personnalisés</strong> - Selon vos besoins</li>
                 </ul>
                 <a href="{{ url_for('contact') }}" class="btn btn-primary">
                     <i class="fas fa-images me-2"></i>Demander un devis
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Agrandissements Photo Section -->
+<section class="service-detail py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/photos1.jpg') }}" alt="Agrandissements photo professionnels" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="mb-3">Agrandissements photo</h2>
+                <p class="mb-3">Mettez vos plus beaux souvenirs en valeur grâce à nos agrandissements photo de qualité professionnelle.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Petit format</strong> - Tirages classiques</li>
+                    <li><strong>Grand format</strong> - Impact visuel</li>
+                    <li><strong>Posters</strong> - Décoration personnalisée</li>
+                    <li><strong>Toiles photo</strong> - Finition élégante</li>
+                    <li><strong>Impression haute définition</strong> - Détails nets</li>
+                    <li><strong>Plusieurs finitions</strong> - Mate, brillante ou satinée</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-images me-2"></i>Commander un agrandissement
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Albums Section -->
+<section class="service-detail py-5 scroll-animate alternate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/album photos.jpg') }}" alt="Vente d'albums photo" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
+                </div>
+            </div>
+            <div class="col-12 col-md-6 order-md-1">
+                <h2 class="mb-3">Vente d'albums photo</h2>
+                <p class="mb-3">Conservez vos souvenirs dans des albums photo élégants, disponibles dans différents formats et finitions.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Albums mariage</strong> - Mise en page premium</li>
+                    <li><strong>Albums famille</strong> - Souvenirs durables</li>
+                    <li><strong>Albums personnalisés</strong> - Design sur mesure</li>
+                    <li><strong>Différents formats</strong> - Du compact au grand format</li>
+                    <li><strong>Qualité premium</strong> - Matériaux sélectionnés</li>
+                    <li><strong>Fabrication soignée</strong> - Finitions précises</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-book me-2"></i>Choisir un album photo
                 </a>
             </div>
         </div>
@@ -131,46 +243,18 @@
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                <h2 class="mb-3">Location Borne Selfie</h2>
-                <p class="mb-3">Animez vos événements avec notre borne selfie professionnelle ! Divertissement garanti pour vos invités et souvenirs amusants à partager.</p>
+                <h2 class="mb-3">Borne selfie</h2>
+                <p class="mb-3">Animez vos événements avec notre borne selfie professionnelle. Offrez à vos invités une expérience ludique avec impression instantanée de leurs souvenirs.</p>
                 <ul class="service-list mb-4">
-                    <li><strong>Animation événementielle</strong> - Mariages, anniversaires</li>
-                    <li><strong>Impression instantanée</strong> - Souvenirs immédiats</li>
-                    <li><strong>Accessoires inclus</strong> - Chapeaux, masques, props</li>
-                    <li><strong>Montage numérique</strong> - Logos et personnalisation</li>
-                    <li><strong>Stockage numérique</strong> - Accès illimité aux photos</li>
-                    <li><strong>Forfaits flexibles</strong> - À l'heure ou à la journée</li>
+                    <li><strong>Mariages</strong> - Animation conviviale</li>
+                    <li><strong>Anniversaires</strong> - Souvenirs instantanés</li>
+                    <li><strong>Événements d'entreprise</strong> - Animation professionnelle</li>
+                    <li><strong>Impression instantanée</strong> - Tirage sur place</li>
+                    <li><strong>Personnalisation des cadres photo</strong> - Habillage à votre image</li>
+                    <li><strong>Galerie numérique</strong> - Accès à toutes les photos</li>
                 </ul>
                 <a href="{{ url_for('contact') }}" class="btn btn-primary">
                     <i class="fas fa-star me-2"></i>Réserver la borne selfie
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Albums Section -->
-<section class="service-detail py-5 scroll-animate alternate">
-    <div class="container-fluid px-3 px-md-4">
-        <div class="row align-items-center">
-            <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
-                <div class="service-visual">
-                    <img src="{{ url_for('static', filename='images/phto.jpg') }}" alt="Album photo mariage premium" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
-                </div>
-            </div>
-            <div class="col-12 col-md-6 order-md-1">
-                <h2 class="mb-3">Albums Photo Mariage</h2>
-                <p class="mb-3">Conservez vos plus beaux souvenirs de mariage dans un album d'exception. Nos albums premium offrent qualité, esthétique et durabilité.</p>
-                <ul class="service-list mb-4">
-                    <li><strong>Mise en page artistique</strong> - Composition professionnelle</li>
-                    <li><strong>Qualité premium</strong> - Papier photo haute gamme</li>
-                    <li><strong>Reliure luxe</strong> - Cuir, lin ou toile</li>
-                    <li><strong>Formats personnalisés</strong> - Du 20x20 au 40x40</li>
-                    <li><strong>Gravure possible</strong> - Initiales, dates, messages</li>
-                    <li><strong>Devis sur demande</strong> - Forfaits adaptés</li>
-                </ul>
-                <a href="{{ url_for('contact') }}" class="btn btn-primary">
-                    <i class="fas fa-heart me-2"></i>Composer votre album
                 </a>
             </div>
         </div>
