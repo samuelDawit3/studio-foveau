@@ -13,7 +13,7 @@
     <meta property="og:title" content="{{ meta_title }}">
     <meta property="og:description" content="{{ meta_description }}">
     <meta property="og:url" content="{{ canonical_url }}">
-    <meta property="og:image" content="{{ site_url }}/static/images/Studio%20Foveau%20officiel.jpg">
+    <meta property="og:image" content="{{ site_url }}/static/images/ChatGPT-Image-Jul-13_-2026_-06_10_56-PM.svg">
     <link rel="alternate" hreflang="fr" href="{{ alternate_urls.fr }}">
     <link rel="alternate" hreflang="en" href="{{ alternate_urls.en }}">
     <link rel="alternate" hreflang="x-default" href="{{ alternate_urls.fr }}">
@@ -38,6 +38,7 @@
             "url": "{{ site_url }}",
             "email": "{{ business_email }}",
             "telephone": "{{ business_phone }}",
+            "logo": "{{ site_url }}/static/images/ChatGPT-Image-Jul-13_-2026_-06_10_56-PM.svg",
             "sameAs": ["{{ business_facebook }}"],
             "address": {
                 "@type": "PostalAddress",
@@ -62,9 +63,9 @@
         {
             "@context": "https://schema.org",
             "@type": "ImageObject",
-            "name": "Studio Foveau à Calais",
-            "contentUrl": "{{ site_url }}/static/images/Studio%20Foveau%20officiel.jpg",
-            "url": "{{ site_url }}/static/images/Studio%20Foveau%20officiel.jpg",
+            "name": "Studio Foveau logo",
+            "contentUrl": "{{ site_url }}/static/images/ChatGPT-Image-Jul-13_-2026_-06_10_56-PM.svg",
+            "url": "{{ site_url }}/static/images/ChatGPT-Image-Jul-13_-2026_-06_10_56-PM.svg",
             "inLanguage": "{{ current_locale }}"
         }
         </script>
@@ -97,7 +98,7 @@
         <div class="container-fluid px-3 px-md-4">
             <nav class="navbar navbar-expand-lg navbar-light" aria-label="{{ t('nav.main') }}">
                 <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ url_for('home') }}">
-                    <i class="fas fa-camera me-2" style="color: #1a1a1a; font-size: 24px;"></i>
+                    <img src="{{ url_for('static', filename='images/ChatGPT-Image-Jul-13_-2026_-06_10_56-PM.svg') }}" alt="Studio Foveau Studio Photo Calais" title="Studio Foveau" loading="eager" class="site-logo navbar-logo me-2">
                     <span class="d-none d-sm-inline">Studio Foveau</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="{{ t('nav.toggle') }}">
@@ -203,6 +204,9 @@
             </div>
             <hr class="my-4">
             <div class="text-center">
+                <div class="mb-3">
+                    <img src="{{ url_for('static', filename='images/ChatGPT-Image-Jul-13_-2026_-06_10_56-PM.svg') }}" alt="Studio Foveau Studio Photo Calais" title="Studio Foveau" class="site-logo footer-logo">
+                </div>
                 <p class="mb-2">&copy; {{ current_year }} Studio Foveau. {{ t('footer.copyright') }}</p>
                 <div class="social-links">
                     <a href="https://www.facebook.com/studiofoveau/" class="text-decoration-none" title="Facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook Studio Foveau">

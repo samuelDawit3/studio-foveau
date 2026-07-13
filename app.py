@@ -45,6 +45,7 @@ BUSINESS_ADDRESS_LOCALITY = "Calais"
 BUSINESS_ADDRESS_POSTAL_CODE = "62100"
 BUSINESS_ADDRESS_COUNTRY = "France"
 _resend_module = None
+OFFICIAL_LOGO_PATH = "/static/images/ChatGPT-Image-Jul-13_-2026_-06_10_56-PM.svg"
 
 SUPPORTED_LANGUAGES = ("fr", "en")
 LANGUAGE_TO_LOCALE = {"fr": "fr-FR", "en": "en-GB"}
@@ -1060,7 +1061,8 @@ def inject_status():
         "url": SITE_URL,
         "telephone": BUSINESS_PHONE,
         "email": BUSINESS_EMAIL,
-        "image": f"{SITE_URL}/static/images/Studio%20Foveau%20officiel.jpg",
+        "image": f"{SITE_URL}{OFFICIAL_LOGO_PATH}",
+        "logo": f"{SITE_URL}{OFFICIAL_LOGO_PATH}",
         "sameAs": [BUSINESS_FACEBOOK],
         "address": {
             "@type": "PostalAddress",
