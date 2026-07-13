@@ -1,0 +1,322 @@
+{% extends "base.html" %}
+{% set meta_title = meta_title or "Photography Services | Studio Foveau Calais" %}
+{% set meta_description = meta_description or "Explore Studio Foveau services in Calais: passport and ID photos, studio portraits, wedding photography, event coverage, film development and photo printing." %}
+
+{% block content %}
+<section class="page-title-section page-title-dark py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h1 class="display-5 fw-bold mb-3 hero-title" style="color: white;">Our Services</h1>
+        <p class="lead text-white">Discover all photography services available at Studio Foveau</p>
+    </div>
+</section>
+
+<section class="service-detail py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/com.jpg') }}" alt="Professional compliant passport and ID photos" title="Passport and ID photos in Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="mb-3">Passport and ID Photos</h2>
+                <p class="mb-3">Get official ID photos quickly with a result compliant with current standards.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Passport</strong> - Regulatory format</li>
+                    <li><strong>National ID card</strong> - Compliant framing</li>
+                    <li><strong>Visa</strong> - International requirements</li>
+                    <li><strong>Driving licence</strong> - Administrative standards</li>
+                    <li><strong>Health card</strong> - Clear quality</li>
+                    <li><strong>CV photo</strong> - Professional presentation</li>
+                </ul>
+                <p class="text-muted"><i class="fas fa-clock me-2"></i><strong>Turnaround:</strong> 5 minutes</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-detail py-5 scroll-animate alternate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/foveau1.jpg') }}" alt="Studio portraits" title="Studio portraits in Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
+                </div>
+            </div>
+            <div class="col-12 col-md-6 order-md-1">
+                <h2 class="mb-3">Studio Portraits</h2>
+                <p class="mb-3">Enjoy a studio session for natural, polished portraits tailored to your style.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Individual portraits</strong> - Personalised direction</li>
+                    <li><strong>Couples</strong> - Natural images</li>
+                    <li><strong>Family</strong> - Genuine memories</li>
+                    <li><strong>Studio lighting</strong> - Professional finish</li>
+                    <li><strong>Black and white</strong> - Timeless look</li>
+                    <li><strong>Light retouching</strong> - Clean final rendering</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-calendar-alt me-2"></i>Book a session
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-detail py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/ph.jpg') }}" alt="Children's photo session in studio" title="Children's photo sessions in Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="mb-3">Children's Photo Sessions</h2>
+                <p class="mb-3">Sessions adapted for children in a relaxed atmosphere to create unique memories.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Babies</strong> - Gentle and safe sessions</li>
+                    <li><strong>Children</strong> - Playful approach</li>
+                    <li><strong>Siblings</strong> - Shared moments</li>
+                    <li><strong>Portraits</strong> - Natural expressions</li>
+                    <li><strong>Themed sessions</strong> - Suitable set designs</li>
+                    <li><strong>Prints available</strong> - On-demand output</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-calendar-alt me-2"></i>Book a children session
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-detail py-5 scroll-animate alternate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/photos.jpg') }}" alt="Wedding photography" title="Wedding photography in Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
+                </div>
+            </div>
+            <div class="col-12 col-md-6 order-md-1">
+                <h2 class="mb-3">Wedding Photography</h2>
+                <p class="mb-3">We support you throughout your wedding day to capture every key moment with elegant and natural images.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Preparations</strong> - Key moments before the ceremony</li>
+                    <li><strong>Ceremony</strong> - Discreet coverage</li>
+                    <li><strong>Group photos</strong> - Smooth organisation</li>
+                    <li><strong>Couple session</strong> - Dedicated shooting time</li>
+                    <li><strong>Reception</strong> - Atmosphere coverage</li>
+                    <li><strong>Custom album</strong> - Premium layout</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-heart me-2"></i>Plan your wedding coverage
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-detail py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/photos1.jpg') }}" alt="Professional event photography" title="Event photography in Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="mb-3">Event Photography</h2>
+                <p class="mb-3">Capture your private and professional events with complete and natural coverage.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Christenings</strong> - Family memories</li>
+                    <li><strong>Birthdays</strong> - Highlights coverage</li>
+                    <li><strong>Corporate events</strong> - Professional communication</li>
+                    <li><strong>Galas</strong> - Atmosphere and details</li>
+                    <li><strong>Receptions</strong> - Candid photography</li>
+                    <li><strong>Custom service</strong> - Tailored to your project</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-envelope me-2"></i>Request information
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-detail py-5 scroll-animate alternate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/development photo argentique.jpg') }}" alt="Digital printing and film development" title="Film development and digital printing in Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); object-position: center;" loading="lazy" decoding="async" width="1200" height="800">
+                </div>
+            </div>
+            <div class="col-12 col-md-6 order-md-1">
+                <h2 class="mb-3">Digital Printing & Film Development</h2>
+                <p class="mb-3">We develop your film rolls and produce high-quality digital prints in our photo lab.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Colour development</strong> - Carefully processed film</li>
+                    <li><strong>Black and white development</strong> - Precise rendering</li>
+                    <li><strong>Digital printing</strong> - Multiple formats</li>
+                    <li><strong>Negative scanning</strong> - Easier archiving</li>
+                    <li><strong>High-quality output</strong> - Professional paper</li>
+                    <li><strong>Personal advice</strong> - Based on your needs</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-images me-2"></i>Request a quote
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-detail py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/photos1.jpg') }}" alt="Professional photo enlargements" title="Photo enlargements in Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="mb-3">Photo Enlargements</h2>
+                <p class="mb-3">Showcase your best memories with professional-grade enlargements.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Small formats</strong> - Classic prints</li>
+                    <li><strong>Large formats</strong> - Strong visual impact</li>
+                    <li><strong>Posters</strong> - Custom decoration</li>
+                    <li><strong>Canvas prints</strong> - Elegant finish</li>
+                    <li><strong>High-definition output</strong> - Sharp details</li>
+                    <li><strong>Multiple finishes</strong> - Matte, glossy or satin</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-images me-2"></i>Order an enlargement
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-detail py-5 scroll-animate alternate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/album photos.jpg') }}" alt="Photo albums and frames" title="Photo albums and frames in Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
+                </div>
+            </div>
+            <div class="col-12 col-md-6 order-md-1">
+                <h2 class="mb-3">Photo Albums and Frames</h2>
+                <p class="mb-3">Keep your memories in elegant albums and display them with carefully selected frames.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Wedding albums</strong> - Premium layouts</li>
+                    <li><strong>Family albums</strong> - Lasting memories</li>
+                    <li><strong>Custom albums</strong> - Tailored design</li>
+                    <li><strong>Various formats</strong> - From compact to large format</li>
+                    <li><strong>Premium quality</strong> - Selected materials</li>
+                    <li><strong>Frame selection</strong> - Multiple sizes and finishes</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-book me-2"></i>Choose an album or frame
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-detail py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                <div class="service-visual">
+                    <img src="{{ url_for('static', filename='images/photographie.jpg') }}" alt="Selfie booth hire for events" title="Selfie booth hire in Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="mb-3">Selfie Booth Hire</h2>
+                <p class="mb-3">Bring energy to your events with our professional selfie booth and instant prints.</p>
+                <ul class="service-list mb-4">
+                    <li><strong>Weddings</strong> - Friendly entertainment</li>
+                    <li><strong>Birthdays</strong> - Instant keepsakes</li>
+                    <li><strong>Corporate events</strong> - Professional activity</li>
+                    <li><strong>Instant printing</strong> - On-site output</li>
+                    <li><strong>Custom photo frames</strong> - Branded design</li>
+                    <li><strong>Digital gallery</strong> - Access to all photos</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                    <i class="fas fa-star me-2"></i>Book the selfie booth
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pricing-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h2 class="text-center mb-5">Indicative pricing</h2>
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="pricing-card">
+                    <h4>Passport and ID photos</h4>
+                    <p class="price">From 10 EUR</p>
+                    <p class="text-muted">Ready in 5 minutes</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="pricing-card">
+                    <h4>Portrait session (1h)</h4>
+                    <p class="price">From 60 EUR</p>
+                    <p class="text-muted">Studio or outdoor</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="pricing-card">
+                    <h4>Wedding coverage</h4>
+                    <p class="price">From 800 EUR</p>
+                    <p class="text-muted">8 hours of coverage</p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <p class="text-muted mb-3">Displayed rates are indicative. For a tailored quote:</p>
+            <a href="{{ url_for('contact') }}" class="btn btn-lg btn-primary">
+                <i class="fas fa-envelope me-2"></i>Request a quote
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-8">
+                <h3 class="mb-3">Do you have questions?</h3>
+                <p class="mb-0">Our team is here to help you choose the service that best matches your needs.</p>
+            </div>
+            <div class="col-12 col-md-4 text-md-end mt-3 mt-md-0">
+                <a href="{{ url_for('contact') }}" class="btn btn-lg btn-primary w-100 w-md-auto">
+                    <i class="fas fa-phone me-2"></i>Contact us
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "inLanguage": "en-GB",
+    "@graph": [
+        {"@type": "Service", "name": "Passport and ID Photos", "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"}, "areaServed": "Calais"},
+        {"@type": "Service", "name": "Studio Portraits", "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"}, "areaServed": "Calais"},
+        {"@type": "Service", "name": "Children's Photo Sessions", "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"}, "areaServed": "Calais"},
+        {"@type": "Service", "name": "Wedding Photography", "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"}, "areaServed": "Calais"},
+        {"@type": "Service", "name": "Event Photography", "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"}, "areaServed": "Calais"},
+        {"@type": "Service", "name": "Digital Printing & Film Development", "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"}, "areaServed": "Calais"},
+        {"@type": "Service", "name": "Photo Enlargements", "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"}, "areaServed": "Calais"},
+        {"@type": "Service", "name": "Photo Albums and Frames", "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"}, "areaServed": "Calais"},
+        {"@type": "Service", "name": "Selfie Booth Hire", "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"}, "areaServed": "Calais"}
+    ]
+}
+</script>
+{% endblock %}

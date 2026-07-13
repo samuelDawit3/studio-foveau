@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% set meta_title = meta_title or "Book a Photo Session | Studio Foveau" %}
+{% set meta_description = meta_description or "Book your photo session online with Studio Foveau in Calais for ID photos, studio portraits, weddings and personalised photography services." %}
+
+{% block content %}
+<section class="page-title-section page-title-dark py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h1 class="display-5 fw-bold mb-3 hero-title" style="color: white;">Booking</h1>
+        <p class="lead text-light">Book your photo session directly with our studio.</p>
+    </div>
+</section>
+
+<section class="contact-form-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="form-card p-4 p-md-5 shadow-sm rounded-4 bg-white">
+                    <h2 class="mb-4 section-title">Booking request</h2>
+                    <form method="POST" action="{{ url_for('reservation') }}" class="needs-validation" novalidate>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6"><label for="name" class="form-label fw-bold">Name *</label><input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="John Smith" required><div class="invalid-feedback">Please enter your name.</div></div>
+                            <div class="col-12 col-md-6"><label for="email" class="form-label fw-bold">Email *</label><input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="john.smith@email.com" required><div class="invalid-feedback">Please enter a valid email address.</div></div>
+                            <div class="col-12 col-md-6"><label for="phone" class="form-label fw-bold">Phone *</label><input type="tel" class="form-control form-control-lg" id="phone" name="phone" placeholder="06 12 34 56 78" pattern="[0-9+ -]{10,}" required><div class="invalid-feedback">Please enter a valid phone number.</div></div>
+                            <div class="col-12 col-md-6">
+                                <label for="service" class="form-label fw-bold">Service *</label>
+                                <select class="form-select form-select-lg" id="service" name="service" required>
+                                    <option value="">-- Select a service --</option>
+                                    <option value="photo-identite">Passport and ID Photos</option>
+                                    <option value="portrait-studio">Studio Portraits</option>
+                                    <option value="mariage">Wedding Photography</option>
+                                    <option value="bapteme">Event Photography</option>
+                                    <option value="evenement">Event Photography</option>
+                                    <option value="tirage">Digital Printing & Film Development</option>
+                                    <option value="photobooth">Selfie Booth Hire</option>
+                                    <option value="album">Photo Albums and Frames</option>
+                                    <option value="autre">Other</option>
+                                </select>
+                                <div class="invalid-feedback">Please select a service.</div>
+                            </div>
+                            <div class="col-12 col-md-6"><label for="requested_date" class="form-label fw-bold">Preferred date *</label><input type="date" class="form-control form-control-lg" id="requested_date" name="requested_date" required><div class="invalid-feedback">Please select a date.</div></div>
+                            <div class="col-12 col-md-6"><label for="requested_time" class="form-label fw-bold">Preferred time *</label><input type="time" class="form-control form-control-lg" id="requested_time" name="requested_time" required><div class="invalid-feedback">Please select a time.</div></div>
+                            <div class="col-12"><label for="message" class="form-label fw-bold">Message</label><textarea class="form-control form-control-lg" id="message" name="message" rows="5" placeholder="Describe your request..."></textarea></div>
+                            <div class="col-12"><button type="submit" class="btn btn-lg btn-primary w-100">Submit booking request</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('.needs-validation');
+    if (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    }
+});
+</script>
+{% endblock %}

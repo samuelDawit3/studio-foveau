@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ html_lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ meta_title or 'Studio Foveau - Photographe à Calais' }}</title>
-    <meta name="description" content="{{ meta_description or 'Studio Foveau, studio photo professionnel à Calais: photos d\'identité, portraits, reportages, réservations en ligne et tirages photo.' }}">
+    <meta name="description" content="{{ meta_description or 'Studio Foveau à Calais : photos d\'identité ANTS en 5 minutes, portraits studio, mariages, tirages, développement argentique, albums et réservation en ligne.' }}">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="{{ canonical_url }}">
-    <meta property="og:locale" content="fr_FR">
+    <meta property="og:locale" content="{{ og_locale }}">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Studio Foveau">
-    <meta property="og:title" content="{{ meta_title or 'Studio Foveau - Photographe à Calais' }}">
-    <meta property="og:description" content="{{ meta_description or 'Studio Foveau, studio photo professionnel à Calais.' }}">
+    <meta property="og:title" content="{{ meta_title }}">
+    <meta property="og:description" content="{{ meta_description }}">
     <meta property="og:url" content="{{ canonical_url }}">
     <meta property="og:image" content="{{ site_url }}/static/images/Studio%20Foveau%20officiel.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ meta_title or 'Studio Foveau - Photographe à Calais' }}">
-    <meta name="twitter:description" content="{{ meta_description or 'Studio Foveau, studio photo professionnel à Calais.' }}">
-    <meta name="twitter:image" content="{{ site_url }}/static/images/Studio%20Foveau%20officiel.jpg">
+    <link rel="alternate" hreflang="fr" href="{{ alternate_urls.fr }}">
+    <link rel="alternate" hreflang="en" href="{{ alternate_urls.en }}">
+    <link rel="alternate" hreflang="x-default" href="{{ alternate_urls.fr }}">
     {% if google_site_verification %}
     <meta name="google-site-verification" content="{{ google_site_verification }}">
     {% endif %}
@@ -31,44 +30,114 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script type="application/ld+json">{{ local_business_schema | tojson }}</script>
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "{{ business_name }}",
+            "url": "{{ site_url }}",
+            "email": "{{ business_email }}",
+            "telephone": "{{ business_phone }}",
+            "sameAs": ["{{ business_facebook }}"],
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "{{ business_address_street }}",
+                "addressLocality": "{{ business_address_locality }}",
+                "postalCode": "{{ business_address_postal_code }}",
+                "addressCountry": "{{ business_address_country }}"
+            },
+            "inLanguage": "{{ current_locale }}"
+        }
+        </script>
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "{{ business_name }}",
+            "url": "{{ site_url }}",
+            "inLanguage": "{{ current_locale }}"
+        }
+        </script>
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "ImageObject",
+            "name": "Studio Foveau à Calais",
+            "contentUrl": "{{ site_url }}/static/images/Studio%20Foveau%20officiel.jpg",
+            "url": "{{ site_url }}/static/images/Studio%20Foveau%20officiel.jpg",
+            "inLanguage": "{{ current_locale }}"
+        }
+        </script>
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "{{ t('nav.home') }}",
+                    "item": "{{ site_url }}/"
+                }
+                {% if request.path != '/' %}
+                ,{
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "{{ (meta_title or business_name).split('|')[0].strip() }}",
+                    "item": "{{ canonical_url }}"
+                }
+                {% endif %}
+            ]
+        }
+        </script>
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+    <a href="#main-content" class="skip-link">{{ t('common.skip_to_content') }}</a>
     <header class="header-sticky">
         <div class="container-fluid px-3 px-md-4">
-            <nav class="navbar navbar-expand-lg navbar-light" aria-label="Navigation principale">
+            <nav class="navbar navbar-expand-lg navbar-light" aria-label="{{ t('nav.main') }}">
                 <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ url_for('home') }}">
                     <i class="fas fa-camera me-2" style="color: #1a1a1a; font-size: 24px;"></i>
                     <span class="d-none d-sm-inline">Studio Foveau</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Basculer la navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="{{ t('nav.toggle') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto gap-2">
                         <li class="nav-item">
-                            <a class="nav-link fw-500" href="{{ url_for('home') }}" aria-label="Aller à la page d'accueil">
-                                <i class="fas fa-home me-1"></i>Accueil
+                            <a class="nav-link fw-500" href="{{ url_for('home') }}" aria-label="{{ t('nav.home') }}">
+                                <i class="fas fa-home me-1"></i>{{ t('nav.home') }}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-500" href="{{ url_for('services') }}" aria-label="Voir les prestations">
-                                <i class="fas fa-camera me-1"></i>Prestations
+                            <a class="nav-link fw-500" href="{{ url_for('services') }}" aria-label="{{ t('nav.services') }}">
+                                <i class="fas fa-camera me-1"></i>{{ t('nav.services') }}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-500" href="{{ url_for('reservation') }}" aria-label="Accéder au formulaire de réservation">
-                                <i class="fas fa-calendar-check me-1"></i>Réservation
+                            <a class="nav-link fw-500" href="{{ url_for('reservation') }}" aria-label="{{ t('nav.booking') }}">
+                                <i class="fas fa-calendar-check me-1"></i>{{ t('nav.booking') }}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-500" href="{{ url_for('about') }}" aria-label="Découvrir le studio">
-                                <i class="fas fa-info-circle me-1"></i>À propos
+                            <a class="nav-link fw-500" href="{{ url_for('about') }}" aria-label="{{ t('nav.about') }}">
+                                <i class="fas fa-info-circle me-1"></i>{{ t('nav.about') }}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-500" href="{{ url_for('contact') }}" aria-label="Nous contacter">
-                                <i class="fas fa-phone me-1"></i>Contact
+                            <a class="nav-link fw-500" href="{{ url_for('contact') }}" aria-label="{{ t('nav.contact') }}">
+                                <i class="fas fa-phone me-1"></i>{{ t('nav.contact') }}
+                            </a>
+                        </li>
+                        <li class="nav-item d-none d-lg-flex align-items-center ps-lg-2">
+                            <a class="nav-link fw-500 {{ 'fw-bold text-decoration-underline' if lang == 'fr' else '' }}" href="{{ alternate_urls.fr }}" aria-label="{{ t('lang.aria.fr') }}">{{ t('lang.switch.fr') }}</a>
+                            <span class="nav-link px-1">|</span>
+                            <a class="nav-link fw-500 {{ 'fw-bold text-decoration-underline' if lang == 'en' else '' }}" href="{{ alternate_urls.en }}" aria-label="{{ t('lang.aria.en') }}">{{ t('lang.switch.en') }}</a>
+                        </li>
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link fw-500" href="{{ switch_lang_url }}" aria-label="{{ t('lang.aria.en') if lang == 'fr' else t('lang.aria.fr') }}">
+                                {{ t('lang.switch.en') if lang == 'fr' else t('lang.switch.fr') }}
                             </a>
                         </li>
                     </ul>
@@ -84,7 +153,7 @@
                     {% for category, message in messages %}
                         <div class="alert alert-{{ 'success' if category == 'success' else 'danger' if category == 'danger' else 'warning' if category == 'warning' else 'info' }} alert-dismissible fade show" role="alert">
                             {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ t('common.close') }}"></button>
                         </div>
                     {% endfor %}
                 </div>
@@ -100,7 +169,7 @@
         <div class="container-fluid px-3 px-md-4 py-5">
             <div class="row">
                 <div class="col-md-6 col-lg-4 mb-4 mb-md-0">
-                    <h5 class="fw-bold mb-3"><i class="fas fa-map-marker-alt me-2"></i>Localisation</h5>
+                    <h5 class="fw-bold mb-3"><i class="fas fa-map-marker-alt me-2"></i>{{ t('footer.location') }}</h5>
                     <p class="mb-2">
                         <strong>Studio Foveau</strong><br>
                         37 Boulevard de l'Égalité<br>
@@ -108,7 +177,7 @@
                     </p>
                 </div>
                 <div class="col-md-6 col-lg-4 mb-4 mb-md-0">
-                    <h5 class="fw-bold mb-3"><i class="fas fa-phone me-2"></i>Contact</h5>
+                    <h5 class="fw-bold mb-3"><i class="fas fa-phone me-2"></i>{{ t('footer.contact') }}</h5>
                     <p class="mb-2">
                         <a href="tel:+33321977020" class="text-decoration-none" aria-label="Téléphoner au Studio Foveau">
                             03 21 97 70 20
@@ -121,20 +190,20 @@
                     </p>
                     <p class="mb-0">
                         <a href="https://www.facebook.com/studiofoveau/" class="text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="Page Facebook Studio Foveau">
-                            Facebook officiel
+                            {{ t('footer.facebook_official') }}
                         </a>
                     </p>
                 </div>
                 <div class="col-md-6 col-lg-4 mb-4 mb-md-0">
-                    <h5 class="fw-bold mb-3"><i class="fas fa-gavel me-2"></i>Informations légales</h5>
-                    <p class="mb-1"><a href="{{ url_for('mentions_legales') }}">Mentions légales</a></p>
-                    <p class="mb-1"><a href="{{ url_for('politique_confidentialite') }}">Politique de confidentialité</a></p>
-                    <p class="mb-0"><a href="{{ url_for('cgu') }}">CGU</a></p>
+                    <h5 class="fw-bold mb-3"><i class="fas fa-gavel me-2"></i>{{ t('footer.legal_info') }}</h5>
+                    <p class="mb-1"><a href="{{ url_for('mentions_legales') }}">{{ t('footer.legal_notice') }}</a></p>
+                    <p class="mb-1"><a href="{{ url_for('politique_confidentialite') }}">{{ t('footer.privacy') }}</a></p>
+                    <p class="mb-0"><a href="{{ url_for('cgu') }}">{{ t('footer.terms') }}</a></p>
                 </div>
             </div>
             <hr class="my-4">
             <div class="text-center">
-                <p class="mb-2">&copy; {{ current_year }} Studio Foveau. Tous droits réservés.</p>
+                <p class="mb-2">&copy; {{ current_year }} Studio Foveau. {{ t('footer.copyright') }}</p>
                 <div class="social-links">
                     <a href="https://www.facebook.com/studiofoveau/" class="text-decoration-none" title="Facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook Studio Foveau">
                         <i class="fab fa-facebook-f"></i>
@@ -144,15 +213,15 @@
         </div>
     </footer>
 
-    <div id="cookie-consent-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Consentement des cookies" hidden>
+    <div id="cookie-consent-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="{{ t('cookie.aria') }}" hidden>
         <div class="cookie-banner-content">
             <p class="mb-3 mb-md-0">
-                Nous utilisons uniquement des cookies nécessaires et de mesure d'audience pour améliorer votre expérience.
+                {{ t('cookie.message') }}
             </p>
             <div class="cookie-actions">
-                <button id="cookie-accept" class="btn btn-primary btn-sm" type="button">Accepter</button>
-                <button id="cookie-decline" class="btn btn-outline-primary btn-sm" type="button">Refuser</button>
-                <a class="btn btn-link btn-sm" href="{{ url_for('politique_confidentialite') }}">En savoir plus</a>
+                <button id="cookie-accept" class="btn btn-primary btn-sm" type="button">{{ t('cookie.accept') }}</button>
+                <button id="cookie-decline" class="btn btn-outline-primary btn-sm" type="button">{{ t('cookie.decline') }}</button>
+                <a class="btn btn-link btn-sm" href="{{ url_for('politique_confidentialite') }}">{{ t('cookie.learn_more') }}</a>
             </div>
         </div>
     </div>

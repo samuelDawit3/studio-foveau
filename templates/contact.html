@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% set meta_title = "Contact Studio Foveau - Téléphone, Email, Facebook" %}
-{% set meta_description = "Contactez Studio Foveau à Calais: téléphone 03 21 97 70 20, email contact@studiofoveauphoto.fr, site officiel et Facebook." %}
+{% set meta_title = meta_title or "Contact | Studio Foveau" %}
+{% set meta_description = meta_description or "Contactez Studio Foveau à Calais: téléphone 03 21 97 70 20, email, Facebook et formulaire pour vos demandes photo." %}
 
 {% block content %}
 <!-- Page Title -->
@@ -152,7 +152,7 @@
                 <div class="contact-info">
                     <!-- Storefront Image -->
                     <div class="contact-info-item mb-5">
-                        <img src="{{ url_for('static', filename='images/photis.jpg') }}" alt="Entrée du Studio Foveau à Calais" class="img-fluid mb-3" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
+                        <img src="{{ url_for('static', filename='images/photis.jpg') }}" alt="Entrée du Studio Foveau à Calais" title="Contact Studio Foveau Calais" class="img-fluid mb-3" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
                     </div>
 
                     <!-- Address -->

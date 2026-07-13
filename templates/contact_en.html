@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% set meta_title = meta_title or "Contact Studio Foveau | Calais" %}
+{% set meta_description = meta_description or "Contact Studio Foveau in Calais by phone, email or contact form for bookings, quotes and photography enquiries." %}
+
+{% block content %}
+<section class="page-title-section page-title-dark py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h1 class="display-5 fw-bold mb-3 hero-title" style="color: white;">Contact us</h1>
+        <p class="lead text-light">Book an appointment or ask us a question</p>
+    </div>
+</section>
+
+<section class="quick-contact py-4 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-3 mb-3"><a href="tel:+33321977020" class="quick-contact-btn" aria-label="Call Studio Foveau at 03 21 97 70 20"><i class="fas fa-phone"></i><span>Call us</span></a></div>
+            <div class="col-12 col-sm-6 col-md-3 mb-3"><a href="mailto:contact@studiofoveauphoto.fr" class="quick-contact-btn" aria-label="Send an email to Studio Foveau"><i class="fas fa-envelope"></i><span>Send an email</span></a></div>
+            <div class="col-12 col-sm-6 col-md-3 mb-3"><a href="https://studiofoveauphoto.fr" class="quick-contact-btn" aria-label="Visit the official Studio Foveau website"><i class="fas fa-globe"></i><span>Official website</span></a></div>
+            <div class="col-12 col-sm-6 col-md-3 mb-3"><a href="https://www.facebook.com/studiofoveau/" class="quick-contact-btn" target="_blank" rel="noopener noreferrer" aria-label="View Studio Foveau Facebook page"><i class="fab fa-facebook-f"></i><span>Facebook</span></a></div>
+        </div>
+    </div>
+</section>
+
+<section class="contact-form-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row">
+            <div class="col-12 col-lg-8 mb-5 mb-lg-0">
+                <h2 class="mb-4">Contact form</h2>
+                <form method="POST" action="{{ url_for('contact') }}" class="needs-validation" novalidate>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="mb-4"><label for="name" class="form-label fw-bold">Name *</label><input type="text" id="name" name="name" class="form-control form-control-lg" placeholder="John Smith" required><div class="invalid-feedback">Please enter your name.</div></div>
+                    <div class="mb-4"><label for="email" class="form-label fw-bold">Email *</label><input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="john.smith@email.com" required><div class="invalid-feedback">Please enter a valid email address.</div></div>
+                    <div class="mb-4"><label for="phone" class="form-label fw-bold">Phone *</label><input type="tel" id="phone" name="phone" class="form-control form-control-lg" placeholder="06 12 34 56 78" pattern="[0-9+ -]{10,}" required><div class="invalid-feedback">Please enter a valid phone number.</div></div>
+                    <div class="mb-4">
+                        <label for="service" class="form-label fw-bold">Service *</label>
+                        <select id="service" name="service" class="form-select form-select-lg" required>
+                            <option value="">-- Select a service --</option>
+                            <option value="photo-identite">Passport and ID Photos</option>
+                            <option value="portrait-studio">Studio Portraits</option>
+                            <option value="mariage">Wedding Photography</option>
+                            <option value="bapteme">Event Photography</option>
+                            <option value="evenement">Event Photography</option>
+                            <option value="tirage">Digital Printing & Film Development</option>
+                            <option value="photobooth">Selfie Booth Hire</option>
+                            <option value="album">Photo Albums and Frames</option>
+                            <option value="autre">Other (please specify in message)</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a service.</div>
+                    </div>
+                    <div class="mb-4"><label for="message" class="form-label fw-bold">Message *</label><textarea id="message" name="message" class="form-control form-control-lg" rows="6" placeholder="Tell us about your request..." required></textarea><div class="invalid-feedback">Please enter your message.</div></div>
+                    <div class="d-grid gap-2 mb-4"><button type="submit" class="btn btn-lg btn-primary"><i class="fas fa-paper-plane me-2"></i>Send message</button></div>
+                    <p class="text-muted small">* Required fields</p>
+                </form>
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <div class="contact-info">
+                    <div class="contact-info-item mb-5"><img src="{{ url_for('static', filename='images/photis.jpg') }}" alt="Studio Foveau entrance in Calais" title="Contact Studio Foveau in Calais" class="img-fluid mb-3" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800"></div>
+                    <div class="contact-info-item mb-5"><h5 class="fw-bold mb-3"><i class="fas fa-map-marker-alt me-2" style="color: #2A9D8F;"></i>Location</h5><p class="mb-1"><strong>Studio Foveau</strong><br>37 Boulevard de l'Égalité<br>62100 Calais<br>France</p></div>
+                    <div class="contact-info-item mb-5"><h5 class="fw-bold mb-3"><i class="fas fa-phone me-2" style="color: #2A9D8F;"></i>Phone</h5><p class="mb-0"><a href="tel:+33321977020" class="text-decoration-none" aria-label="Call 03 21 97 70 20">03 21 97 70 20</a></p><p class="text-muted small mb-0">Mon-Sat: 09:00-12:00 & 14:00-19:00</p></div>
+                    <div class="contact-info-item mb-5"><h5 class="fw-bold mb-3"><i class="fas fa-envelope me-2" style="color: #2A9D8F;"></i>Email</h5><p class="mb-0"><a href="mailto:contact@studiofoveauphoto.fr" class="text-decoration-none" aria-label="Email contact@studiofoveauphoto.fr">contact@studiofoveauphoto.fr</a></p></div>
+                    <div class="contact-info-item mb-5"><h5 class="fw-bold mb-3"><i class="fas fa-globe me-2" style="color: #2A9D8F;"></i>Official website</h5><p class="mb-0"><a href="https://studiofoveauphoto.fr" class="text-decoration-none" target="_blank" rel="noopener noreferrer">https://studiofoveauphoto.fr</a></p></div>
+                    <div class="contact-info-item mb-5"><h5 class="fw-bold mb-3"><i class="fab fa-facebook-f me-2" style="color: #2A9D8F;"></i>Official Facebook</h5><p class="mb-0"><a href="https://www.facebook.com/studiofoveau/" class="text-decoration-none" target="_blank" rel="noopener noreferrer">https://www.facebook.com/studiofoveau/</a></p></div>
+                    <div class="contact-info-item"><h5 class="fw-bold mb-3"><i class="fas fa-clock me-2" style="color: #2A9D8F;"></i>Opening hours</h5><div class="hours-mini"><p class="mb-1"><strong>Mon-Fri:</strong> 09:00-12:00</p><p class="mb-1">14:00-19:00</p><p class="mb-2"><strong>Sat:</strong> 09:00-12:00</p><p class="mb-2">14:00-18:00</p><p><strong>Sunday:</strong> Closed</p></div></div>
+                    <div class="map-responsive"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2575.509435608546!2d1.8608324157632055!3d50.95809727942705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47dd4aa04f5e032b%3A0x3d48f2b61021b4da!2s37%20Boulevard%20de%20l'%C3%89galit%C3%A9%2C%2062100%20Calais%2C%20France!5e0!3m2!1sfr!2sfr!4v1715012345678!5m2!1sfr!2sfr" title="Studio Foveau Google Maps" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-8"><h3 class="mb-3">Send us a message</h3><p class="mb-0">The Studio Foveau team will respond to your request as quickly as possible.</p></div>
+            <div class="col-12 col-md-4 text-md-end mt-3 mt-md-0"><a href="{{ url_for('services') }}" class="btn btn-lg btn-outline-primary w-100 w-md-auto"><i class="fas fa-images me-2"></i>View our services</a></div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.needs-validation');
+    if (form) {
+        form.addEventListener('submit', (event) => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        });
+    }
+});
+</script>
+{% endblock %}

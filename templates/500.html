@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-{% set meta_title = "Erreur serveur (500) - Studio Foveau" %}
-{% set meta_description = "Une erreur technique est survenue sur le site Studio Foveau." %}
+{% set meta_title = meta_title or t('error.500.title') %}
+{% set meta_description = meta_description or t('error.500.description') %}
 
 {% block content %}
 <section class="page-title-section page-title-dark py-5 scroll-animate">
     <div class="container-fluid px-3 px-md-4 text-center">
-        <h1 class="display-4 fw-bold mb-3 hero-title">Erreur de serveur</h1>
-        <p class="lead text-light">Une erreur est survenue. Merci de réessayer dans quelques instants.</p>
-        <a href="{{ url_for('home') }}" class="btn btn-primary mt-3">Retour à l’accueil</a>
+        <h1 class="display-4 fw-bold mb-3 hero-title">{{ t('error.500.heading') }}</h1>
+        <p class="lead text-light">{{ t('error.500.message') }}</p>
+        <a href="{{ url_for('home') }}" class="btn btn-primary mt-3">{{ t('error.back_home') }}</a>
     </div>
 </section>
 {% endblock %}

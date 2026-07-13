@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% set meta_title = "Prestations Photo Studio Foveau - Calais" %}
-{% set meta_description = "Toutes les prestations Studio Foveau: identité, portrait, mariage, événements, tirage photo, borne selfie et albums." %}
+{% set meta_title = meta_title or "Prestations | Studio Foveau - Photographe à Calais" %}
+{% set meta_description = meta_description or "Découvrez les prestations de Studio Foveau, photographe Calais : photo identité Calais, portrait studio Calais, mariage Calais, tirages et laboratoire photo Calais." %}
 
 {% block content %}
 <!-- Page Title -->
@@ -17,7 +17,7 @@
         <div class="row align-items-center">
             <div class="col-12 col-md-6 mb-4 mb-md-0">
                 <div class="service-visual">
-                    <img src="{{ url_for('static', filename='images/com.jpg') }}" alt="Photos d'identité professionnelles conformes" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
+                    <img src="{{ url_for('static', filename='images/com.jpg') }}" alt="Photos d'identité professionnelles conformes" title="Photo identité Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
                 </div>
             </div>
             <div class="col-12 col-md-6">
@@ -43,7 +43,7 @@
         <div class="row align-items-center">
             <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
                 <div class="service-visual">
-                    <img src="{{ url_for('static', filename='images/foveau1.jpg') }}" alt="Portraits réalisés en studio professionnel" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
+                    <img src="{{ url_for('static', filename='images/foveau1.jpg') }}" alt="Portraits réalisés en studio professionnel" title="Portrait studio Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
                 </div>
             </div>
             <div class="col-12 col-md-6 order-md-1">
@@ -71,7 +71,7 @@
         <div class="row align-items-center">
             <div class="col-12 col-md-6 mb-4 mb-md-0">
                 <div class="service-visual">
-                    <img src="{{ url_for('static', filename='images/ph.jpg') }}" alt="Shooting photo enfant en studio" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
+                    <img src="{{ url_for('static', filename='images/ph.jpg') }}" alt="Shooting photo enfant en studio" title="Shooting photo enfant Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
                 </div>
             </div>
             <div class="col-12 col-md-6">
@@ -99,7 +99,7 @@
         <div class="row align-items-center">
             <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
                 <div class="service-visual">
-                    <img src="{{ url_for('static', filename='images/photos.jpg') }}" alt="Photographie de mariage" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
+                    <img src="{{ url_for('static', filename='images/photos.jpg') }}" alt="Photographie de mariage" title="Photographe mariage Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
                 </div>
             </div>
             <div class="col-12 col-md-6 order-md-1">
@@ -127,7 +127,7 @@
         <div class="row align-items-center">
             <div class="col-12 col-md-6 mb-4 mb-md-0">
                 <div class="service-visual">
-                    <img src="{{ url_for('static', filename='images/photos1.jpg') }}" alt="Reportage photo événementiel professionnel" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
+                    <img src="{{ url_for('static', filename='images/photos1.jpg') }}" alt="Reportage photo événementiel professionnel" title="Reportage événementiel Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
                 </div>
             </div>
             <div class="col-12 col-md-6">
@@ -155,7 +155,7 @@
         <div class="row align-items-center">
             <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
                 <div class="service-visual">
-                    <img src="{{ url_for('static', filename='images/development photo argentique.jpg') }}" alt="Tirage numérique et développement argentique" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); object-position: center;" loading="lazy" width="1200" height="800">
+                    <img src="{{ url_for('static', filename='images/development photo argentique.jpg') }}" alt="Tirage numérique et développement argentique" title="Développement argentique et tirage numérique Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); object-position: center;" loading="lazy" decoding="async" width="1200" height="800">
                 </div>
             </div>
             <div class="col-12 col-md-6 order-md-1">
@@ -183,7 +183,7 @@
         <div class="row align-items-center">
             <div class="col-12 col-md-6 mb-4 mb-md-0">
                 <div class="service-visual">
-                    <img src="{{ url_for('static', filename='images/photos1.jpg') }}" alt="Agrandissements photo professionnels" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
+                    <img src="{{ url_for('static', filename='images/photos1.jpg') }}" alt="Agrandissements photo professionnels" title="Agrandissement photo Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
                 </div>
             </div>
             <div class="col-12 col-md-6">
@@ -211,7 +211,7 @@
         <div class="row align-items-center">
             <div class="col-12 col-md-6 order-md-2 mb-4 mb-md-0">
                 <div class="service-visual">
-                    <img src="{{ url_for('static', filename='images/album photos.jpg') }}" alt="Vente d'albums photo" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
+                    <img src="{{ url_for('static', filename='images/album photos.jpg') }}" alt="Vente d'albums photo" title="Albums photo Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
                 </div>
             </div>
             <div class="col-12 col-md-6 order-md-1">
@@ -239,7 +239,7 @@
         <div class="row align-items-center">
             <div class="col-12 col-md-6 mb-4 mb-md-0">
                 <div class="service-visual">
-                    <img src="{{ url_for('static', filename='images/photographie.jpg') }}" alt="Location de borne selfie pour événements" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" width="1200" height="800">
+                    <img src="{{ url_for('static', filename='images/photographie.jpg') }}" alt="Location de borne selfie pour événements" title="Borne selfie Calais" class="img-fluid" style="border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" loading="lazy" decoding="async" width="1200" height="800">
                 </div>
             </div>
             <div class="col-12 col-md-6">
@@ -313,4 +313,66 @@
         </div>
     </div>
 </section>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Service",
+            "name": "Photos d'identité",
+            "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"},
+            "areaServed": "Calais"
+        },
+        {
+            "@type": "Service",
+            "name": "Portraits en studio",
+            "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"},
+            "areaServed": "Calais"
+        },
+        {
+            "@type": "Service",
+            "name": "Shooting photo enfant",
+            "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"},
+            "areaServed": "Calais"
+        },
+        {
+            "@type": "Service",
+            "name": "Reportage mariage",
+            "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"},
+            "areaServed": "Calais"
+        },
+        {
+            "@type": "Service",
+            "name": "Reportages événementiels",
+            "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"},
+            "areaServed": "Calais"
+        },
+        {
+            "@type": "Service",
+            "name": "Tirage numérique et développement argentique",
+            "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"},
+            "areaServed": "Calais"
+        },
+        {
+            "@type": "Service",
+            "name": "Agrandissements photo",
+            "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"},
+            "areaServed": "Calais"
+        },
+        {
+            "@type": "Service",
+            "name": "Vente d'albums photo",
+            "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"},
+            "areaServed": "Calais"
+        },
+        {
+            "@type": "Service",
+            "name": "Borne selfie",
+            "provider": {"@type": "LocalBusiness", "name": "Studio Foveau"},
+            "areaServed": "Calais"
+        }
+    ]
+}
+</script>
 {% endblock %}

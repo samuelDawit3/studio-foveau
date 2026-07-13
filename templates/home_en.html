@@ -1,42 +1,41 @@
 {% extends "base.html" %}
-{% set meta_title = meta_title or "Studio Foveau | Photographe à Calais - Photos d'identité, Portraits & Mariages" %}
-{% set meta_description = meta_description or "Studio Foveau à Calais : photos d'identité ANTS en 5 minutes, portraits studio, mariages, tirages, développement argentique, albums et réservation en ligne." %}
+{% set meta_title = meta_title or "Studio Foveau | Photographer in Calais - ID Photos, Portraits & Weddings" %}
+{% set meta_description = meta_description or "Studio Foveau in Calais offers compliant ID photos in 5 minutes, studio portraits, wedding photography, film development, photo printing and online booking." %}
 
 {% block content %}
-<!-- Hero Section -->
 <section class="hero-section text-white py-5 py-md-6 scroll-animate">
     <div class="container-fluid px-3 px-md-4">
         <div class="row align-items-center hero-row">
             <div class="col-12 col-lg-7 mb-4 mb-lg-0">
                 <div class="hero-media-wrap text-center">
-                    <img src="{{ url_for('static', filename='images/Studio Foveau officiel.jpg') }}" alt="Façade du Studio Foveau à Calais" title="Studio Foveau photographe à Calais" class="img-fluid hero-main-image" loading="lazy" decoding="async" width="1200" height="800">
+                    <img src="{{ url_for('static', filename='images/Studio Foveau officiel.jpg') }}" alt="Front of Studio Foveau in Calais" title="Studio Foveau photographer in Calais" class="img-fluid hero-main-image" loading="lazy" decoding="async" width="1200" height="800">
                 </div>
             </div>
             <div class="col-12 col-lg-5">
                 <div class="hero-content text-center text-lg-start">
                     <h1 class="display-4 fw-bold mb-3 hero-title">Studio Foveau</h1>
-                    <p class="lead mb-4">Vos photos en 5 minutes • Qualité professionnelle • Calais</p>
+                    <p class="lead mb-4">Your photos in 5 minutes • Professional quality • Calais</p>
                     <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start align-items-center gap-2 gap-sm-3">
                         <a href="{{ url_for('services') }}" class="btn btn-lg btn-primary">
-                            <i class="fas fa-images me-2"></i>Voir nos prestations
+                            <i class="fas fa-images me-2"></i>View our services
                         </a>
-                        <a href="tel:+33321977020" class="btn btn-lg btn-outline-light" aria-label="Téléphoner au 03 21 97 70 20">
-                            <i class="fas fa-phone me-2"></i>Nous appeler
+                        <a href="tel:+33321977020" class="btn btn-lg btn-outline-light" aria-label="Call 03 21 97 70 20">
+                            <i class="fas fa-phone me-2"></i>Call us
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-<!-- Status Section -->
 <section class="status-section py-4 scroll-animate">
     <div class="container-fluid px-3 px-md-4">
         <div class="row">
             <div class="col-12 col-md-6 mb-3 mb-md-0">
                 <div class="status-card">
                     <div class="status-content">
-                        <p class="status-label">Statut actuel</p>
+                        <p class="status-label">Current status</p>
                         {% if is_open %}
                             <p class="status-open">
                                 <i class="fas fa-check-circle me-2"></i>
@@ -54,7 +53,7 @@
             <div class="col-12 col-md-6">
                 <div class="status-card">
                     <div class="status-content">
-                        <p class="status-label">📍 Adresse</p>
+                        <p class="status-label">Address</p>
                         <p class="mb-0">37 bd Égalité, 62100 Calais</p>
                     </div>
                 </div>
@@ -63,18 +62,17 @@
     </div>
 </section>
 
-<!-- Why Choose Us Section -->
 <section class="features-section py-5 scroll-animate">
     <div class="container-fluid px-3 px-md-4">
-        <h2 class="text-center mb-5">Pourquoi nous choisir ?</h2>
+        <h2 class="text-center mb-5">Why choose us?</h2>
         <div class="row">
             <div class="col-12 col-sm-6 col-lg-3 mb-4">
                 <div class="feature-card text-center">
                     <div class="feature-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <h4>Rapide</h4>
-                    <p>Vos photos prêtes en 5 minutes</p>
+                    <h4>Fast</h4>
+                    <p>Your photos ready in 5 minutes</p>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-lg-3 mb-4">
@@ -82,8 +80,8 @@
                     <div class="feature-icon">
                         <i class="fas fa-star"></i>
                     </div>
-                    <h4>Qualité Pro</h4>
-                    <p>Équipement professionnel</p>
+                    <h4>Pro quality</h4>
+                    <p>Professional equipment</p>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-lg-3 mb-4">
@@ -91,8 +89,8 @@
                     <div class="feature-icon">
                         <i class="fas fa-hand-holding-heart"></i>
                     </div>
-                    <h4>Accueil chaleureux</h4>
-                    <p>Service client 5/5 ⭐</p>
+                    <h4>Friendly welcome</h4>
+                    <p>Customer service rated 5/5</p>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-lg-3 mb-4">
@@ -100,64 +98,62 @@
                     <div class="feature-icon">
                         <i class="fas fa-euro-sign"></i>
                     </div>
-                    <h4>Prix compétitifs</h4>
-                    <p>Meilleur rapport qualité/prix</p>
+                    <h4>Fair prices</h4>
+                    <p>Excellent value for money</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Services Overview -->
 <section class="services-overview py-5 scroll-animate">
     <div class="container-fluid px-3 px-md-4">
-        <h2 class="text-center mb-5">Nos prestations principales</h2>
+        <h2 class="text-center mb-5">Our main services</h2>
         <div class="row">
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="service-card">
-                    <img src="{{ url_for('static', filename='images/com.jpg') }}" alt="Exemple de photos d'identité conformes" title="Photo identité Calais conforme ANTS" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy" decoding="async" width="900" height="600">
-                    <h4>Photos d'identité</h4>
-                    <p>Passeport, visa, CNI, CV • Prêtes en 5 minutes</p>
+                    <img src="{{ url_for('static', filename='images/com.jpg') }}" alt="Compliant passport and ID photo examples" title="ID photos in Calais" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy" decoding="async" width="900" height="600">
+                    <h4>Passport and ID Photos</h4>
+                    <p>Passport, visa, national ID, CV • Ready in 5 minutes</p>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="service-card">
-                    <img src="{{ url_for('static', filename='images/foveau1.jpg') }}" alt="Séance portrait en studio photo" title="Portrait studio Calais" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy" decoding="async" width="900" height="600">
-                    <h4>Portraits Studio</h4>
-                    <p>Famille, enfants, couples • Studio & extérieur</p>
+                    <img src="{{ url_for('static', filename='images/foveau1.jpg') }}" alt="Studio portrait session" title="Studio portraits in Calais" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy" decoding="async" width="900" height="600">
+                    <h4>Studio Portraits</h4>
+                    <p>Families, children, couples • Studio and outdoor</p>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="service-card">
-                    <img src="{{ url_for('static', filename='images/photos.jpg') }}" alt="Reportage photo événementiel" title="Reportage mariage et événement à Calais" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy" decoding="async" width="900" height="600">
-                    <h4>Événements</h4>
-                    <p>Mariages, baptêmes, événements professionnels</p>
+                    <img src="{{ url_for('static', filename='images/photos.jpg') }}" alt="Event photo coverage" title="Wedding and event photography in Calais" class="img-fluid mb-3" style="height: 200px; object-fit: cover; border-radius: 8px;" loading="lazy" decoding="async" width="900" height="600">
+                    <h4>Events</h4>
+                    <p>Weddings, christenings and corporate events</p>
                 </div>
             </div>
         </div>
         <div class="text-center mt-5">
             <a href="{{ url_for('services') }}" class="btn btn-lg btn-primary">
-                <i class="fas fa-arrow-right me-2"></i>Voir toutes les prestations
+                <i class="fas fa-arrow-right me-2"></i>View all services
             </a>
         </div>
     </div>
 </section>
 
-<!-- Call-to-Action Section -->
 <section class="cta-section py-5 scroll-animate">
     <div class="container-fluid px-3 px-md-4">
         <div class="row align-items-center">
             <div class="col-12 col-md-8">
-                <h3 class="mb-3">Besoin de photos professionnelles ?</h3>
-                <p class="mb-0">Contactez votre photographe à Calais pour prendre rendez-vous, réserver une séance photo ou poser vos questions.</p>
+                <h3 class="mb-3">Need professional photography?</h3>
+                <p class="mb-0">Contact your photographer in Calais to book a session, ask for a quote or discuss your project.</p>
             </div>
             <div class="col-12 col-md-4 text-md-end mt-3 mt-md-0">
                 <div class="d-flex flex-column gap-2">
                     <a href="{{ url_for('reservation') }}" class="btn btn-lg btn-primary w-100 w-md-auto">
-                        <i class="fas fa-calendar-check me-2"></i>Réserver en ligne
+                        <i class="fas fa-calendar-check me-2"></i>Book online
                     </a>
                     <a href="{{ url_for('contact') }}" class="btn btn-lg btn-outline-primary w-100 w-md-auto">
-                        <i class="fas fa-envelope me-2"></i>Nous contacter
+                        <i class="fas fa-envelope me-2"></i>Contact us
                     </a>
                 </div>
             </div>
@@ -165,58 +161,57 @@
     </div>
 </section>
 
-<!-- FAQ Section -->
 <section class="faq-section py-5 scroll-animate">
     <div class="container-fluid px-3 px-md-4">
-        <h3 class="text-center mb-5">Questions fréquentes</h3>
+        <h3 class="text-center mb-5">Frequently asked questions</h3>
         <div class="row justify-content-center">
             <div class="col-12 col-lg-9">
                 <div class="accordion" id="homeFaqAccordion">
                     <div class="accordion-item">
                         <h4 class="accordion-header" id="faq-heading-1">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse-1" aria-expanded="true" aria-controls="faq-collapse-1">
-                                Faites-vous les photos d'identité ANTS à Calais ?
+                                Do you provide ANTS-compliant ID photos in Calais?
                             </button>
                         </h4>
                         <div id="faq-collapse-1" class="accordion-collapse collapse show" aria-labelledby="faq-heading-1" data-bs-parent="#homeFaqAccordion">
                             <div class="accordion-body">
-                                Oui, nous réalisons des photos d'identité conformes ANTS à Calais, prêtes en quelques minutes.
+                                Yes. We provide ANTS-compliant passport and ID photos in Calais, ready in a few minutes.
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h4 class="accordion-header" id="faq-heading-2">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse-2" aria-expanded="false" aria-controls="faq-collapse-2">
-                                Peut-on réserver une séance portrait studio en ligne ?
+                                Can I book a studio portrait session online?
                             </button>
                         </h4>
                         <div id="faq-collapse-2" class="accordion-collapse collapse" aria-labelledby="faq-heading-2" data-bs-parent="#homeFaqAccordion">
                             <div class="accordion-body">
-                                Oui, vous pouvez réserver votre séance portrait studio directement via notre page Réservation.
+                                Yes. You can submit your booking request directly from our Booking page.
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h4 class="accordion-header" id="faq-heading-3">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse-3" aria-expanded="false" aria-controls="faq-collapse-3">
-                                Proposez-vous le développement argentique et les tirages photo ?
+                                Do you offer film development and photo printing?
                             </button>
                         </h4>
                         <div id="faq-collapse-3" class="accordion-collapse collapse" aria-labelledby="faq-heading-3" data-bs-parent="#homeFaqAccordion">
                             <div class="accordion-body">
-                                Oui, notre laboratoire photo à Calais propose le développement argentique, les tirages numériques et les agrandissements.
+                                Yes. Our Calais lab offers film development, digital prints and photo enlargements.
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h4 class="accordion-header" id="faq-heading-4">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse-4" aria-expanded="false" aria-controls="faq-collapse-4">
-                                Couvrez-vous les mariages et événements ?
+                                Do you cover weddings and events?
                             </button>
                         </h4>
                         <div id="faq-collapse-4" class="accordion-collapse collapse" aria-labelledby="faq-heading-4" data-bs-parent="#homeFaqAccordion">
                             <div class="accordion-body">
-                                Oui, nous réalisons des reportages photo pour mariages, baptêmes et événements professionnels à Calais et aux alentours.
+                                Yes. We provide photography coverage for weddings, christenings and corporate events in Calais and nearby areas.
                             </div>
                         </div>
                     </div>
@@ -233,58 +228,57 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Faites-vous les photos d'identité ANTS à Calais ?",
+      "name": "Do you provide ANTS-compliant ID photos in Calais?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui, nous réalisons des photos d'identité conformes ANTS à Calais, prêtes en quelques minutes."
+        "text": "Yes. We provide ANTS-compliant passport and ID photos in Calais, ready in a few minutes."
       }
     },
     {
       "@type": "Question",
-      "name": "Peut-on réserver une séance portrait studio en ligne ?",
+      "name": "Can I book a studio portrait session online?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui, vous pouvez réserver votre séance portrait studio directement via notre page Réservation."
+        "text": "Yes. You can submit your booking request directly from our Booking page."
       }
     },
     {
       "@type": "Question",
-      "name": "Proposez-vous le développement argentique et les tirages photo ?",
+      "name": "Do you offer film development and photo printing?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui, notre laboratoire photo à Calais propose le développement argentique, les tirages numériques et les agrandissements."
+        "text": "Yes. Our Calais lab offers film development, digital prints and photo enlargements."
       }
     },
     {
       "@type": "Question",
-      "name": "Couvrez-vous les mariages et événements ?",
+      "name": "Do you cover weddings and events?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui, nous réalisons des reportages photo pour mariages, baptêmes et événements professionnels à Calais et aux alentours."
+        "text": "Yes. We provide photography coverage for weddings, christenings and corporate events in Calais and nearby areas."
       }
     }
   ]
 }
 </script>
 
-<!-- Hours Section -->
 <section class="hours-section py-5 scroll-animate">
     <div class="container-fluid px-3 px-md-4">
-        <h3 class="text-center mb-5">Horaires d'ouverture</h3>
+        <h3 class="text-center mb-5">Opening hours</h3>
         <div class="row justify-content-center">
             <div class="col-12 col-sm-8 col-md-6">
                 <div class="hours-table">
                     <div class="hours-row">
-                        <span class="hours-day">Lundi - Vendredi</span>
-                        <span class="hours-time">09:00 – 12:00 • 14:00 – 19:00</span>
+                        <span class="hours-day">Monday - Friday</span>
+                        <span class="hours-time">09:00 - 12:00 • 14:00 - 19:00</span>
                     </div>
                     <div class="hours-row">
-                        <span class="hours-day">Samedi</span>
-                        <span class="hours-time">09:00 – 12:00 • 14:00 – 18:00</span>
+                        <span class="hours-day">Saturday</span>
+                        <span class="hours-time">09:00 - 12:00 • 14:00 - 18:00</span>
                     </div>
                     <div class="hours-row closed">
-                        <span class="hours-day">Dimanche</span>
-                        <span class="hours-time">Fermé</span>
+                        <span class="hours-day">Sunday</span>
+                        <span class="hours-time">Closed</span>
                     </div>
                 </div>
             </div>

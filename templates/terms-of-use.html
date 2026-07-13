@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% set meta_title = meta_title or "Terms of Use | Studio Foveau" %}
+{% set meta_description = meta_description or "View the terms of use for studiofoveauphoto.fr, including access conditions, user responsibilities and legal information." %}
+
+{% block content %}
+<section class="page-title-section page-title-dark py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h1 class="display-5 fw-bold mb-3 hero-title" style="color: white;">Terms of Use</h1>
+        <p class="lead text-light">Rules for using studiofoveauphoto.fr</p>
+    </div>
+</section>
+
+<section class="py-5 scroll-animate">
+    <div class="container-fluid px-3 px-md-4">
+        <h2>Purpose</h2>
+        <p>These terms define the conditions of access and use of the website https://studiofoveauphoto.fr published by Studio Foveau.</p>
+
+        <h2>Website access</h2>
+        <p>The website is freely accessible to any user with internet access. Access costs (hardware and connection) remain the user's responsibility.</p>
+
+        <h2>Available services</h2>
+        <p>The website allows visitors to view studio services, submit contact requests and send online booking requests.</p>
+
+        <h2>Contact and booking forms</h2>
+        <p>Users agree to provide accurate and up-to-date information. A booking request submitted through the website is not an automatic appointment confirmation. Studio Foveau contacts the customer to validate availability and confirm the booking.</p>
+
+        <h2>User obligations</h2>
+        <p>Users must not use the website unlawfully, send fraudulent, abusive or malicious content, or attempt technical disruption.</p>
+
+        <h2>Intellectual property</h2>
+        <p>Website elements are protected by intellectual property law. Any unauthorised reproduction is prohibited.</p>
+
+        <h2>Liability</h2>
+        <p>Studio Foveau cannot be held liable for temporary website unavailability, technical malfunction, or indirect damages related to use of the website.</p>
+
+        <h2>Personal data</h2>
+        <p>Personal data processing is detailed in the <a href="{{ url_for('politique_confidentialite') }}">Privacy policy</a>.</p>
+
+        <h2>Applicable law</h2>
+        <p>These terms are governed by French law. In case of dispute, jurisdiction belongs to competent French courts.</p>
+
+        <h2>Contact</h2>
+        <p>Studio Foveau - 37 Boulevard de l'Égalité, 62100 Calais - contact@studiofoveauphoto.fr - 03 21 97 70 20</p>
+    </div>
+</section>
+{% endblock %}

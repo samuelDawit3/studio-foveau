@@ -46,6 +46,285 @@ BUSINESS_ADDRESS_POSTAL_CODE = "62100"
 BUSINESS_ADDRESS_COUNTRY = "France"
 _resend_module = None
 
+SUPPORTED_LANGUAGES = ("fr", "en")
+LANGUAGE_TO_LOCALE = {"fr": "fr-FR", "en": "en-GB"}
+LANGUAGE_TO_OG_LOCALE = {"fr": "fr_FR", "en": "en_GB"}
+
+PAGE_PATHS = {
+    "home": {"fr": "/", "en": "/en/"},
+    "services": {"fr": "/services", "en": "/en/services"},
+    "reservation": {"fr": "/reservation", "en": "/en/reservation"},
+    "about": {"fr": "/about", "en": "/en/about"},
+    "contact": {"fr": "/contact", "en": "/en/contact"},
+    "mentions_legales": {"fr": "/mentions-legales", "en": "/en/legal-notice"},
+    "politique_confidentialite": {"fr": "/politique-confidentialite", "en": "/en/privacy-policy"},
+    "cgu": {"fr": "/cgu", "en": "/en/terms-of-use"},
+}
+
+PUBLIC_TEMPLATE_BY_PAGE = {
+    "home": {"fr": "home.html", "en": "home_en.html"},
+    "services": {"fr": "services.html", "en": "services_en.html"},
+    "about": {"fr": "about.html", "en": "about_en.html"},
+    "contact": {"fr": "contact.html", "en": "contact_en.html"},
+    "reservation": {"fr": "reservation.html", "en": "reservation_en.html"},
+    "mentions_legales": {"fr": "mentions-legales.html", "en": "legal-notice.html"},
+    "politique_confidentialite": {"fr": "politique-confidentialite.html", "en": "privacy-policy.html"},
+    "cgu": {"fr": "cgu.html", "en": "terms-of-use.html"},
+}
+
+PUBLIC_ENDPOINTS = set(PAGE_PATHS.keys())
+
+SEO_META = {
+    "home": {
+        "fr": {
+            "title": "Studio Foveau | Photographe à Calais - Photos d'identité, Portraits & Mariages",
+            "description": "Studio Foveau à Calais : photos d'identité ANTS en 5 minutes, portraits studio, mariages, tirages, développement argentique, albums et réservation en ligne.",
+        },
+        "en": {
+            "title": "Studio Foveau | Photographer in Calais - ID Photos, Portraits & Weddings",
+            "description": "Studio Foveau in Calais offers compliant ID photos in 5 minutes, studio portraits, wedding photography, film development, photo printing and online booking.",
+        },
+    },
+    "services": {
+        "fr": {
+            "title": "Prestations | Studio Foveau - Photographe à Calais",
+            "description": "Découvrez les prestations de Studio Foveau, photographe Calais : photo identité Calais, portrait studio Calais, mariage Calais, tirages et laboratoire photo Calais.",
+        },
+        "en": {
+            "title": "Photography Services | Studio Foveau Calais",
+            "description": "Explore Studio Foveau services in Calais: passport and ID photos, studio portraits, wedding photography, event coverage, film development and photo printing.",
+        },
+    },
+    "reservation": {
+        "fr": {
+            "title": "Réservation | Studio Foveau",
+            "description": "Réservez en ligne votre séance chez Studio Foveau, photographe Calais: photo ANTS Calais, portrait studio Calais et mariage Calais.",
+        },
+        "en": {
+            "title": "Book a Photo Session | Studio Foveau",
+            "description": "Book your photo session online with Studio Foveau in Calais for ID photos, studio portraits, weddings and personalised photography services.",
+        },
+    },
+    "about": {
+        "fr": {
+            "title": "À propos | Studio Foveau",
+            "description": "Découvrez l'histoire de Studio Foveau, studio photo Calais et laboratoire photo Calais, au service de vos souvenirs depuis 1990.",
+        },
+        "en": {
+            "title": "About Studio Foveau | Photographer in Calais",
+            "description": "Learn about Studio Foveau, a trusted photography studio in Calais since 1990, known for professional quality and friendly service.",
+        },
+    },
+    "contact": {
+        "fr": {
+            "title": "Contact | Studio Foveau",
+            "description": "Contactez Studio Foveau à Calais: téléphone 03 21 97 70 20, email, Facebook et formulaire pour vos demandes photo.",
+        },
+        "en": {
+            "title": "Contact Studio Foveau | Calais",
+            "description": "Contact Studio Foveau in Calais by phone, email or contact form for bookings, quotes and photography enquiries.",
+        },
+    },
+    "mentions_legales": {
+        "fr": {
+            "title": "Mentions légales | Studio Foveau",
+            "description": "Mentions légales du site studiofoveauphoto.fr: éditeur, hébergeur, propriété intellectuelle et informations légales.",
+        },
+        "en": {
+            "title": "Legal Notice | Studio Foveau",
+            "description": "Read the legal notice for studiofoveauphoto.fr including publisher details, hosting information and intellectual property terms.",
+        },
+    },
+    "politique_confidentialite": {
+        "fr": {
+            "title": "Politique de confidentialité | Studio Foveau",
+            "description": "Politique de confidentialité et RGPD de Studio Foveau: données collectées, conservation, cookies et droits des utilisateurs.",
+        },
+        "en": {
+            "title": "Privacy Policy | Studio Foveau",
+            "description": "Read how Studio Foveau handles personal data, cookies and GDPR rights for visitors using contact and booking forms.",
+        },
+    },
+    "cgu": {
+        "fr": {
+            "title": "Conditions Générales d'Utilisation | Studio Foveau",
+            "description": "Conditions Générales d'Utilisation du site Studio Foveau: accès au service, responsabilités et règles d'usage.",
+        },
+        "en": {
+            "title": "Terms of Use | Studio Foveau",
+            "description": "View the terms of use for studiofoveauphoto.fr, including access conditions, user responsibilities and legal information.",
+        },
+    },
+}
+
+TRANSLATIONS = {
+    "fr": {
+        "common.skip_to_content": "Aller au contenu principal",
+        "nav.main": "Navigation principale",
+        "nav.toggle": "Basculer la navigation",
+        "nav.home": "Accueil",
+        "nav.services": "Prestations",
+        "nav.booking": "Réservation",
+        "nav.about": "À propos",
+        "nav.contact": "Contact",
+        "lang.switch.fr": "FR",
+        "lang.switch.en": "EN",
+        "lang.aria.fr": "Afficher le site en français",
+        "lang.aria.en": "View the website in English",
+        "footer.location": "Localisation",
+        "footer.contact": "Contact",
+        "footer.facebook_official": "Facebook officiel",
+        "footer.legal_info": "Informations légales",
+        "footer.legal_notice": "Mentions légales",
+        "footer.privacy": "Politique de confidentialité",
+        "footer.terms": "CGU",
+        "footer.copyright": "Tous droits réservés.",
+        "cookie.aria": "Consentement des cookies",
+        "cookie.message": "Nous utilisons uniquement les cookies nécessaires au bon fonctionnement du site.",
+        "cookie.accept": "Accepter",
+        "cookie.decline": "Refuser",
+        "cookie.learn_more": "En savoir plus",
+        "common.close": "Fermer",
+        "status.open": "🟢 Ouvert",
+        "status.closed": "🔴 Fermé",
+        "status.sunday": "Dimanche",
+        "status.morning": "Matin",
+        "status.afternoon": "Après-midi",
+        "status.outside": "Hors horaires",
+        "flash.contact_success": "Message envoyé ✔",
+        "flash.booking_success": "Réservation enregistrée ✔",
+        "validation.required": "Merci de remplir tous les champs obligatoires.",
+        "validation.invalid_email": "Adresse email invalide.",
+        "validation.invalid_phone": "Numéro de téléphone invalide.",
+        "validation.invalid_booking": "Les informations de réservation sont invalides.",
+        "error.404.title": "Page introuvable (404) - Studio Foveau",
+        "error.404.description": "La page demandée est introuvable sur le site Studio Foveau.",
+        "error.404.heading": "Page introuvable",
+        "error.404.message": "Désolé, la page demandée n'existe pas.",
+        "error.500.title": "Erreur serveur (500) - Studio Foveau",
+        "error.500.description": "Une erreur technique est survenue sur le site Studio Foveau.",
+        "error.500.heading": "Erreur de serveur",
+        "error.500.message": "Une erreur est survenue. Merci de réessayer dans quelques instants.",
+        "error.back_home": "Retour à l'accueil",
+    },
+    "en": {
+        "common.skip_to_content": "Skip to main content",
+        "nav.main": "Main navigation",
+        "nav.toggle": "Toggle navigation",
+        "nav.home": "Home",
+        "nav.services": "Services",
+        "nav.booking": "Booking",
+        "nav.about": "About",
+        "nav.contact": "Contact",
+        "lang.switch.fr": "FR",
+        "lang.switch.en": "EN",
+        "lang.aria.fr": "Afficher le site en français",
+        "lang.aria.en": "View the website in English",
+        "footer.location": "Location",
+        "footer.contact": "Contact",
+        "footer.facebook_official": "Official Facebook",
+        "footer.legal_info": "Legal information",
+        "footer.legal_notice": "Legal notice",
+        "footer.privacy": "Privacy policy",
+        "footer.terms": "Terms of use",
+        "footer.copyright": "All rights reserved.",
+        "cookie.aria": "Cookie consent",
+        "cookie.message": "We only use cookies required for the website to function properly.",
+        "cookie.accept": "Accept",
+        "cookie.decline": "Decline",
+        "cookie.learn_more": "Learn more",
+        "common.close": "Close",
+        "status.open": "🟢 Open",
+        "status.closed": "🔴 Closed",
+        "status.sunday": "Sunday",
+        "status.morning": "Morning",
+        "status.afternoon": "Afternoon",
+        "status.outside": "Outside opening hours",
+        "flash.contact_success": "Message sent ✔",
+        "flash.booking_success": "Booking request recorded ✔",
+        "validation.required": "Please fill in all required fields.",
+        "validation.invalid_email": "Invalid email address.",
+        "validation.invalid_phone": "Invalid phone number.",
+        "validation.invalid_booking": "The booking information is invalid.",
+        "error.404.title": "Page not found (404) - Studio Foveau",
+        "error.404.description": "The requested page could not be found on the Studio Foveau website.",
+        "error.404.heading": "Page not found",
+        "error.404.message": "Sorry, the page you requested does not exist.",
+        "error.500.title": "Server error (500) - Studio Foveau",
+        "error.500.description": "A technical error occurred on the Studio Foveau website.",
+        "error.500.heading": "Server error",
+        "error.500.message": "An error occurred. Please try again in a few moments.",
+        "error.back_home": "Back to home",
+    },
+}
+
+
+def normalize_lang(lang):
+    if lang in SUPPORTED_LANGUAGES:
+        return lang
+    return "fr"
+
+
+def translate(key, lang="fr"):
+    normalized_lang = normalize_lang(lang)
+    localized_bucket = TRANSLATIONS.get(normalized_lang, {})
+    if key in localized_bucket:
+        return localized_bucket[key]
+
+    fallback_bucket = TRANSLATIONS["fr"]
+    if key in fallback_bucket:
+        app.logger.warning("Missing translation key '%s' for lang '%s'. Fallback to fr.", key, normalized_lang)
+        return fallback_bucket[key]
+
+    app.logger.warning("Missing translation key '%s' in all locales.", key)
+    return key
+
+
+def normalize_path(path):
+    if path in ("/", "/en", "/en/"):
+        if path.startswith("/en"):
+            return "/en/"
+        return path
+    return path.rstrip("/")
+
+
+def get_request_lang(default="fr"):
+    path = request.path or ""
+    if path == "/en" or path == "/en/" or path.startswith("/en/"):
+        session["site_lang"] = "en"
+        return "en"
+
+    if default in SUPPORTED_LANGUAGES:
+        session["site_lang"] = default
+        return default
+
+    stored = session.get("site_lang", "fr")
+    return normalize_lang(stored)
+
+
+def endpoint_url(endpoint, lang="fr", **kwargs):
+    normalized_lang = normalize_lang(lang)
+    if endpoint in PUBLIC_ENDPOINTS:
+        return url_for(endpoint, lang=normalized_lang, **kwargs)
+    return url_for(endpoint, **kwargs)
+
+
+def template_for_page(page_key, lang):
+    return PUBLIC_TEMPLATE_BY_PAGE[page_key][normalize_lang(lang)]
+
+
+def render_public_page(page_key, lang, **context):
+    normalized_lang = normalize_lang(lang)
+    meta = SEO_META[page_key][normalized_lang]
+    template_name = template_for_page(page_key, normalized_lang)
+    return render_template(
+        template_name,
+        meta_title=meta["title"],
+        meta_description=meta["description"],
+        page_key=page_key,
+        **context,
+    )
+
 
 def setup_logging():
     """Configure la journalisation locale sans dépendance externe."""
@@ -162,7 +441,7 @@ def normalize_reservation_status(status_value):
     return mapping.get(normalized, "Toutes")
 
 
-def validate_contact_payload(form_data):
+def validate_contact_payload(form_data, lang="fr"):
     """Valide les champs du formulaire de contact avant sauvegarde."""
     name = form_data.get("name", "").strip()
     email = form_data.get("email", "").strip()
@@ -171,15 +450,15 @@ def validate_contact_payload(form_data):
     message = form_data.get("message", "").strip()
 
     if not name or not email or not phone or not service or not message:
-        return None, "Merci de remplir tous les champs obligatoires."
+        return None, translate("validation.required", lang)
 
     try:
         validate_email(email, check_deliverability=False)
     except EmailNotValidError:
-        return None, "Adresse email invalide."
+        return None, translate("validation.invalid_email", lang)
 
     if not re.fullmatch(r"[0-9+().\s-]{8,20}", phone):
-        return None, "Numéro de téléphone invalide."
+        return None, translate("validation.invalid_phone", lang)
 
     return {
         "name": name,
@@ -190,7 +469,7 @@ def validate_contact_payload(form_data):
     }, None
 
 
-def validate_booking_payload(form_data):
+def validate_booking_payload(form_data, lang="fr"):
     """Valide les champs de réservation avant sauvegarde."""
     name = form_data.get("name", "").strip()
     email = form_data.get("email", "").strip()
@@ -201,17 +480,17 @@ def validate_booking_payload(form_data):
     message = form_data.get("message", "").strip()
 
     if not name or not email or not phone or not service or not requested_date or not requested_time:
-        return None, "Merci de remplir tous les champs obligatoires."
+        return None, translate("validation.required", lang)
 
     try:
         validate_email(email, check_deliverability=False)
         datetime.strptime(requested_date, "%Y-%m-%d")
         datetime.strptime(requested_time, "%H:%M")
     except (EmailNotValidError, ValueError):
-        return None, "Les informations de réservation sont invalides."
+        return None, translate("validation.invalid_booking", lang)
 
     if not re.fullmatch(r"[0-9+().\s-]{8,20}", phone):
-        return None, "Numéro de téléphone invalide."
+        return None, translate("validation.invalid_phone", lang)
 
     return {
         "name": name,
@@ -278,10 +557,11 @@ def send_notification_email(subject, body, reply_to=None, recipient=None, html_b
         return False
 
 
-def build_email_html_layout(title, intro, content_html):
+def build_email_html_layout(title, intro, content_html, lang="fr"):
     """Construit une base HTML responsive noir/blanc pour tous les emails."""
+    html_lang = "en" if normalize_lang(lang) == "en" else "fr"
     return f"""<!doctype html>
-<html lang=\"fr\">
+<html lang=\"{html_lang}\">
     <head>
         <meta charset=\"utf-8\" />
         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />
@@ -463,41 +743,74 @@ def send_admin_reservation_email(payload):
         return False
 
 
-def send_customer_contact_confirmation(payload):
+def send_customer_contact_confirmation(payload, lang="fr"):
     """Envoie un accusé de réception HTML après un contact."""
     try:
-        subject = "Nous avons bien reçu votre message - Studio Foveau"
+        normalized_lang = normalize_lang(lang)
+        if normalized_lang == "en":
+            subject = "We have received your message - Studio Foveau"
+            title = "Message received"
+            intro = "Your contact request has been received."
+            greeting = f"Hello {payload['name']},"
+            message_1 = "Thank you for contacting Studio Foveau."
+            message_2 = "Your request has been received. Our team will reply as soon as possible."
+            service_label = "Requested service"
+            customer_message_label = "Your message"
+            studio_contact_label = "Studio contact"
+            text_body = (
+                f"Hello {payload['name']},\n\n"
+                "Thank you for contacting Studio Foveau.\n"
+                "Your request has been received and we will reply as soon as possible.\n\n"
+                f"Requested service: {payload['service']}\n"
+                f"Your message: {payload['message']}\n"
+                f"Studio contact: {BUSINESS_EMAIL}\n\n"
+                "Studio Foveau\n"
+                "Calais\n"
+                f"Email: {BUSINESS_EMAIL}\n\n"
+                "This is an automated email."
+            )
+        else:
+            subject = "Nous avons bien reçu votre message - Studio Foveau"
+            title = "Message bien reçu"
+            intro = "Votre demande de contact est enregistrée."
+            greeting = f"Bonjour {payload['name']},"
+            message_1 = "Merci d'avoir contacté Studio Foveau."
+            message_2 = "Votre demande a bien été reçue. Notre équipe vous répondra dans les plus brefs délais."
+            service_label = "Service demandé"
+            customer_message_label = "Votre message"
+            studio_contact_label = "Contact studio"
+            text_body = (
+                f"Bonjour {payload['name']},\n\n"
+                "Merci d'avoir contacté Studio Foveau.\n"
+                "Votre demande a bien été reçue et nous vous répondrons dès que possible.\n\n"
+                f"Service demandé: {payload['service']}\n"
+                f"Votre message: {payload['message']}\n"
+                f"Contact studio: {BUSINESS_EMAIL}\n\n"
+                "Studio Foveau\n"
+                "Calais\n"
+                f"Email: {BUSINESS_EMAIL}\n\n"
+                "Ceci est un email automatique."
+            )
         customer_message_html = escape(payload.get("message", "")).replace("\n", "<br />")
         content_html = f"""
                 <div class=\"card\">
-                    <p>Bonjour {escape(payload['name'])},</p>
-                    <p>Merci d'avoir contacté Studio Foveau.</p>
-                    <p>Votre demande a bien été reçue. Notre équipe vous répondra dans les plus brefs délais.</p>
-                    <div class=\"row\"><span class=\"label\">Service demandé:</span> {escape(payload['service'])}</div>
-                    <div class=\"row\"><span class=\"label\">Votre message:</span><br />{customer_message_html}</div>
-                    <div class=\"row\"><span class=\"label\">Contact studio:</span> {BUSINESS_EMAIL}</div>
+                    <p>{escape(greeting)}</p>
+                    <p>{escape(message_1)}</p>
+                    <p>{escape(message_2)}</p>
+                    <div class=\"row\"><span class=\"label\">{escape(service_label)}:</span> {escape(payload['service'])}</div>
+                    <div class=\"row\"><span class=\"label\">{escape(customer_message_label)}:</span><br />{customer_message_html}</div>
+                    <div class=\"row\"><span class=\"label\">{escape(studio_contact_label)}:</span> {BUSINESS_EMAIL}</div>
                 </div>
                 """
         html_body = build_email_html_layout(
-            title="Message bien reçu",
-            intro="Votre demande de contact est enregistrée.",
+            title=title,
+            intro=intro,
             content_html=content_html,
-        )
-        body = (
-            f"Bonjour {payload['name']},\n\n"
-            "Merci d'avoir contacté Studio Foveau.\n"
-            "Votre demande a bien été reçue et nous vous répondrons dès que possible.\n\n"
-            f"Service demandé: {payload['service']}\n"
-            f"Votre message: {payload['message']}\n"
-            f"Contact studio: {BUSINESS_EMAIL}\n\n"
-            "Studio Foveau\n"
-            "Calais\n"
-            f"Email: {BUSINESS_EMAIL}\n\n"
-            "Ceci est un email automatique."
+            lang=normalized_lang,
         )
         return send_notification_email(
             subject=subject,
-            body=body,
+            body=text_body,
             recipient=payload["email"],
             html_body=html_body,
         )
@@ -506,52 +819,90 @@ def send_customer_contact_confirmation(payload):
         return False
 
 
-def send_customer_reservation_confirmation(payload):
+def send_customer_reservation_confirmation(payload, lang="fr"):
     """Envoie un accusé de réception HTML après une réservation."""
     try:
-        subject = "Votre demande de réservation a bien été reçue - Studio Foveau"
         reservation_message = (payload.get("message") or "").strip()
+        normalized_lang = normalize_lang(lang)
+        if normalized_lang == "en":
+            subject = "Your booking request has been received - Studio Foveau"
+            title = "Booking request received"
+            intro = "Your request is being processed."
+            greeting = f"Hello {payload['name']},"
+            message_1 = "Your booking request has been received. It is not yet confirmed."
+            message_2 = "Studio Foveau will contact you shortly to confirm your appointment."
+            service_label = "Requested service"
+            date_label = "Preferred date"
+            time_label = "Preferred time"
+            customer_message_label = "Your message"
+            text_body = (
+                f"Hello {payload['name']},\n\n"
+                "Your booking request has been received. It is not yet confirmed. "
+                "Studio Foveau will contact you shortly to confirm your appointment.\n\n"
+                "Summary:\n"
+                f"- Requested service: {payload['service']}\n"
+                f"- Preferred date: {payload['requested_date']}\n"
+                f"- Preferred time: {payload['requested_time']}\n"
+                + (f"- Your message: {reservation_message}\n" if reservation_message else "")
+                + "\n"
+                "Studio Foveau\n"
+                "Calais\n"
+                f"Email: {BUSINESS_EMAIL}\n\n"
+                "This is an automated email."
+            )
+        else:
+            subject = "Votre demande de réservation a bien été reçue - Studio Foveau"
+            title = "Réservation reçue"
+            intro = "Votre demande est en cours de traitement."
+            greeting = f"Bonjour {payload['name']},"
+            message_1 = "Votre demande de réservation a bien été reçue. Elle n'est pas encore confirmée."
+            message_2 = "Studio Foveau vous contactera rapidement pour confirmer le rendez-vous."
+            service_label = "Service demandé"
+            date_label = "Date demandée"
+            time_label = "Heure demandée"
+            customer_message_label = "Votre message"
+            text_body = (
+                f"Bonjour {payload['name']},\n\n"
+                "Votre demande de réservation a bien été reçue. Elle n'est pas encore confirmée. "
+                "Studio Foveau vous contactera rapidement pour confirmer le rendez-vous.\n\n"
+                "Récapitulatif:\n"
+                f"- Service demandé: {payload['service']}\n"
+                f"- Date demandée: {payload['requested_date']}\n"
+                f"- Heure demandée: {payload['requested_time']}\n"
+                + (f"- Votre message: {reservation_message}\n" if reservation_message else "")
+                + "\n"
+                "Studio Foveau\n"
+                "Calais\n"
+                f"Email: {BUSINESS_EMAIL}\n\n"
+                "Ceci est un email automatique."
+            )
         reservation_message_html = escape(reservation_message).replace("\n", "<br />")
         reservation_message_row = ""
         if reservation_message:
             reservation_message_row = (
-                f'<div class="row"><span class="label">Votre message:</span><br />{reservation_message_html}</div>'
+                f'<div class="row"><span class="label">{escape(customer_message_label)}:</span><br />{reservation_message_html}</div>'
             )
 
         content_html = f"""
                 <div class=\"card\">
-                    <p>Bonjour {escape(payload['name'])},</p>
-                    <p>Votre demande de réservation a bien été reçue. Elle n’est pas encore confirmée.</p>
-                    <p>Studio Foveau vous contactera rapidement pour confirmer le rendez-vous.</p>
-                    <div class=\"row\"><span class=\"label\">Service demandé:</span> {escape(payload['service'])}</div>
-                    <div class=\"row\"><span class=\"label\">Date demandée:</span> {escape(payload['requested_date'])}</div>
-                    <div class=\"row\"><span class=\"label\">Heure demandée:</span> {escape(payload['requested_time'])}</div>
+                    <p>{escape(greeting)}</p>
+                    <p>{escape(message_1)}</p>
+                    <p>{escape(message_2)}</p>
+                    <div class=\"row\"><span class=\"label\">{escape(service_label)}:</span> {escape(payload['service'])}</div>
+                    <div class=\"row\"><span class=\"label\">{escape(date_label)}:</span> {escape(payload['requested_date'])}</div>
+                    <div class=\"row\"><span class=\"label\">{escape(time_label)}:</span> {escape(payload['requested_time'])}</div>
                     {reservation_message_row}
                 </div>
                 """
         html_body = build_email_html_layout(
-            title="Réservation reçue",
-            intro="Votre demande est en cours de traitement.",
+            title=title,
+            intro=intro,
             content_html=content_html,
-        )
-        body = (
-            f"Bonjour {payload['name']},\n\n"
-            "Votre demande de réservation a bien été reçue. Elle n'est pas encore confirmée. "
-            "Studio Foveau vous contactera rapidement pour confirmer le rendez-vous.\n\n"
-            "Récapitulatif:\n"
-            f"- Service demandé: {payload['service']}\n"
-            f"- Date demandée: {payload['requested_date']}\n"
-            f"- Heure demandée: {payload['requested_time']}\n"
-            + (f"- Votre message: {reservation_message}\n" if reservation_message else "")
-            + "\n"
-            "Studio Foveau\n"
-            "Calais\n"
-            f"Email: {BUSINESS_EMAIL}\n\n"
-            "Ceci est un email automatique."
+            lang=normalized_lang,
         )
         return send_notification_email(
             subject=subject,
-            body=body,
+            body=text_body,
             recipient=payload["email"],
             html_body=html_body,
         )
@@ -651,13 +1002,14 @@ with app.app_context():
 # =========================
 # STUDIO STATUS
 # =========================
-def get_studio_status():
+def get_studio_status(lang="fr"):
+    normalized_lang = normalize_lang(lang)
     now = datetime.now()
     day = now.weekday()
     time_now = now.time()
 
     if day == 6:
-        return False, "🔴 Fermé", "Dimanche"
+        return False, translate("status.closed", normalized_lang), translate("status.sunday", normalized_lang)
 
     open_morning = datetime.strptime("09:00", "%H:%M").time()
     close_morning = datetime.strptime("12:00", "%H:%M").time()
@@ -667,18 +1019,39 @@ def get_studio_status():
     ).time()
 
     if open_morning <= time_now < close_morning:
-        return True, "🟢 Ouvert", "Matin"
+        return True, translate("status.open", normalized_lang), translate("status.morning", normalized_lang)
     if open_afternoon <= time_now < close_evening:
-        return True, "🟢 Ouvert", "Après-midi"
+        return True, translate("status.open", normalized_lang), translate("status.afternoon", normalized_lang)
 
-    return False, "🔴 Fermé", "Hors horaires"
+    return False, translate("status.closed", normalized_lang), translate("status.outside", normalized_lang)
 
 
 @app.context_processor
 def inject_status():
-    is_open, label, detail = get_studio_status()
-    canonical_path = request.path if request.path == "/" else request.path.rstrip("/")
-    canonical_url = f"{SITE_URL}{canonical_path}"
+    current_lang = get_request_lang()
+    is_open, label, detail = get_studio_status(current_lang)
+    canonical_path = normalize_path(request.path)
+    canonical_url = SITE_URL if canonical_path == "/" else f"{SITE_URL}{canonical_path}"
+
+    normalized_path = normalize_path(request.path)
+    page_key = None
+    for candidate_key, localized_paths in PAGE_PATHS.items():
+        if normalized_path in {normalize_path(localized_paths["fr"]), normalize_path(localized_paths["en"])}:
+            page_key = candidate_key
+            break
+
+    if page_key:
+        alternate_paths = PAGE_PATHS[page_key]
+    else:
+        alternate_paths = {"fr": "/", "en": "/en/"}
+
+    alternate_urls = {
+        "fr": SITE_URL if alternate_paths["fr"] == "/" else f"{SITE_URL}{alternate_paths['fr']}",
+        "en": f"{SITE_URL}{alternate_paths['en']}",
+    }
+
+    switch_lang = "en" if current_lang == "fr" else "fr"
+    switch_lang_url = alternate_urls[switch_lang]
 
     local_business_schema = {
         "@context": "https://schema.org",
@@ -696,10 +1069,20 @@ def inject_status():
             "postalCode": BUSINESS_ADDRESS_POSTAL_CODE,
             "addressCountry": BUSINESS_ADDRESS_COUNTRY,
         },
+        "inLanguage": LANGUAGE_TO_LOCALE[current_lang],
         "priceRange": "EUR",
     }
 
     return dict(
+        t=lambda key: translate(key, current_lang),
+        lang=current_lang,
+        og_locale=LANGUAGE_TO_OG_LOCALE[current_lang],
+        html_lang="fr" if current_lang == "fr" else "en",
+        current_locale=LANGUAGE_TO_LOCALE[current_lang],
+        alternate_urls=alternate_urls,
+        switch_lang=switch_lang,
+        switch_lang_url=switch_lang_url,
+        page_key=page_key,
         is_open=is_open,
         status_label=label,
         status_detail=detail,
@@ -717,6 +1100,8 @@ def inject_status():
         local_business_schema=local_business_schema,
         google_site_verification=os.environ.get("GOOGLE_SITE_VERIFICATION", ""),
         current_year=datetime.utcnow().year,
+        lang_url=lambda endpoint, **kwargs: endpoint_url(endpoint, current_lang, **kwargs),
+        url_for=lambda endpoint, **kwargs: endpoint_url(endpoint, current_lang, **kwargs),
     )
 
 
@@ -735,140 +1120,127 @@ def login_required(view):
 # =========================
 # PUBLIC ROUTES
 # =========================
-@app.route("/")
-def home():
-    return render_template(
-        "home.html",
-        meta_title="Studio Foveau - Photographe à Calais",
-        meta_description="Studio Foveau, studio photo professionnel à Calais: photos d'identité, portraits, reportages et tirages photo de qualité.",
-    )
+@app.route("/", defaults={"lang": "fr"})
+@app.route("/en", defaults={"lang": "en"})
+@app.route("/en/", defaults={"lang": "en"})
+def home(lang):
+    return render_public_page("home", lang)
 
 
-@app.route("/services")
-def services():
-    return render_template(
-        "services.html",
-        meta_title="Prestations Photo - Studio Foveau Calais",
-        meta_description="Découvrez les prestations de Studio Foveau à Calais: identité, portraits, événements, tirages, albums et borne selfie.",
-    )
+@app.route("/services", defaults={"lang": "fr"})
+@app.route("/en/services", defaults={"lang": "en"})
+def services(lang):
+    return render_public_page("services", lang)
 
 
-@app.route("/about")
-def about():
-    return render_template(
-        "about.html",
-        meta_title="À Propos - Studio Foveau Photographe",
-        meta_description="Découvrez l'histoire de Studio Foveau, studio photo professionnel à Calais depuis 1990.",
-    )
+@app.route("/about", defaults={"lang": "fr"})
+@app.route("/en/about", defaults={"lang": "en"})
+def about(lang):
+    return render_public_page("about", lang)
 
 
-@app.route("/mentions-legales")
-def mentions_legales():
-    return render_template(
-        "mentions-legales.html",
-        meta_title="Mentions Légales - Studio Foveau",
-        meta_description="Mentions légales du site studiofoveauphoto.fr: éditeur, hébergeur, propriété intellectuelle et informations légales.",
-    )
+@app.route("/mentions-legales", defaults={"lang": "fr"})
+@app.route("/en/legal-notice", defaults={"lang": "en"})
+def mentions_legales(lang):
+    return render_public_page("mentions_legales", lang)
 
 
-@app.route("/politique-confidentialite")
-def politique_confidentialite():
-    return render_template(
-        "politique-confidentialite.html",
-        meta_title="Politique de Confidentialité - Studio Foveau",
-        meta_description="Politique de confidentialité et RGPD de Studio Foveau: données collectées, conservation, cookies et droits des utilisateurs.",
-    )
+@app.route("/politique-confidentialite", defaults={"lang": "fr"})
+@app.route("/en/privacy-policy", defaults={"lang": "en"})
+def politique_confidentialite(lang):
+    return render_public_page("politique_confidentialite", lang)
 
 
-@app.route("/cgu")
-def cgu():
-    return render_template(
-        "cgu.html",
-        meta_title="CGU - Studio Foveau",
-        meta_description="Conditions Générales d'Utilisation du site Studio Foveau: accès au service, responsabilités et règles d'usage.",
-    )
+@app.route("/cgu", defaults={"lang": "fr"})
+@app.route("/en/terms-of-use", defaults={"lang": "en"})
+def cgu(lang):
+    return render_public_page("cgu", lang)
 
 
-@app.route("/contact", methods=["GET", "POST"])
-def contact():
+@app.route("/contact", methods=["GET", "POST"], defaults={"lang": "fr"})
+@app.route("/en/contact", methods=["GET", "POST"], defaults={"lang": "en"})
+def contact(lang):
+    normalized_lang = normalize_lang(lang)
     if request.method == "POST":
-        payload, error_message = validate_contact_payload(request.form)
+        payload, error_message = validate_contact_payload(request.form, normalized_lang)
         if error_message:
             flash(error_message, "danger")
-            return redirect(url_for("contact"))
+            return redirect(endpoint_url("contact", normalized_lang))
 
         db.session.add(ContactMessage(**payload))
         db.session.commit()
 
         admin_result = send_admin_contact_email(payload)
         app.logger.info("Admin contact email result: %s", admin_result)
-        customer_result = send_customer_contact_confirmation(payload)
+        customer_result = send_customer_contact_confirmation(payload, normalized_lang)
         app.logger.info("Customer contact email result: %s", customer_result)
 
-        flash("Message envoyé ✔", "success")
-        return redirect(url_for("contact"))
+        flash(translate("flash.contact_success", normalized_lang), "success")
+        return redirect(endpoint_url("contact", normalized_lang))
 
-    return render_template(
-        "contact.html",
-        meta_title="Contact Studio Foveau - Calais",
-        meta_description="Contactez Studio Foveau à Calais par téléphone, email ou formulaire pour toute demande photo ou réservation.",
-    )
+    return render_public_page("contact", normalized_lang)
 
 
-@app.route("/reservation", methods=["GET", "POST"])
-def reservation():
+@app.route("/reservation", methods=["GET", "POST"], defaults={"lang": "fr"})
+@app.route("/en/reservation", methods=["GET", "POST"], defaults={"lang": "en"})
+def reservation(lang):
+    normalized_lang = normalize_lang(lang)
     if request.method == "POST":
-        payload, error_message = validate_booking_payload(request.form)
+        payload, error_message = validate_booking_payload(request.form, normalized_lang)
         if error_message:
             flash(error_message, "danger")
-            return redirect(url_for("reservation"))
+            return redirect(endpoint_url("reservation", normalized_lang))
 
         db.session.add(Booking(**payload))
         db.session.commit()
 
         admin_result = send_admin_reservation_email(payload)
         app.logger.info("Admin reservation email result: %s", admin_result)
-        customer_result = send_customer_reservation_confirmation(payload)
+        customer_result = send_customer_reservation_confirmation(payload, normalized_lang)
         app.logger.info("Customer reservation email result: %s", customer_result)
 
-        flash("Réservation enregistrée ✔", "success")
-        return redirect(url_for("reservation"))
+        flash(translate("flash.booking_success", normalized_lang), "success")
+        return redirect(endpoint_url("reservation", normalized_lang))
 
-    return render_template(
-        "reservation.html",
-        meta_title="Réservation Photo - Studio Foveau",
-        meta_description="Réservez votre séance photo chez Studio Foveau à Calais via le formulaire en ligne.",
-    )
+    return render_public_page("reservation", normalized_lang)
 
 
 @app.route("/sitemap.xml")
 def sitemap_xml():
-    pages = [
-        "/",
-        "/about",
-        "/services",
-        "/contact",
-        "/reservation",
-        "/mentions-legales",
-        "/politique-confidentialite",
-        "/cgu",
-    ]
+    pages = {
+        "home": 1.0,
+        "services": 0.9,
+        "reservation": 0.9,
+        "about": 0.8,
+        "contact": 0.8,
+        "mentions_legales": 0.4,
+        "politique_confidentialite": 0.4,
+        "cgu": 0.4,
+    }
     xml_body = [
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
-        "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">",
+        "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xhtml=\"http://www.w3.org/1999/xhtml\">",
     ]
 
-    for path in pages:
-        canonical = f"{SITE_URL}{path}" if path != "/" else SITE_URL
-        xml_body.extend(
-            [
-                "  <url>",
-                f"    <loc>{canonical}</loc>",
-                "    <changefreq>weekly</changefreq>",
-                "    <priority>0.8</priority>",
-                "  </url>",
-            ]
-        )
+    for page_key, priority in pages.items():
+        fr_path = PAGE_PATHS[page_key]["fr"]
+        en_path = PAGE_PATHS[page_key]["en"]
+        fr_url = SITE_URL if fr_path == "/" else f"{SITE_URL}{fr_path}"
+        en_url = f"{SITE_URL}{en_path}"
+
+        for canonical in (fr_url, en_url):
+            xml_body.extend(
+                [
+                    "  <url>",
+                    f"    <loc>{canonical}</loc>",
+                    f"    <xhtml:link rel=\"alternate\" hreflang=\"fr\" href=\"{fr_url}\" />",
+                    f"    <xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"{en_url}\" />",
+                    f"    <xhtml:link rel=\"alternate\" hreflang=\"x-default\" href=\"{fr_url}\" />",
+                    "    <changefreq>weekly</changefreq>",
+                    f"    <priority>{priority:.1f}</priority>",
+                    "  </url>",
+                ]
+            )
 
     xml_body.append("</urlset>")
     return Response("\n".join(xml_body), mimetype="application/xml")
@@ -1079,13 +1451,40 @@ def admin_reservation_action(reservation_id, action):
 @app.errorhandler(404)
 def not_found(e):
     app.logger.info("404: %s", request.path)
-    return render_template("404.html"), 404
+    lang = get_request_lang()
+    return render_template(
+        "404.html",
+        meta_title=translate("error.404.title", lang),
+        meta_description=translate("error.404.description", lang),
+    ), 404
 
 
 @app.errorhandler(500)
 def server_error(e):
     app.logger.exception("Erreur serveur sur %s", request.path)
-    return render_template("500.html"), 500
+    lang = get_request_lang()
+    return render_template(
+        "500.html",
+        meta_title=translate("error.500.title", lang),
+        meta_description=translate("error.500.description", lang),
+    ), 500
+
+
+@app.route("/<lang>/", defaults={"subpath": ""})
+@app.route("/<lang>/<path:subpath>")
+def fallback_unknown_language(lang, subpath):
+    if lang in SUPPORTED_LANGUAGES:
+        return redirect(endpoint_url("home", lang))
+
+    stripped_subpath = (subpath or "").strip("/")
+    fallback_map = {
+        "legal-notice": "mentions-legales",
+        "privacy-policy": "politique-confidentialite",
+        "terms-of-use": "cgu",
+    }
+    fallback_subpath = fallback_map.get(stripped_subpath, stripped_subpath)
+    fallback_target = f"/{fallback_subpath}" if fallback_subpath else "/"
+    return redirect(fallback_target)
 
 
 def validate_admin_template_routes():
