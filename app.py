@@ -4,6 +4,7 @@ import logging
 from html import escape
 from datetime import datetime
 from functools import wraps
+from xml.etree import ElementTree as ET
 from werkzeug.security import generate_password_hash
 
 from flask import Flask, render_template, request, redirect, url_for, flash, session, Response
@@ -1214,43 +1215,60 @@ def reservation(lang):
 
 @app.route("/sitemap.xml")
 def sitemap_xml():
-    pages = {
-        "home": 1.0,
-        "services": 0.9,
-        "reservation": 0.9,
-        "about": 0.8,
-        "contact": 0.8,
-        "mentions_legales": 0.4,
-        "politique_confidentialite": 0.4,
-        "cgu": 0.4,
-    }
-    xml_body = [
+    pages = [
+        ("home", 1.0),
+        ("services", 0.9),
+        ("reservation", 0.9),
+        ("about", 0.8),
+        ("contact", 0.8),
+        ("mentions_legales", 0.4),
+        ("politique_confidentialite", 0.4),
+        ("cgu", 0.4),
+    ]
+
+    xml_lines = [
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
         "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xhtml=\"http://www.w3.org/1999/xhtml\">",
     ]
 
-    for page_key, priority in pages.items():
+    seen_urls = set()
+    for page_key, priority in pages:
         fr_path = PAGE_PATHS[page_key]["fr"]
         en_path = PAGE_PATHS[page_key]["en"]
-        fr_url = SITE_URL if fr_path == "/" else f"{SITE_URL}{fr_path}"
+
+        fr_url = f"{SITE_URL}/" if fr_path == "/" else f"{SITE_URL}{fr_path}"
         en_url = f"{SITE_URL}{en_path}"
 
+        # Keep multilingual alternates while ensuring each canonical URL is unique.
         for canonical in (fr_url, en_url):
-            xml_body.extend(
+            if canonical in seen_urls:
+                continue
+            seen_urls.add(canonical)
+
+            escaped_canonical = escape(canonical, quote=True)
+            escaped_fr = escape(fr_url, quote=True)
+            escaped_en = escape(en_url, quote=True)
+
+            xml_lines.extend(
                 [
                     "  <url>",
-                    f"    <loc>{canonical}</loc>",
-                    f"    <xhtml:link rel=\"alternate\" hreflang=\"fr\" href=\"{fr_url}\" />",
-                    f"    <xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"{en_url}\" />",
-                    f"    <xhtml:link rel=\"alternate\" hreflang=\"x-default\" href=\"{fr_url}\" />",
+                    f"    <loc>{escaped_canonical}</loc>",
+                    f"    <xhtml:link rel=\"alternate\" hreflang=\"fr\" href=\"{escaped_fr}\" />",
+                    f"    <xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"{escaped_en}\" />",
+                    f"    <xhtml:link rel=\"alternate\" hreflang=\"x-default\" href=\"{escaped_fr}\" />",
                     "    <changefreq>weekly</changefreq>",
                     f"    <priority>{priority:.1f}</priority>",
                     "  </url>",
                 ]
             )
 
-    xml_body.append("</urlset>")
-    return Response("\n".join(xml_body), mimetype="application/xml")
+    xml_lines.append("</urlset>")
+    xml_content = "\n".join(xml_lines)
+
+    # Validate XML before returning it to avoid malformed sitemap responses.
+    ET.fromstring(xml_content)
+
+    return Response(xml_content, content_type="application/xml")
 
 
 @app.route("/robots.txt")
