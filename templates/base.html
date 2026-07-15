@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ meta_title or 'Studio Foveau - Photographe à Calais' }}</title>
-    <meta name="description" content="{{ meta_description or 'Studio Foveau à Calais : photos d\'identité ANTS en 5 minutes, portraits studio, mariages, tirages, développement argentique, albums et réservation en ligne.' }}">
-    <meta name="robots" content="index, follow">
+    <meta name="description" content="{{ meta_description or 'Studio Foveau, photographe à Calais : photos d\'identité ANTS, portraits studio, mariages, développement photo, tirages, albums, cadres et réservation en ligne.' }}">
+    <meta name="robots" content="index,follow">
     <link rel="canonical" href="{{ canonical_url }}">
     <meta property="og:locale" content="{{ og_locale }}">
     <meta property="og:type" content="website">
@@ -98,7 +98,7 @@
         <div class="container-fluid px-3 px-md-4">
             <nav class="navbar navbar-expand-lg navbar-light" aria-label="{{ t('nav.main') }}">
                 <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ url_for('home') }}">
-                    <img src="{{ url_for('static', filename='images/ChatGPT-Image-Jul-13_-2026_-06_10_56-PM.svg') }}" alt="Studio Foveau Studio Photo Calais" title="Studio Foveau" loading="eager" class="site-logo navbar-logo me-2">
+                    <img src="{{ url_for('static', filename='images/ChatGPT-Image-Jul-13_-2026_-06_10_56-PM.svg') }}" alt="Photographe Studio Foveau à Calais" title="Photographe Studio Foveau à Calais" loading="eager" width="220" height="80" class="site-logo navbar-logo me-2">
                     <span class="d-none d-sm-inline">Studio Foveau</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="{{ t('nav.toggle') }}">
@@ -205,7 +205,7 @@
             <hr class="my-4">
             <div class="text-center">
                 <div class="mb-3">
-                    <img src="{{ url_for('static', filename='images/ChatGPT-Image-Jul-13_-2026_-06_10_56-PM.svg') }}" alt="Studio Foveau Studio Photo Calais" title="Studio Foveau" class="site-logo footer-logo">
+                    <img src="{{ url_for('static', filename='images/ChatGPT-Image-Jul-13_-2026_-06_10_56-PM.svg') }}" alt="Photographe Studio Foveau à Calais" title="Photographe Studio Foveau à Calais" loading="lazy" width="220" height="80" class="site-logo footer-logo">
                 </div>
                 <p class="mb-2">&copy; {{ current_year }} Studio Foveau. {{ t('footer.copyright') }}</p>
                 <div class="social-links">

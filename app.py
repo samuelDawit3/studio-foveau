@@ -79,7 +79,7 @@ SEO_META = {
     "home": {
         "fr": {
             "title": "Studio Foveau | Photographe à Calais - Photos d'identité, Portraits & Mariages",
-            "description": "Studio Foveau à Calais : photos d'identité ANTS en 5 minutes, portraits studio, mariages, tirages, développement argentique, albums et réservation en ligne.",
+            "description": "Studio Foveau, photographe à Calais : photos d'identité ANTS, portraits studio, mariages, développement photo, tirages, albums, cadres et réservation en ligne.",
         },
         "en": {
             "title": "Studio Foveau | Photographer in Calais - ID Photos, Portraits & Weddings",
@@ -88,8 +88,8 @@ SEO_META = {
     },
     "services": {
         "fr": {
-            "title": "Prestations | Studio Foveau - Photographe à Calais",
-            "description": "Découvrez les prestations de Studio Foveau, photographe Calais : photo identité Calais, portrait studio Calais, mariage Calais, tirages et laboratoire photo Calais.",
+            "title": "Prestations photo à Calais | Studio Foveau - Identité, Portraits, Mariages",
+            "description": "Découvrez les prestations de Studio Foveau à Calais : photos d'identité ANTS, portraits en studio, mariages, tirage photo, développement argentique et borne selfie.",
         },
         "en": {
             "title": "Photography Services | Studio Foveau Calais",
@@ -98,8 +98,8 @@ SEO_META = {
     },
     "reservation": {
         "fr": {
-            "title": "Réservation | Studio Foveau",
-            "description": "Réservez en ligne votre séance chez Studio Foveau, photographe Calais: photo ANTS Calais, portrait studio Calais et mariage Calais.",
+            "title": "Réservation photo à Calais | Studio Foveau",
+            "description": "Réservez votre séance photo en ligne chez Studio Foveau à Calais pour des photos d'identité, portraits studio, reportages mariage et demandes personnalisées.",
         },
         "en": {
             "title": "Book a Photo Session | Studio Foveau",
@@ -108,8 +108,8 @@ SEO_META = {
     },
     "about": {
         "fr": {
-            "title": "À propos | Studio Foveau",
-            "description": "Découvrez l'histoire de Studio Foveau, studio photo Calais et laboratoire photo Calais, au service de vos souvenirs depuis 1990.",
+            "title": "Studio Foveau à Calais | Photographe & Laboratoire Photo depuis 1990",
+            "description": "Découvrez l'histoire de Studio Foveau, studio photo à Calais depuis 1990, spécialisé en portraits, photos d'identité, mariages et travaux de laboratoire photo.",
         },
         "en": {
             "title": "About Studio Foveau | Photographer in Calais",
@@ -118,8 +118,8 @@ SEO_META = {
     },
     "contact": {
         "fr": {
-            "title": "Contact | Studio Foveau",
-            "description": "Contactez Studio Foveau à Calais: téléphone 03 21 97 70 20, email, Facebook et formulaire pour vos demandes photo.",
+            "title": "Contact Studio Foveau | Studio photo à Calais",
+            "description": "Contactez Studio Foveau à Calais au 03 21 97 70 20, par email ou via le formulaire pour vos photos d'identité, portraits, mariages et tirages photo.",
         },
         "en": {
             "title": "Contact Studio Foveau | Calais",
@@ -1071,6 +1071,11 @@ def inject_status():
             "postalCode": BUSINESS_ADDRESS_POSTAL_CODE,
             "addressCountry": BUSINESS_ADDRESS_COUNTRY,
         },
+        "areaServed": [
+            {"@type": "City", "name": "Calais"},
+            {"@type": "AdministrativeArea", "name": "Pas-de-Calais"},
+            {"@type": "AdministrativeArea", "name": "Hauts-de-France"},
+        ],
         "inLanguage": LANGUAGE_TO_LOCALE[current_lang],
         "priceRange": "EUR",
     }
@@ -1253,6 +1258,7 @@ def robots_txt():
     content = (
         "User-agent: *\n"
         "Allow: /\n"
+        "\n"
         f"Sitemap: {SITE_URL}/sitemap.xml\n"
     )
     return Response(content, mimetype="text/plain")
