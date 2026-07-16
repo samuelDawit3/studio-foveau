@@ -2,9 +2,10 @@ import os
 import re
 import logging
 from html import escape
-from datetime import datetime
+from datetime import datetime, time, timedelta
 from functools import wraps
 from xml.etree import ElementTree as ET
+from zoneinfo import ZoneInfo
 from werkzeug.security import generate_password_hash
 
 from flask import Flask, render_template, request, redirect, url_for, flash, session, Response
@@ -1004,28 +1005,74 @@ with app.app_context():
 # =========================
 # STUDIO STATUS
 # =========================
+PARIS_TZ = ZoneInfo("Europe/Paris")
+
+OPENING_PERIODS = {
+    0: ((time(9, 0), time(12, 0)), (time(14, 0), time(19, 0))),
+    1: ((time(9, 0), time(12, 0)), (time(14, 0), time(19, 0))),
+    2: ((time(9, 0), time(12, 0)), (time(14, 0), time(19, 0))),
+    3: ((time(9, 0), time(12, 0)), (time(14, 0), time(19, 0))),
+    4: ((time(9, 0), time(12, 0)), (time(14, 0), time(19, 0))),
+    5: ((time(9, 0), time(12, 0)), (time(14, 0), time(17, 0))),
+    6: (),
+}
+
+WEEKDAYS_FR = ("lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche")
+WEEKDAYS_EN = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+
+
+def _format_status_time(value, lang):
+    if normalize_lang(lang) == "fr":
+        return f"{value.hour:02d}h{value.minute:02d}"
+    return f"{value.hour:02d}:{value.minute:02d}"
+
+
+def _find_next_opening(now_dt):
+    for offset in range(0, 8):
+        candidate_date = now_dt.date() + timedelta(days=offset)
+        candidate_periods = OPENING_PERIODS[candidate_date.weekday()]
+        for opens_at, _ in candidate_periods:
+            candidate_dt = datetime.combine(candidate_date, opens_at, tzinfo=PARIS_TZ)
+            if candidate_dt > now_dt:
+                return candidate_date, opens_at
+    return None, None
+
+
 def get_studio_status(lang="fr"):
     normalized_lang = normalize_lang(lang)
-    now = datetime.now()
-    day = now.weekday()
-    time_now = now.time()
+    now = datetime.now(PARIS_TZ)
+    today_periods = OPENING_PERIODS[now.weekday()]
+    current_time = now.time()
 
-    if day == 6:
-        return False, translate("status.closed", normalized_lang), translate("status.sunday", normalized_lang)
+    for opens_at, closes_at in today_periods:
+        if opens_at <= current_time < closes_at:
+            if normalized_lang == "fr":
+                detail = f"Ferme à {_format_status_time(closes_at, normalized_lang)}"
+            else:
+                detail = f"Closes at {_format_status_time(closes_at, normalized_lang)}"
+            return True, translate("status.open", normalized_lang), detail
 
-    open_morning = datetime.strptime("09:00", "%H:%M").time()
-    close_morning = datetime.strptime("12:00", "%H:%M").time()
-    open_afternoon = datetime.strptime("14:00", "%H:%M").time()
-    close_evening = datetime.strptime(
-        "18:00" if day == 5 else "19:00", "%H:%M"
-    ).time()
+    next_date, next_time = _find_next_opening(now)
+    if next_date is None or next_time is None:
+        fallback = "Horaires indisponibles" if normalized_lang == "fr" else "Opening hours unavailable"
+        return False, translate("status.closed", normalized_lang), fallback
 
-    if open_morning <= time_now < close_morning:
-        return True, translate("status.open", normalized_lang), translate("status.morning", normalized_lang)
-    if open_afternoon <= time_now < close_evening:
-        return True, translate("status.open", normalized_lang), translate("status.afternoon", normalized_lang)
+    if normalized_lang == "fr":
+        if next_date == now.date():
+            detail = f"Ouvre aujourd'hui à {_format_status_time(next_time, normalized_lang)}"
+        elif next_date == now.date() + timedelta(days=1):
+            detail = f"Ouvre demain à {_format_status_time(next_time, normalized_lang)}"
+        else:
+            detail = f"Ouvre {WEEKDAYS_FR[next_date.weekday()]} à {_format_status_time(next_time, normalized_lang)}"
+    else:
+        if next_date == now.date():
+            detail = f"Opens today at {_format_status_time(next_time, normalized_lang)}"
+        elif next_date == now.date() + timedelta(days=1):
+            detail = f"Opens tomorrow at {_format_status_time(next_time, normalized_lang)}"
+        else:
+            detail = f"Opens {WEEKDAYS_EN[next_date.weekday()]} at {_format_status_time(next_time, normalized_lang)}"
 
-    return False, translate("status.closed", normalized_lang), translate("status.outside", normalized_lang)
+    return False, translate("status.closed", normalized_lang), detail
 
 
 @app.context_processor
