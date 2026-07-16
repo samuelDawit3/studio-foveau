@@ -1279,7 +1279,7 @@ def robots_txt():
         "\n"
         f"Sitemap: {SITE_URL}/sitemap.xml\n"
     )
-    return Response(content, mimetype="text/plain")
+    return Response(content, status=200, content_type="text/plain; charset=utf-8")
 
 
 # =========================

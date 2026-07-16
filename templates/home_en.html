@@ -8,7 +8,32 @@
         <div class="row align-items-center hero-row">
             <div class="col-12 col-lg-7 mb-4 mb-lg-0">
                 <div class="hero-media-wrap text-center">
-                    <img src="{{ url_for('static', filename='images/studio-foveau-photographe-calais.jpg') }}" alt="Front of Studio Foveau in Calais" title="Studio Foveau photographer in Calais" class="img-fluid hero-main-image" loading="lazy" decoding="async" width="1200" height="800">
+                    <video
+                        class="hero-media hero-video hero-main-image"
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        preload="metadata"
+                        poster="{{ url_for('static', filename='images/studio-foveau-photographe-calais.jpg') }}"
+                        aria-label="Wedding highlight video produced by Studio Foveau"
+                    >
+                        <source
+                            src="{{ url_for('static', filename='videos/wedding-highlight.mp4') }}"
+                            type="video/mp4"
+                        >
+                        Your browser does not support video playback.
+                    </video>
+                    <button
+                        type="button"
+                        class="btn btn-sm btn-outline-light hero-video-toggle"
+                        data-label-play="Play video"
+                        data-label-pause="Pause video"
+                        aria-label="Pause video"
+                    >
+                        <i class="fas fa-pause" aria-hidden="true"></i>
+                        <span class="visually-hidden">Pause video</span>
+                    </button>
                 </div>
             </div>
             <div class="col-12 col-lg-5">

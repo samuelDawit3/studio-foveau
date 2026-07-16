@@ -276,6 +276,30 @@ section {
     object-fit: cover;
 }
 
+.hero-video {
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    display: block;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.hero-video-toggle {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 2;
+    border-width: 1px;
+    backdrop-filter: blur(3px);
+    background-color: rgba(0, 0, 0, 0.35);
+}
+
+.hero-video-toggle:hover,
+.hero-video-toggle:focus-visible {
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
 @media (min-width: 992px) {
     .hero-row {
         min-height: 100vh;
@@ -293,12 +317,34 @@ section {
         width: 100%;
     }
 
+    .hero-video {
+        max-width: min(64vw, 900px);
+        max-height: 78vh;
+    }
+
     .hero-content {
         padding: 1rem 0 1rem 1.5rem;
     }
 
     .hero-content .lead {
         max-width: 36ch;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .hero-video {
+        min-height: 360px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .hero-video {
+        min-height: 240px;
+    }
+
+    .hero-video-toggle {
+        right: 0.75rem;
+        bottom: 0.75rem;
     }
 }
 
