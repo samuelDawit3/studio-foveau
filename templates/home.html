@@ -10,14 +10,11 @@
             <div class="col-12 col-lg-7 mb-4 mb-lg-0">
                 <div class="hero-media-wrap text-center">
                     <video
-                        class="hero-media hero-video hero-main-image"
                         autoplay
                         muted
                         loop
                         playsinline
                         preload="metadata"
-                        poster="{{ url_for('static', filename='images/studio-foveau-photographe-calais.jpg') }}"
-                        aria-label="Extrait vidéo d’un reportage de mariage réalisé par Studio Foveau"
                     >
                         <source
                             src="{{ url_for('static', filename='videos/wedding-highlight.mp4') }}"
@@ -25,16 +22,6 @@
                         >
                         Votre navigateur ne prend pas en charge la lecture vidéo.
                     </video>
-                    <button
-                        type="button"
-                        class="btn btn-sm btn-outline-light hero-video-toggle"
-                        data-label-play="Lire la vidéo"
-                        data-label-pause="Mettre la vidéo en pause"
-                        aria-label="Mettre la vidéo en pause"
-                    >
-                        <i class="fas fa-pause" aria-hidden="true"></i>
-                        <span class="visually-hidden">Mettre la vidéo en pause</span>
-                    </button>
                 </div>
             </div>
             <div class="col-12 col-lg-5">
