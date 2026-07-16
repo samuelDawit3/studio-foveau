@@ -80,11 +80,11 @@ PUBLIC_ENDPOINTS = set(PAGE_PATHS.keys())
 SEO_META = {
     "home": {
         "fr": {
-            "title": "Studio Foveau | Photographe à Calais - Photos d'identité, Portraits & Mariages",
+            "title": "Studio Foveau | Photographe à Calais - Photos d'identité & Portraits",
             "description": "Studio Foveau, photographe à Calais : photos d'identité ANTS, portraits studio, mariages, développement photo, tirages, albums, cadres et réservation en ligne.",
         },
         "en": {
-            "title": "Studio Foveau | Photographer in Calais - ID Photos, Portraits & Weddings",
+            "title": "Studio Foveau | Photographer in Calais - ID Photos & Portraits",
             "description": "Studio Foveau in Calais offers compliant ID photos in 5 minutes, studio portraits, wedding photography, film development, photo printing and online booking.",
         },
     },
