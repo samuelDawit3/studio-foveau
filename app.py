@@ -33,14 +33,17 @@ csrf = CSRFProtect(app)
 
 MESSAGE_STATUS_VALUES = ["Nouveau", "Lu", "Traité"]
 RESERVATION_STATUS_VALUES = ["En attente", "Confirmé", "Annulé"]
+TECHNICAL_SENDER_EMAIL = "contact@studiofoveauphoto.fr"
+PUBLIC_CONTACT_EMAIL = "studiofoveau.admin@gmail.com"
+PUBLIC_CONTACT_MAILTO = "mailto:studiofoveau.admin@gmail.com?subject=Demande depuis le site Studio Foveau"
 VERIFIED_SENDER = "Studio Foveau <contact@studiofoveauphoto.fr>"
-STUDIO_REPLY_TO = "contact@studiofoveauphoto.fr"
+STUDIO_REPLY_TO = "studiofoveau.admin@gmail.com"
 DEFAULT_MAIL_REPLY_TO = "studiofoveau.admin@gmail.com"
 ADMIN_NOTIFICATION_EMAIL = "studiofoveau.admin@gmail.com"
 SITE_URL = "https://studiofoveauphoto.fr"
 BUSINESS_NAME = "Studio Foveau"
 BUSINESS_PHONE = "03 21 97 70 20"
-BUSINESS_EMAIL = "contact@studiofoveauphoto.fr"
+BUSINESS_EMAIL = "studiofoveau.admin@gmail.com"
 BUSINESS_FACEBOOK = "https://www.facebook.com/studiofoveau/"
 BUSINESS_ADDRESS_STREET = "37 Boulevard de l'Égalité"
 BUSINESS_ADDRESS_LOCALITY = "Calais"
@@ -526,8 +529,8 @@ def send_notification_email(subject, body, reply_to=None, recipient=None, html_b
         or os.environ.get("ADMIN_EMAIL")
         or ADMIN_NOTIFICATION_EMAIL
     )
-    sender = os.environ.get("MAIL_DEFAULT_SENDER") or "Studio Foveau <contact@studiofoveauphoto.fr>"
-    resolved_reply_to = os.environ.get("MAIL_REPLY_TO") or DEFAULT_MAIL_REPLY_TO
+    sender = os.environ.get("MAIL_DEFAULT_SENDER") or VERIFIED_SENDER
+    resolved_reply_to = reply_to or os.environ.get("MAIL_REPLY_TO") or DEFAULT_MAIL_REPLY_TO
 
     if not configured_recipient or not sender:
         app.logger.info("Notification email ignorée: configuration Resend incomplète.")
@@ -563,6 +566,7 @@ def send_notification_email(subject, body, reply_to=None, recipient=None, html_b
 def build_email_html_layout(title, intro, content_html, lang="fr"):
     """Construit une base HTML responsive noir/blanc pour tous les emails."""
     html_lang = "en" if normalize_lang(lang) == "en" else "fr"
+    footer_html = build_email_footer_html(lang)
     return f"""<!doctype html>
 <html lang=\"{html_lang}\">
     <head>
@@ -647,15 +651,64 @@ def build_email_html_layout(title, intro, content_html, lang="fr"):
                 <p>{intro}</p>
                 {content_html}
             </div>
-            <div class=\"footer\">
-                Studio Foveau<br />
-                Calais<br />
-                Email: {BUSINESS_EMAIL}<br /><br />
-                Ceci est un email automatique.
-            </div>
+            <div class=\"footer\">{footer_html}</div>
         </div>
     </body>
 </html>"""
+
+
+def build_customer_contact_block(lang="fr"):
+    if normalize_lang(lang) == "en":
+        return f"""
+                <div class=\"card\" style=\"margin-top: 16px;\">
+                    <p><strong>Need to contact us?</strong></p>
+                    <p>This sender address is used only for automated messages.</p>
+                    <p>To contact Studio Foveau, email:</p>
+                    <p><a href=\"mailto:{PUBLIC_CONTACT_EMAIL}\">{PUBLIC_CONTACT_EMAIL}</a></p>
+                    <p>or call:</p>
+                    <p><a href=\"tel:+33321977020\">03 21 97 70 20</a></p>
+                </div>
+                """
+
+    return f"""
+                <div class=\"card\" style=\"margin-top: 16px;\">
+                    <p><strong>Besoin de nous contacter ?</strong></p>
+                    <p>Cette adresse d'envoi est utilisée uniquement pour les messages automatiques.</p>
+                    <p>Pour contacter Studio Foveau, écrivez à :</p>
+                    <p><a href=\"mailto:{PUBLIC_CONTACT_EMAIL}\">{PUBLIC_CONTACT_EMAIL}</a></p>
+                    <p>ou appelez-nous au :</p>
+                    <p><a href=\"tel:+33321977020\">03 21 97 70 20</a></p>
+                </div>
+                """
+
+
+def build_email_footer_html(lang="fr"):
+    if normalize_lang(lang) == "en":
+        return (
+            "Studio Foveau<br />"
+            "37 Boulevard de l'Égalité<br />"
+            "62100 Calais<br /><br />"
+            "Phone:<br />"
+            '<a href=\"tel:+33321977020\">03 21 97 70 20</a><br /><br />'
+            "Contact email:<br />"
+            f'<a href=\"mailto:{PUBLIC_CONTACT_EMAIL}\">{PUBLIC_CONTACT_EMAIL}</a><br /><br />'
+            "Website:<br />"
+            f'<a href=\"{SITE_URL}\">{SITE_URL}</a><br /><br />'
+            "This is an automated email sent by Studio Foveau."
+        )
+
+    return (
+        "Studio Foveau<br />"
+        "37 Boulevard de l'Égalité<br />"
+        "62100 Calais<br /><br />"
+        "Téléphone :<br />"
+        '<a href=\"tel:+33321977020\">03 21 97 70 20</a><br /><br />'
+        "Email de contact :<br />"
+        f'<a href=\"mailto:{PUBLIC_CONTACT_EMAIL}\">{PUBLIC_CONTACT_EMAIL}</a><br /><br />'
+        "Site :<br />"
+        f'<a href=\"{SITE_URL}\">{SITE_URL}</a><br /><br />'
+        "Ceci est un email automatique envoyé par Studio Foveau."
+    )
 
 
 def send_admin_contact_email(payload):
@@ -766,11 +819,23 @@ def send_customer_contact_confirmation(payload, lang="fr"):
                 "Your request has been received and we will reply as soon as possible.\n\n"
                 f"Requested service: {payload['service']}\n"
                 f"Your message: {payload['message']}\n"
-                f"Studio contact: {BUSINESS_EMAIL}\n\n"
+                f"Studio contact: {PUBLIC_CONTACT_EMAIL}\n\n"
+                "Need to contact us?\n\n"
+                "This sender address is used only for automated messages.\n\n"
+                "To contact Studio Foveau, email:\n"
+                f"{PUBLIC_CONTACT_EMAIL}\n\n"
+                "or call:\n"
+                "03 21 97 70 20\n\n"
                 "Studio Foveau\n"
-                "Calais\n"
-                f"Email: {BUSINESS_EMAIL}\n\n"
-                "This is an automated email."
+                "37 Boulevard de l'Égalité\n"
+                "62100 Calais\n\n"
+                "Phone:\n"
+                "03 21 97 70 20\n\n"
+                "Contact email:\n"
+                f"{PUBLIC_CONTACT_EMAIL}\n\n"
+                "Website:\n"
+                f"{SITE_URL}\n\n"
+                "This is an automated email sent by Studio Foveau."
             )
         else:
             subject = "Nous avons bien reçu votre message - Studio Foveau"
@@ -788,11 +853,23 @@ def send_customer_contact_confirmation(payload, lang="fr"):
                 "Votre demande a bien été reçue et nous vous répondrons dès que possible.\n\n"
                 f"Service demandé: {payload['service']}\n"
                 f"Votre message: {payload['message']}\n"
-                f"Contact studio: {BUSINESS_EMAIL}\n\n"
+                f"Contact studio: {PUBLIC_CONTACT_EMAIL}\n\n"
+                "Besoin de nous contacter ?\n\n"
+                "Cette adresse d'envoi est utilisée uniquement pour les messages automatiques.\n\n"
+                "Pour contacter Studio Foveau, écrivez à :\n"
+                f"{PUBLIC_CONTACT_EMAIL}\n\n"
+                "ou appelez-nous au :\n"
+                "03 21 97 70 20\n\n"
                 "Studio Foveau\n"
-                "Calais\n"
-                f"Email: {BUSINESS_EMAIL}\n\n"
-                "Ceci est un email automatique."
+                "37 Boulevard de l'Égalité\n"
+                "62100 Calais\n\n"
+                "Téléphone :\n"
+                "03 21 97 70 20\n\n"
+                "Email de contact :\n"
+                f"{PUBLIC_CONTACT_EMAIL}\n\n"
+                "Site :\n"
+                f"{SITE_URL}\n\n"
+                "Ceci est un email automatique envoyé par Studio Foveau."
             )
         customer_message_html = escape(payload.get("message", "")).replace("\n", "<br />")
         content_html = f"""
@@ -802,8 +879,9 @@ def send_customer_contact_confirmation(payload, lang="fr"):
                     <p>{escape(message_2)}</p>
                     <div class=\"row\"><span class=\"label\">{escape(service_label)}:</span> {escape(payload['service'])}</div>
                     <div class=\"row\"><span class=\"label\">{escape(customer_message_label)}:</span><br />{customer_message_html}</div>
-                    <div class=\"row\"><span class=\"label\">{escape(studio_contact_label)}:</span> {BUSINESS_EMAIL}</div>
+                    <div class=\"row\"><span class=\"label\">{escape(studio_contact_label)}:</span> <a href=\"mailto:{PUBLIC_CONTACT_EMAIL}\">{PUBLIC_CONTACT_EMAIL}</a></div>
                 </div>
+                {build_customer_contact_block(normalized_lang)}
                 """
         html_body = build_email_html_layout(
             title=title,
@@ -815,6 +893,7 @@ def send_customer_contact_confirmation(payload, lang="fr"):
             subject=subject,
             body=text_body,
             recipient=payload["email"],
+            reply_to=DEFAULT_MAIL_REPLY_TO,
             html_body=html_body,
         )
     except Exception:
@@ -828,56 +907,80 @@ def send_customer_reservation_confirmation(payload, lang="fr"):
         reservation_message = (payload.get("message") or "").strip()
         normalized_lang = normalize_lang(lang)
         if normalized_lang == "en":
-            subject = "Your booking request has been received - Studio Foveau"
-            title = "Booking request received"
-            intro = "Your request is being processed."
+            subject = "Booking confirmed - Studio Foveau"
+            title = "Booking confirmed"
+            intro = "Your booking has been received and confirmed."
             greeting = f"Hello {payload['name']},"
-            message_1 = "Your booking request has been received. It is not yet confirmed."
-            message_2 = "Studio Foveau will contact you shortly to confirm your appointment."
+            message_1 = "Your booking with Studio Foveau is confirmed."
+            message_2 = "We look forward to seeing you on the date and time shown below."
             service_label = "Requested service"
-            date_label = "Preferred date"
-            time_label = "Preferred time"
+            date_label = "Requested date"
+            time_label = "Requested time"
             customer_message_label = "Your message"
             text_body = (
                 f"Hello {payload['name']},\n\n"
-                "Your booking request has been received. It is not yet confirmed. "
-                "Studio Foveau will contact you shortly to confirm your appointment.\n\n"
+                "Your booking with Studio Foveau is confirmed.\n\n"
+                "We look forward to seeing you on the date and time shown below.\n\n"
                 "Summary:\n"
                 f"- Requested service: {payload['service']}\n"
-                f"- Preferred date: {payload['requested_date']}\n"
-                f"- Preferred time: {payload['requested_time']}\n"
+                f"- Requested date: {payload['requested_date']}\n"
+                f"- Requested time: {payload['requested_time']}\n"
                 + (f"- Your message: {reservation_message}\n" if reservation_message else "")
                 + "\n"
+                "Need to contact us?\n\n"
+                "This sender address is used only for automated messages.\n\n"
+                "To contact Studio Foveau, email:\n"
+                f"{PUBLIC_CONTACT_EMAIL}\n\n"
+                "or call:\n"
+                "03 21 97 70 20\n\n"
                 "Studio Foveau\n"
-                "Calais\n"
-                f"Email: {BUSINESS_EMAIL}\n\n"
-                "This is an automated email."
+                "37 Boulevard de l'Égalité\n"
+                "62100 Calais\n\n"
+                "Phone:\n"
+                "03 21 97 70 20\n\n"
+                "Contact email:\n"
+                f"{PUBLIC_CONTACT_EMAIL}\n\n"
+                "Website:\n"
+                f"{SITE_URL}\n\n"
+                "This is an automated email sent by Studio Foveau."
             )
         else:
-            subject = "Votre demande de réservation a bien été reçue - Studio Foveau"
-            title = "Réservation reçue"
-            intro = "Votre demande est en cours de traitement."
+            subject = "Réservation confirmée - Studio Foveau"
+            title = "Réservation confirmée"
+            intro = "Votre réservation a bien été reçue et confirmée."
             greeting = f"Bonjour {payload['name']},"
-            message_1 = "Votre demande de réservation a bien été reçue. Elle n'est pas encore confirmée."
-            message_2 = "Studio Foveau vous contactera rapidement pour confirmer le rendez-vous."
+            message_1 = "Votre réservation auprès de Studio Foveau est confirmée."
+            message_2 = "Nous vous attendons à la date et à l'heure indiquées ci-dessous."
             service_label = "Service demandé"
             date_label = "Date demandée"
             time_label = "Heure demandée"
             customer_message_label = "Votre message"
             text_body = (
                 f"Bonjour {payload['name']},\n\n"
-                "Votre demande de réservation a bien été reçue. Elle n'est pas encore confirmée. "
-                "Studio Foveau vous contactera rapidement pour confirmer le rendez-vous.\n\n"
+                "Votre réservation auprès de Studio Foveau est confirmée.\n\n"
+                "Nous vous attendons à la date et à l'heure indiquées ci-dessous.\n\n"
                 "Récapitulatif:\n"
                 f"- Service demandé: {payload['service']}\n"
                 f"- Date demandée: {payload['requested_date']}\n"
                 f"- Heure demandée: {payload['requested_time']}\n"
                 + (f"- Votre message: {reservation_message}\n" if reservation_message else "")
                 + "\n"
+                "Besoin de nous contacter ?\n\n"
+                "Cette adresse d'envoi est utilisée uniquement pour les messages automatiques.\n\n"
+                "Pour contacter Studio Foveau, écrivez à :\n"
+                f"{PUBLIC_CONTACT_EMAIL}\n\n"
+                "ou appelez-nous au :\n"
+                "03 21 97 70 20\n\n"
                 "Studio Foveau\n"
-                "Calais\n"
-                f"Email: {BUSINESS_EMAIL}\n\n"
-                "Ceci est un email automatique."
+                "37 Boulevard de l'Égalité\n"
+                "62100 Calais\n\n"
+                "Téléphone :\n"
+                "03 21 97 70 20\n\n"
+                "Email de contact :\n"
+                f"{PUBLIC_CONTACT_EMAIL}\n\n"
+                "Site :\n"
+                f"{SITE_URL}\n\n"
+                "Ceci est un email automatique envoyé par Studio Foveau."
             )
         reservation_message_html = escape(reservation_message).replace("\n", "<br />")
         reservation_message_row = ""
@@ -896,6 +999,7 @@ def send_customer_reservation_confirmation(payload, lang="fr"):
                     <div class=\"row\"><span class=\"label\">{escape(time_label)}:</span> {escape(payload['requested_time'])}</div>
                     {reservation_message_row}
                 </div>
+                {build_customer_contact_block(normalized_lang)}
                 """
         html_body = build_email_html_layout(
             title=title,
@@ -907,6 +1011,7 @@ def send_customer_reservation_confirmation(payload, lang="fr"):
             subject=subject,
             body=text_body,
             recipient=payload["email"],
+            reply_to=DEFAULT_MAIL_REPLY_TO,
             html_body=html_body,
         )
     except Exception:
